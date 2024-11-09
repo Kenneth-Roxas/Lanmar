@@ -5,30 +5,35 @@
 
     <body>
         <div class="background-overlay"></div>
-        <header><img src="{{ url('Picture/lanmar.png') }}" alt="logo" class="bakery-img">
-            <nav class="navbar">
-                <a href="{{ route('home') }}">Home</a>
-                <a href="{{route('product')}}">Product</a>
-                <a href="{{route('about')}}">About</a>
-                <a href="{{route('contact')}}">Contact</a>
-                <span>
-                    <a href="{{ route('login') }}">
-                        <button class="btnLogin">Log In</button>
+        <header class="absolute inset-x-0 top-0 z-50 -mt-4">
+            <nav class="flex items-center justify-between p-6 lg:px-8" aria-label="Global">
+                <div class="flex lg:flex-1">
+                    <a href="{{route('home')}}" class="-m-1.5 p-1.5">
+                      <span class="sr-only">Your Company</span>
+                      <img class="h-14 w-14 rounded-full" src="{{ url('Picture/lanmar.png') }}" alt="">
                     </a>
-                </span>
-            </nav>
+                  </div>
+                {{-- <div class="hidden lg:flex lg:gap-x-12">
+                  <a href="#" class="text-lg font-semibold text-gray-100 ml-80">Product</a>
+                  <a href="#" class="text-lg font-semibold text-gray-100 ">Features</a>
+                  <a href="#" class="text-lg font-semibold text-gray-100 ">Marketplace</a>
+                  <a href="#" class="text-lg font-semibold text-gray-100 ">Company</a>
+                </div>
+                <div class="hidden lg:flex lg:flex-1 lg:justify-end">
+                  <a href="#" class="text-lg font-semibold text-indigo-900  ">Log in <span aria-hidden="true">&rarr;</span></a>
+                </div>
+              </nav> --}}
         </header>
         <div class="wrapper">
 
             <div class="form-box login">
-                <h2>Log In</h2>
-                <form action="#">
+                <form action="#" >
                     <div class="input-box">
-                        <input type="email" required>
+                        <input type="email" wire:model='email' required>
                         <label>Email</label>
                     </div>
                     <div class="input-box">
-                        <input type="password" required>
+                        <input type="password"  wire:model='password' required>
                         <label>Password</label>
                     </div>
                     <div class="remember-forget">
@@ -36,7 +41,7 @@
                             Remember Me </label>
                         <a href="#">Forgot Password</a>
                     </div>
-                    <button type="submit" class="btn">Login</button>
+                    <button type="submit" class="btn" wire:click='login'>Log in</button>
                     <div class="login-register">
                         <p>Don't have account?
                             <a href="#" class="register-link">Register</a>
@@ -46,7 +51,6 @@
             </div>
 
             <div class="form-box register">
-                <h2>Registration</h2>
                 <form action="#">
                     <div class="input-box">
                         <input type="text" required>
@@ -60,13 +64,9 @@
                         <input type="password" required>
                         <label>Password</label>
                     </div>
-                    <div class="remember-forget">
-                        <label> <input type="checkbox">
-                            I Agree to the terms & condition </label>
-                    </div>
-                    <button typr="submit" class="btn">Register</button>
+                    <button typr="submit" class="btn" wire:click='register'>Register</button>
                     <div class="login-register">
-                        <p>Alread Have Acc?
+                        <p>Already have account?
                             <a href="#" class="login-link">Log In</a>
                         </p>
                     </div>

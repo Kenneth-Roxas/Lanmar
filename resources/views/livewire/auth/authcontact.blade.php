@@ -12,11 +12,6 @@
                 <a href="{{route('product')}}">Product</a>
                 <a href="{{route('about')}}">About</a>
                 <a href="{{ route('contact') }}">Contact</a>
-                <span>
-                    <a href="{{ route('login') }}">
-                        <button class="btnLogin">Log In</button>
-                    </a>
-                </span>
             </nav>
         </header>
 
@@ -42,7 +37,7 @@
                         </div>
                         <div class="text">
                             <h3>Phone</h3>
-                            <p>+63 970 626 5312</p>
+                            <p>+63 93 053 3237</p>
                         </div>
                     </div>
                     <div class="box">
@@ -51,7 +46,7 @@
                         </div>
                         <div class="text">
                             <h3>Email</h3>
-                            <p>roxaskenneth508@gmail.com</p>
+                            <p>angeloarmendi4@gmail.com</p>
                         </div>
                     </div>
                 </div>

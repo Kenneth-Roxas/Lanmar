@@ -37,7 +37,7 @@ var swiper = new Swiper(".blogs-row", {
   loop: true,
   centeredSlides: false,
   autoplay: {
-    delay: 7500,
+    delay: 4500,
     disableOnInteraction: false,
   },
   pagination: {
