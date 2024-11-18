@@ -37,7 +37,7 @@
                         id="user-menu-button" aria-expanded="false" aria-haspopup="true">
                         <span class="absolute -inset-1.5"></span>
                         <span class="sr-only">Open user menu</span>
-                        <img class="h-14 w-14 rounded-full" src="{{ url('Picture/roxas.jpg') }}"
+                        <img class="h-14 w-14 rounded-full" src="{{ url('Picture/default.jpg') }}"
                             alt="User Profile Picture">
                     </button>
 
@@ -186,7 +186,7 @@
         </section>
 
         {{-- Review Section --}}
-        <div class="bg-gray-400 py-24 sm:py-32 my-0 top-80">
+        <div class="bg-gray-400 py-24 -mt-10 sm:py-32 mb-0 top-80">
             <div class="mx-auto max-w-full px-7 lg:px-8 -mt-10 ">
                 <div class="mx-auto max-w-full lg:mx-0 ">
                     <h2
@@ -279,7 +279,7 @@
 
         <!-- Footer -->
 
-        <footer class="footer mt-8" id="contact">
+        <footer class="footer -mt-10 bg-gray-400" id="contact">
             <div class="share">
                 <a href="https://www.facebook.com/profile.php?id=100063785664939" class="fab fa-facebook-f"></a>
                 <a href="" class="fab fa-instagram"></a>

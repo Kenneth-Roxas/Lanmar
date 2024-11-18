@@ -56,7 +56,7 @@
                     <div class="text-center">
                         <h2 class="text-xl font-semibold text-gray-800">Kenneth Roxas</h2>
                         <p class="text-gray-500">roxaskenneth508@gmail.com</p>
-                        <p class="text-gray-500">+63 970 626 5312</p>
+                        <p class="text-gray-500">09706265312</p>
                     </div>
                 </div>
             </div>

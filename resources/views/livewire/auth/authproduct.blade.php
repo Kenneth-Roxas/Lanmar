@@ -31,7 +31,7 @@
                         id="user-menu-button" aria-expanded="false" aria-haspopup="true">
                         <span class="absolute -inset-1.5"></span>
                         <span class="sr-only">Open user menu</span>
-                        <img class="h-16 w-16 rounded-full" src="{{ url('Picture/roxas.jpg') }}"
+                        <img class="h-16 w-16 rounded-full" src="{{ url('Picture/default.jpg') }}"
                             alt="User Profile Picture">
                     </button>
 
@@ -448,5 +448,23 @@
         </footer>
 
         <script src="{{ url('JS/product.js') }}"></script>
+        <script>
+            document.addEventListener('click', (event) => {
+                const button = document.getElementById('user-menu-button');
+                const dropdown = button.nextElementSibling;
+
+                // Toggle dropdown visibility on button click
+                button.addEventListener('click', () => {
+                    dropdown.classList.toggle('scale-150');
+                    dropdown.classList.toggle('hidden');
+                });
+
+                // Close dropdown if clicked outside
+                if (!button.contains(event.target) && !dropdown.contains(event.target)) {
+                    dropdown.classList.add('hidden');
+                    dropdown.classList.remove('scale-150');
+                }
+            });
+        </script>
     </body>
 </div>

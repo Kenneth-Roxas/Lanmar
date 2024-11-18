@@ -95,9 +95,21 @@
             <!-- Order Summary -->
             <div class="flex items-center justify-between pt-6">
                 <p class="text-lg font-semibold text-gray-800">Total: ₱150.00</p>
-                <button
+                <a href="{{route('send.order.confirmation')}}"><button
                     class="px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 transition duration-150">Place
-                    Order</button>
+                    Order</button></a>
+            </div>
+
+            <div id="orderModal"
+                class="fixed inset-0 bg-gray-500 bg-opacity-50 flex items-center justify-center hidden">
+                <div class="bg-white p-8 rounded-lg shadow-xl w-96">
+                    <h2 class="text-xl font-semibold text-center text-gray-800 mb-4">Order Confirmation</h2>
+                    <p class="text-gray-700 text-center mb-6">Thank you for ordering! Please open your email and confirm your order</p>
+                    <div class="flex justify-center space-x-4">
+                        <button id="closeModalBtn"
+                            class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">Close</button>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -116,6 +128,22 @@
                 }
             });
         </script>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const placeOrderBtn = document.querySelector('button');
+                const orderModal = document.getElementById('orderModal');
+                const closeModalBtn = document.getElementById('closeModalBtn');
 
+                // Show the modal when the "Place Order" button is clicked
+                placeOrderBtn.addEventListener('click', function() {
+                    orderModal.classList.remove('hidden');
+                });
+
+                // Close the modal when the "Close" button is clicked
+                closeModalBtn.addEventListener('click', function() {
+                    orderModal.classList.add('hidden');
+                });
+            });
+        </script>
     </body>
 </div>

@@ -61,6 +61,10 @@
                         <label>Email</label>
                     </div>
                     <div class="input-box">
+                        <input type="tel" id="phone" name="phone" pattern="(09[0-9]{2}[0-9]{3}[0-9]{4})|(\(0[0-9]{2}\) [0-9]{3}-[0-9]{4})" required />
+                        <label>Contact Number</label>
+                    </div>
+                    <div class="input-box">
                         <input type="password" required>
                         <label>Password</label>
                     </div>

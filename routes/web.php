@@ -12,16 +12,20 @@ use App\Livewire\Auth\Authproduct;
 use App\Livewire\Auth\AuthProfile;
 use App\Livewire\Auth\AuthWelcome;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers;
+use App\Http\Controllers\Order;
+use App\Http\Controllers\OrderController;
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
 
-// First Page
-Route::get('/', AuthWelcome::class);
+Route::get('/greeting', [OrderController::class, 'showGreeting'])->name('greeting');
+Route::get('/send-order-confirmation', [OrderController::class, 'sendOrderConfirmation'])->name('send.order.confirmation');
+
+
+Route::get('send-email', [Order::class,'sendEmail'])->name('PlaceOrder');
+
 
 // Home Page
-Route::get('/LanMar/HomePage', AuthHome::class)->name('home');
+Route::get('/', AuthHome::class)->name('home');
 
 // Login Page
 Route::get('/Lanmar/Login', Authlogin::class)->name('login');

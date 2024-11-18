@@ -127,5 +127,23 @@
             <p>&copy; 2024 Lanmar BakeShoppe. All Rights Reserved.</p>
         </footer>
 
+        <script>
+            document.addEventListener('click', (event) => {
+                const button = document.getElementById('user-menu-button');
+                const dropdown = button.nextElementSibling;
+
+                // Toggle dropdown visibility on button click
+                button.addEventListener('click', () => {
+                    dropdown.classList.toggle('scale-150');
+                    dropdown.classList.toggle('hidden');
+                });
+
+                // Close dropdown if clicked outside
+                if (!button.contains(event.target) && !dropdown.contains(event.target)) {
+                    dropdown.classList.add('hidden');
+                    dropdown.classList.remove('scale-150');
+                }
+            });
+        </script>
     </body>
 </div>

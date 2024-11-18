@@ -12,7 +12,7 @@
 }
 
 body {
-    background-color:#000000;
+    background-color:rgba(32, 42, 56, 1);
 }
 
 .background-overlay {
@@ -21,66 +21,14 @@ body {
     left: 0;
     width: 100%;
     height: 100vh;
-    background: linear-gradient(to top, #008080, rgba(0, 0, 0, 0.1));
+    background: linear-gradient(to top, #616161, transparent);
     z-index: 1;  
-}
-header {
-    top: 0;
-    right: 0;
-    left: 0;
-    background-color: transparent;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    position: fixed;
-    padding: 10px 10px;
-    z-index: 50;
-    transition: background-color 0.5s ease, box-shadow 0.5s ease;
-}
-
-header .bakery-img {
-    width: 60px;
-    border-radius: 100%;
-    border: 2px rgba(129, 160, 207, 0.2);
-}
-
-header .navbar a {
-    position: relative;
-    font-size: 17px;
-    margin-right: 18px;
-    color: var(--white);
-    text-decoration: none;
-    font-weight: bold;
-    transition: .5s;
-}
-
-header .navbar a:hover {
-    color: var(--hover-color);
-}
-
-header .navbar .btnLogin {
-    width: 80px;
-    height: 45px;
-    background: transparent;
-    border: 2px solid var(--white);
-    outline: none;
-    border-radius: 60px;
-    cursor: pointer;
-    font-size: 17px;
-    color: var(--white);
-    font-weight: 700;
-    transition: .5s ease;
-}
-
-header .navbar .btnLogin:hover {
-    background: var(--white);
-    color: var(--black);
 }
 
 .contact {
     position: relative;
     min-height: 100vh;
-    padding: 50px 100px;
+    padding: 0 100px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -89,7 +37,8 @@ header .navbar .btnLogin:hover {
 }
 
 .contact .content {
-    max-width: 800px;
+    margin-top: -100px;
+    max-width: 700px;
     text-align: center;
 }
 
@@ -127,7 +76,8 @@ header .navbar .btnLogin:hover {
 .container .contactInfo .box .icon {
     min-width: 60px;
     height: 60px;
-    background: linear-gradient(#93A5CF, #E4EfE9);
+    color: #ffffff;
+    background: linear-gradient(#93A5CF, #1f1f1f);
     box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
     display: flex;
     justify-content: center;
@@ -147,7 +97,7 @@ header .navbar .btnLogin:hover {
 }
 
 .container .contactInfo .box .text h3 {
-    font-weight: 500;
+    font-weight: 700;
     color: #00bcd4;
 }
 
@@ -213,8 +163,9 @@ header .navbar .btnLogin:hover {
 
 .contactForm .inputBox input[type="submit"] {
     width: 100%;
-    background: linear-gradient(#BFF098, #6FD6FF);
-    color: #000;
+    background: linear-gradient(#000000, #414141);
+    color: #ffffff;
+    font-weight: 600;
     border: none;
     border-radius: 100px;
     cursor: pointer;
@@ -223,42 +174,15 @@ header .navbar .btnLogin:hover {
 }
 
 .contactForm .inputBox input[type="submit"]:hover {
-    background: radial-gradient(#BFF098, #6FD6FF);
-}
-/* Footer */
-.footer {
-    background-color: transparent;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin-top: 10px;
-    z-index: 40;
+    background: radial-gradient(#414141, #000000);
 }
 
-.footer .share {
-    padding: 10px 0;
+footer {
+    background-color: #616161; 
+    z-index: 1; 
+    position: relative; 
+    padding: 20px;
     text-align: center;
-    z-index: 40;
+    color: white;
+    margin-bottom: -5px;
 }
-
-.footer .share a {
-    height: 40px;
-    width: 40px;
-    line-height: 40px;
-    font-size: 20px;
-    color: var(--black);
-    background: linear-gradient(#93A5CF, #E4EfE9);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
-    margin: -10px 3px;
-    border-radius: 100%;
-    text-decoration: none;
-    transition: background .3s ease-in-out, color .3s ease-in-out;
-}
-
-.footer .share a:hover {
-    background: radial-gradient(#2c3e50, #bdc3c7);
-    color: var(--white);
-}
-
-
