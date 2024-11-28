@@ -26,34 +26,3 @@ document.addEventListener("DOMContentLoaded", function () {
     observer.observe(section);
   });
 });
-
-document.querySelector(".btnLogin").addEventListener("click", function () {
-  window.location.href = "/";
-});
-
-// SWIPER JS
-
-var swiper = new swiper(".blogs-row", {
-  loop: true,
-  centeredSlides: false,
-  autoplay: {
-    delay: 4500,
-    disableOnInteraction: false,
-  },
-  pagination: {
-    el: ".swiper-pagination",
-    clickable: true,
-  },
-  spaceBetween: 10,
-  breakpoints: {
-    0: {
-      slidesPerView: 2,
-    },
-    768: {
-      slidesPerView: 2,
-    },
-    1024: {
-      slidesPerView: 2,
-    },
-  },
-});

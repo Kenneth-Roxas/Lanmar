@@ -1,6 +1,6 @@
 <div>
     {{-- Nothing in the world is as soft and yielding as water. --}}
-
+    @section('title', 'Product Page')
     <link rel="stylesheet" href="{{ url('CSS/product.css') }}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -11,49 +11,39 @@
         <div class="background-overlay"></div>
 
         <header
-            class="fixed top-0 left-0 right-0 bg-transparent shadow-lg flex items-center justify-between px-6 py-2 z-50 transition-all duration-500 "
-            id="navbar">
-            <img src="{{ url('Picture/lanmar.png') }}" alt="logo"
-                class="w-20 h-20 rounded-full border border-gray-300 shadow-md">
-
-            <nav class="flex items-center space-x-10">
+            class="fixed top-0 left-0 right-0 bg-slate-700 shadow-2xl flex items-center justify-between px-4 py-4 z-50 transition-all duration-500">
+            <div class="flex items-center space-x-3">
+                <img src="{{ url('Picture/lanmar.png') }}" alt="logo"
+                    class="w-20 h-20 rounded-full shadow-md">
+            </div>
+            <button id="menu-toggle" class="block md:hidden">
+                <i class="fas fa-bars text-white"></i>
+            </button>
+            <nav id="menu" class="hidden md:flex space-x-7 font-semibold text-2xl">
                 <a href="{{ route('home') }}"
-                    class="text-2xl font-semibold text-white hover:text-gray-900 transition duration-300">Home</a>
+                    class="{{ Request::routeIs('home') ? 'text-yellow-500' : 'text-white' }} nav-item">Home</a>
                 <a href="{{ route('product') }}"
-                    class="text-2xl font-semibold text-white hover:text-gray-900 transition duration-300">Product</a>
+                    class="{{ Request::routeIs('product') ? 'text-yellow-500' : 'text-white' }} nav-item">Product</a>
                 <a href="{{ route('about') }}"
-                    class="text-2xl font-semibold text-white hover:text-gray-900 transition duration-300">About</a>
+                    class="{{ Request::routeIs('about') ? 'text-yellow-500' : 'text-white' }} nav-item">About</a>
                 <a href="{{ route('contact') }}"
-                    class="text-2xl font-semibold text-white hover:text-gray-900 transition duration-300">Contact</a>
-                <div class="relative ml-3">
-                    <button type="button"
-                        class="relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
-                        id="user-menu-button" aria-expanded="false" aria-haspopup="true">
-                        <span class="absolute -inset-1.5"></span>
-                        <span class="sr-only">Open user menu</span>
-                        <img class="h-16 w-16 rounded-full" src="{{ url('Picture/default.jpg') }}"
-                            alt="User Profile Picture">
-                    </button>
-
-                    <!-- Profile dropdown -->
-                    <div class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-slate-600 py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none transition-all duration-200 ease-out scale-0 group-hover:scale-100"
-                        role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
-                        <a href="{{route('profile')}}"
-                            class="block px-4 py-2 text-lg text-gray-300 hover:bg-gray-900 transition-colors duration-150"
-                            role="menuitem" tabindex="-1" id="user-menu-item-0">Your Profile</a>
-                        <a href="#"
-                            class="block px-4 py-2 text-lg text-gray-300 hover:bg-gray-900 transition-colors duration-150"
-                            role="menuitem" tabindex="-1" id="user-menu-item-1">Settings</a>
-                        <a href="{{route('login')}}"
-                            class="block px-4 py-2 text-lg text-gray-300 hover:bg-gray-900 transition-colors duration-150"
-                            role="menuitem" tabindex="-1" id="user-menu-item-2">Sign out</a>
-                    </div>
-                </div>
+                    class="{{ Request::routeIs('contact') ? 'text-yellow-500' : 'text-white' }} nav-item">Contact</a>
             </nav>
+            <div class="relative">
+                <button id="user-menu-button" aria-expanded="true" class="focus:outline-none">
+                    <img src="{{ url('Picture/default.jpg') }}" class="w-16 h-16 rounded-full"
+                        alt="User Profile Picture">
+                </button>
+                <div id="dropdown"
+                    class="absolute hidden mt-2 right-0 bg-slate-600 text-gray-50 rounded-md shadow-lg w-28">
+                    <a href="{{ route('profile') }}" class="block px-4 py-2 hover:bg-gray-700 duration-150">Profile</a>
+                    <a href="{{ route('login') }}" class="block px-4 py-2 hover:bg-gray-700 duration-150">Log Out</a>
+                </div>
+            </div>
         </header>
 
         <!-- featured section -->
-        <section class="featured" id="featured">
+        <section class="featured bg-gradient-to-b from-gray-800 via-gray-700 to-gray-500" id="featured">
             <div class="container-line">
                 <div class="text-1">
                     <h2>POPULAR</h2>
@@ -64,7 +54,7 @@
             <div class="cards" data-product-id="1">
                 <div class="card">
                     <div class="image">
-                        <a href="{{route('overview')}}"><img src="{{ url('Picture/bongga.jpg') }}"></a>
+                        <a href="{{ route('overview') }}"><img src="{{ url('Picture/bongga.jpg') }}"></a>
                     </div>
                     <div class="content">
                         <div class="star">
@@ -141,14 +131,11 @@
                         </div>
                     </div>
                 </div>
-                <div class="load-more-container">
-                    <button class="load-more-btn">Load More</button>
-                </div>
             </div>
         </section>
 
         <!-- Cake Section -->
-        <section class="cakes">
+        <section class="cakes bg-gradient-to-b from-gray-500 via-gray-700 to-gray-800">
             <h2>Cakes Section</h2>
             <div class="cake-product">
                 <div class="box">
@@ -248,7 +235,7 @@
         </section>
 
         <!-- Cupcake Section -->
-        <section class="cupcake">
+        <section class="cupcake bg-gradient-to-b from-gray-800 via-gray-700 to-gray-500">
             <h2>Cupcakes Section</h2>
             <div class="cupcake-product">
                 <div class="cupcake-box">
@@ -331,7 +318,7 @@
         </section>
 
         <!-- Cookies -->
-        <section class="cookies">
+        <section class="cookies bg-gradient-to-b from-gray-500 via-gray-700 to-gray-800">
             <h2>Cookies Section</h2>
             <div class="cookies-product">
                 <div class="cookies-box">
@@ -397,7 +384,7 @@
 
         <!-- Other Product -->
 
-        <section class="other">
+        <section class="other bg-gradient-to-b from-gray-800 via-gray-700 to-gray-500">
             <h2>Other Product</h2>
             <div class="other-product">
                 <div class="other-box">
@@ -442,10 +429,6 @@
                 </div>
             </div>
         </section>
-
-        <footer class="mt-6 p-2 text-center text-gray-700">
-            <p>&copy; 2024 Lanmar BakeShoppe. All Rights Reserved.</p>
-        </footer>
 
         <script src="{{ url('JS/product.js') }}"></script>
         <script>

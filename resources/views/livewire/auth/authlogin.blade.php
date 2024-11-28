@@ -1,87 +1,63 @@
 <div>
     {{-- Nothing in the world is as soft and yielding as water. --}}
-
-    <link rel="stylesheet" href="{{ url('CSS/login.css') }}">
-
-    <body>
-        <div class="background-overlay"></div>
-        <header class="absolute inset-x-0 top-0 z-50 -mt-4">
-            <nav class="flex items-center justify-between p-6 lg:px-8" aria-label="Global">
-                <div class="flex lg:flex-1">
-                    <a href="{{route('home')}}" class="-m-1.5 p-1.5">
-                      <span class="sr-only">Your Company</span>
-                      <img class="h-14 w-14 rounded-full" src="{{ url('Picture/lanmar.png') }}" alt="">
-                    </a>
-                  </div>
-                {{-- <div class="hidden lg:flex lg:gap-x-12">
-                  <a href="#" class="text-lg font-semibold text-gray-100 ml-80">Product</a>
-                  <a href="#" class="text-lg font-semibold text-gray-100 ">Features</a>
-                  <a href="#" class="text-lg font-semibold text-gray-100 ">Marketplace</a>
-                  <a href="#" class="text-lg font-semibold text-gray-100 ">Company</a>
+    @section('title','Sign in')
+    <div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
+        <div class="sm:mx-auto sm:w-full sm:max-w-sm">
+            <a href="{{ route('home') }}">
+                <img class="mx-auto h-20 w-auto rounded-full" src="{{ url('Picture/lanmar.png') }}" alt="Your Company">
+            </a>
+            <h2 class="mt-5 text-center text-2xl/9 font-bold tracking-tight text-gray-900">Sign in to your account</h2>
+        </div>
+    
+        <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+            <form wire:submit.prevent="login" class="space-y-6">
+                @csrf
+                <div>
+                    <label for="email" class="block text-sm/6 font-medium text-gray-900">
+                        Email or Contact Number
+                    </label>
+                    <div class="mt-2">
+                        <input id="email" wire:model="email" type="text" autocomplete="email" required
+                            class="block w-full rounded-md border-0 px-4 py-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm/6 @error('email') border-red-500 ring-red-300 focus:ring-red-500 @enderror">
+                        
+                        @error('email')
+                            <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
+                    </div>
                 </div>
-                <div class="hidden lg:flex lg:flex-1 lg:justify-end">
-                  <a href="#" class="text-lg font-semibold text-indigo-900  ">Log in <span aria-hidden="true">&rarr;</span></a>
+    
+                <div>
+                    <div class="flex items-center justify-between">
+                        <label for="password" class="block text-sm/6 font-medium text-gray-900">Password</label>
+                        <div class="text-sm">
+                            <a href="#" class="font-semibold text-indigo-600 hover:text-indigo-500">Forgot password?</a>
+                        </div>
+                    </div>
+                    <div class="mt-2">
+                        <input id="password" wire:model="password" type="password" autocomplete="current-password" required
+                            class="block w-full rounded-md border-0 px-4 py-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm/6 @error('password') border-red-500 ring-red-300 focus:ring-red-500 @enderror">
+                        
+                        @error('password')
+                            <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
+                    </div>
                 </div>
-              </nav> --}}
-        </header>
-        <div class="wrapper">
-
-            <div class="form-box login">
-                <form action="#" >
-                    <div class="input-box">
-                        <input type="email" wire:model='email' required>
-                        <label>Email</label>
-                    </div>
-                    <div class="input-box">
-                        <input type="password"  wire:model='password' required>
-                        <label>Password</label>
-                    </div>
-                    <div class="remember-forget">
-                        <label> <input type="checkbox">
-                            Remember Me </label>
-                        <a href="#">Forgot Password</a>
-                    </div>
-                    <button type="submit" class="btn" wire:click='login'>Log in</button>
-                    <div class="login-register">
-                        <p>Don't have account?
-                            <a href="#" class="register-link">Register</a>
-                        </p>
-                    </div>
-                </form>
-            </div>
-
-            <div class="form-box register">
-                <form action="#">
-                    <div class="input-box">
-                        <input type="text" required>
-                        <label>Username</label>
-                    </div>
-                    <div class="input-box">
-                        <input type="email" required>
-                        <label>Email</label>
-                    </div>
-                    <div class="input-box">
-                        <input type="tel" id="phone" name="phone" pattern="(09[0-9]{2}[0-9]{3}[0-9]{4})|(\(0[0-9]{2}\) [0-9]{3}-[0-9]{4})" required />
-                        <label>Contact Number</label>
-                    </div>
-                    <div class="input-box">
-                        <input type="password" required>
-                        <label>Password</label>
-                    </div>
-                    <button typr="submit" class="btn" wire:click='register'>Register</button>
-                    <div class="login-register">
-                        <p>Already have account?
-                            <a href="#" class="login-link">Log In</a>
-                        </p>
-                    </div>
-                </form>
+    
+                <div>
+                    <button type="submit"
+                        class="flex w-full justify-center rounded-md bg-indigo-600 px-4 py-3 text-sm/6 font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+                        Sign in
+                    </button>
+                </div>
+            </form>
+    
+            <div class="mt-4">
+                <a href="{{ route('register') }}">
+                    <button type="button" class="w-full px-4 py-2 font-semibold text-white shadow-sm bg-green-500 rounded-md hover:bg-green-400">
+                        Create Account
+                    </button>
+                </a>
             </div>
         </div>
-</div>
-
-<script src="{{ url('JS/login.js') }}"></script>
-<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-
-</body>
+    </div>
 </div>

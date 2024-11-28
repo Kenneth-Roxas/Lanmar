@@ -24,9 +24,8 @@ class OrderConfirmationMail extends Mailable
         return $this->subject('Order Confirmation')
                     ->view('emails.orderConfirmation')
                     ->with([
-                        'userName' => 'roxaskenneth508@gmail.com',
+                        'userName' => auth()->user()->name,
                         'confirmationLink' => url("/confirm-order/{$this->token}")
                     ]);
     }
 }
-

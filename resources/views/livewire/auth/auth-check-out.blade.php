@@ -1,10 +1,9 @@
 <div>
     {{-- Because she competes with no one, no one can compete with her. --}}
-
+    @section('title', 'Check Out')
     <style>
         select.scrollable {
             max-height: 150px;
-            /* Adjust the height as needed */
             overflow-y: auto;
         }
     </style>
@@ -12,7 +11,7 @@
     <body class="p-4 bg-gray-300">
 
         <div class="max-w-lg mx-auto p-6 rounded-lg shadow-md bg-slate-200">
-            <h1 class="text-xl text-center font-semibold text-gray-800 mb-6">Checkout</h1>
+            <h1 class="text-xl text-center font-extrabold text-gray-800 mb-6">Checkout</h1>
 
             <!-- Product List -->
             <div class="border border-gray-200 shadow-2xl rounded-lg p-4 bg-gray-50 mb-6">
@@ -35,9 +34,10 @@
             <div class="border border-gray-200 shadow-2xl rounded-lg p-4 bg-gray-50 mb-6">
                 <h2 class="text-lg font-medium text-gray-700 mb-4">Delivery Address</h2>
                 <div class="space-y-4">
-                    <input type="text" placeholder="Full Name"
-                        class="w-full border-gray-200 rounded-md p-3 focus:ring-2 focus:ring-blue-500 outline-none">
-                    <input type="text" placeholder="Phone Number"
+                    <input type="text" value="{{ $name }}"
+                        class="w-full border-gray-200 rounded-md p-3 focus:ring-2 focus:ring-blue-500 outline-none"
+                        required>
+                    <input type="text" value="{{ $contact_number }}"
                         class="w-full border-gray-200 rounded-md p-3 focus:ring-2 focus:ring-blue-500 outline-none">
                     <!-- Street Selection -->
                     <label class="block text-gray-700 text-sm">Street</label>
@@ -62,9 +62,9 @@
 
                     <!-- City Selection (Virac only) -->
                     <label class="block text-gray-700 text-sm">City</label>
-                    <select class="w-full border-gray-200 rounded-md p-3 focus:ring-2 focus:ring-blue-500 outline-none">
-                        <option>Virac</option>
-                    </select>
+                    <input type="text" value="Virac"
+                        class="w-full border-gray-200 rounded-md p-3 focus:ring-2 focus:ring-blue-500 outline-none"
+                        required>
                 </div>
             </div>
 
@@ -95,16 +95,17 @@
             <!-- Order Summary -->
             <div class="flex items-center justify-between pt-6">
                 <p class="text-lg font-semibold text-gray-800">Total: ₱150.00</p>
-                <a href="{{route('send.order.confirmation')}}"><button
-                    class="px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 transition duration-150">Place
-                    Order</button></a>
+                <a href="{{ route('send.order.confirmation') }}"><button
+                        class="px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 transition duration-150">Place
+                        Order</button></a>
             </div>
 
             <div id="orderModal"
                 class="fixed inset-0 bg-gray-500 bg-opacity-50 flex items-center justify-center hidden">
                 <div class="bg-white p-8 rounded-lg shadow-xl w-96">
                     <h2 class="text-xl font-semibold text-center text-gray-800 mb-4">Order Confirmation</h2>
-                    <p class="text-gray-700 text-center mb-6">Thank you for ordering! Please open your email and confirm your order</p>
+                    <p class="text-gray-700 text-center mb-6">Thank you for ordering! Please open your email and confirm
+                        your order</p>
                     <div class="flex justify-center space-x-4">
                         <button id="closeModalBtn"
                             class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">Close</button>

@@ -3,19 +3,26 @@
 namespace App\Livewire\Auth;
 
 use Livewire\Component;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class Authlogin extends Component
 {
-    public $email;
+    public $email, $password;
 
-    public $password;
+    public function login() {
+        $this->validate([
+            'email' => 'required',
+            'password' => 'required',
+        ]);
 
-    public function login(){
-        dd($this->email, $this->password);
-    }
+        $field = filter_var($this->email, FILTER_VALIDATE_EMAIL) ? 'email' : 'contact_number';
 
-    public function register(){
-        dd("this is register");
+        if(Auth::attempt([$field => $this->email, 'password' => $this->password])) {
+            return redirect()->route('home');
+        }
+
+        session()->flash('error', 'Email or Password is incorrect');
     }
     public function render()
     {

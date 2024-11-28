@@ -1,63 +1,49 @@
 <div>
     {{-- Nothing in the world is as soft and yielding as water. --}}
+@section('title', 'Profile')
 
     <body class="bg-gray-400 text-gray-900 font-sans">
 
-        <header
-            class="fixed top-0 left-0 right-0 bg-transparent shadow-2xl flex items-center justify-between px-2 py-2 z-50 transition-all duration-500"
-            id="navbar">
-            <img src="{{ url('Picture/lanmar.png') }}" alt="logo"
-                class="w-11 h-11 rounded-full border border-gray-300 shadow-md">
-
-            <nav class="flex items-center space-x-5">
-                <a href="{{ route('home') }}"
-                    class="font-semibold text-base text-white hover:text-gray-900 transition duration-300">Home</a>
-                <a href="{{ route('product') }}"
-                    class="text-base font-semibold text-white hover:text-gray-900 transition duration-300">Product</a>
-                <a href="{{ route('about') }}"
-                    class="text-base font-semibold text-white hover:text-gray-900 transition duration-300">About</a>
-                <a href="{{ route('contact') }}"
-                    class="text-base font-semibold text-white hover:text-gray-900 transition duration-300">Contact</a>
-                <div class="relative ml-3">
-                    <button type="button"
-                        class="relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-0 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
-                        id="user-menu-button" aria-expanded="false" aria-haspopup="true">
-                        <span class="absolute -inset-1.5"></span>
-                        <span class="sr-only">Open user menu</span>
-                        <img class="h-10 w-10 rounded-full" src="{{ url('Picture/roxas.jpg') }}"
-                            alt="User Profile Picture">
-                    </button>
-
-                    <!-- Profile dropdown -->
-                    <div class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-slate-600 py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none transition-all duration-100 ease-out scale-0 group-hover:scale-100"
-                        role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
-                        <a href="{{ route('profile') }}"
-                            class="block px-4 py-2 text-lg text-gray-300 hover:bg-gray-900 transition-colors duration-150"
-                            role="menuitem" tabindex="-1" id="user-menu-item-0">Your Profile</a>
-                        <a href="#"
-                            class="block px-4 py-2 text-lg text-gray-300 hover:bg-gray-900 transition-colors duration-150"
-                            role="menuitem" tabindex="-1" id="user-menu-item-1">Settings</a>
-                        <a href="{{ route('login') }}"
-                            class="block px-4 py-2 text-lg text-gray-300 hover:bg-gray-900 transition-colors duration-150"
-                            role="menuitem" tabindex="-1" id="user-menu-item-2">Sign out</a>
-                    </div>
-                </div>
+        <header class="flex items-center justify-between px-6 py-2 bg-slate-700 shadow-lg text-white fixed top-0 w-full z-50 ">
+            <div class="flex items-center space-x-3">
+                <img src="{{ url('Picture/lanmar.png') }}" alt="Lanmar BakeShoppe Logo" class="w-12 h-12 rounded-full">
+            </div>
+            
+            <button id="menu-toggle" class="block md:hidden">
+                <i class="fas fa-bars text-white"></i>
+            </button>
+            <nav id="menu" class="hidden md:flex space-x-5 flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-5 font-semibold">
+                <a href="{{ route('home') }}" class="{{ Request::routeIs('home') ? 'text-yellow-500' : 'text-white' }} nav-item">Home</a>
+                <a href="{{ route('product') }}" class="{{ Request::routeIs('product') ? 'text-yellow-500' : 'text-white' }} nav-item">Product</a>
+                <a href="{{ route('about') }}" class="{{ Request::routeIs('about') ? 'text-yellow-500' : 'text-white' }} nav-item">About</a>
+                <a href="{{ route('contact') }}" class="{{ Request::routeIs('contact') ? 'text-yellow-500' : 'text-white' }} nav-item">Contact</a>
             </nav>
+            <div class="relative">
+                <button id="user-menu-button" aria-expanded="true" class="focus:outline-none">
+                    <img src="{{ url('Picture/default.jpg') }}" class="w-10 h-10 rounded-full" alt="User Profile Picture">
+                </button>
+                <div id="dropdown" class="absolute hidden mt-2 right-0 bg-slate-600 text-gray-50 rounded-md shadow-lg w-28">
+                    <a href="{{ route('login') }}" class="block px-4 py-2 hover:bg-gray-700 duration-150">Sign In</a>
+                    <a href="{{ route('login') }}" class="block px-4 py-2 hover:bg-gray-700 duration-150">Sign Out</a>
+                </div>
+            </div>
         </header>
 
+        
+
         <!-- Profile Container -->
-        <div class="container mx-auto p-6 max-w-3xl mt-12">
+        <div class="container mx-auto p-6 max-w-3xl mt-16">
 
             <!-- Profile Card -->
             <div
                 class="bg-gray-300 rounded-lg shadow-2xl shadow-cyan-400/50 p-8 mb-8 transform transition duration-500 hover:scale-105 hover:shadow-lg hover:shadow-cyan-500/50">
                 <div class="flex items-center justify-center space-x-4">
-                    <img class="w-16 h-16 rounded-full" src="{{ url('Picture/roxas.jpg') }}" alt="Profile Picture">
+                    <img class="w-16 h-16 rounded-full" src="{{ url('Picture/default.jpg') }}" alt="Profile Picture">
                     <div class="text-center">
-                        <h2 class="text-xl font-semibold text-gray-800">Kenneth Roxas</h2>
-                        <p class="text-gray-500">roxaskenneth508@gmail.com</p>
-                        <p class="text-gray-500">09706265312</p>
-                    </div>
+                        <h2 class="text-xl font-semibold text-gray-800">{{ $name }}</h2>
+                        <p class="text-gray-500">{{ $email }}</p>
+                        <p class="text-gray-500">{{ $contact_number }}</p>
+                    </div>                    
                 </div>
             </div>
 
@@ -71,17 +57,17 @@
                     <form action="#">
                         <div class="mb-4">
                             <label class="block text-sm text-gray-500 mb-1" for="name">Name</label>
-                            <input type="text" id="nameInput" value="Kenneth Roxas"
+                            <input type="text" id="nameInput" value="{{ $name }}"
                                 class="w-full p-2.5 bg-gray-100 rounded-lg text-gray-700">
                         </div>
                         <div class="mb-4">
                             <label class="block text-sm text-gray-500 mb-1" for="email">Email</label>
-                            <input type="email" id="emailInput" value="roxaskenneth508@gmail.com"
+                            <input type="email" id="emailInput" value="{{ $email }}"
                                 class="w-full p-2.5 bg-gray-100 rounded-lg text-gray-700">
                         </div>
                         <div class="mb-4">
                             <label class="block text-sm text-gray-500 mb-1" for="number">Contant No.</label>
-                            <input type="email" id="emailInput" value="+63 970 626 5312"
+                            <input type="email" id="emailInput" value="{{ $contact_number }}"
                                 class="w-full p-2.5 bg-gray-100 rounded-lg text-gray-700">
                         </div>
                         <button type="button" onclick="updateProfile()"
@@ -123,17 +109,23 @@
                 </div>
             </div>
         </div>
-        <!-- JavaScript for Dynamic Profile Update -->
         <script>
-            function updateProfile() {
-                // Get values from the input fields
-                const name = document.getElementById('nameInput').value;
-                const email = document.getElementById('emailInput').value;
+            document.addEventListener('click', (event) => {
+                const button = document.getElementById('user-menu-button');
+                const dropdown = button.nextElementSibling;
 
-                // Update profile card
-                document.getElementById('profileName').textContent = name;
-                document.getElementById('profileEmail').textContent = email;
-            }
+                // Toggle dropdown visibility on button click
+                button.addEventListener('click', () => {
+                    dropdown.classList.toggle('scale-100');
+                    dropdown.classList.toggle('hidden');
+                });
+
+                // Close dropdown if clicked outside
+                if (!button.contains(event.target) && !dropdown.contains(event.target)) {
+                    dropdown.classList.add('hidden');
+                    dropdown.classList.remove('scale-100');
+                }
+            });
         </script>
     </body>
 </div>

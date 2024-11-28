@@ -1,115 +1,134 @@
 <div>
     {{-- Success is as dangerous as failure. --}}
+    @section('title', 'Contact Page')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="{{ url('CSS/contact.css') }}">
 
-    <body>
-        <div class="background-overlay"></div>
-
-        <header class="flex justify-between items-center p-3 bg-opacity-50 bg-transparent shadow-lg">
+    <body class="bg-gray-800 text-white font-poppins">
+        
+        <header class="flex items-center justify-between px-6 py-3 bg-gray-700 shadow-lg fixed top-0 w-full z-50">
             <div class="flex items-center space-x-3">
-                <img src="{{ url('Picture/lanmar.png') }}" alt="Lanmar BakeShoppe Logo"
-                    class="w-12 h-12 rounded-full shadow-lg">
+                <img src="{{ url('Picture/lanmar.png') }}" alt="Lanmar BakeShoppe Logo" class="w-12 h-12 rounded-full">
             </div>
-            <nav class="flex items-center justify-center space-x-5">
-                <a href="{{ route('home') }}"
-                    class="text-base font-semibold text-white hover:text-gray-900 transition duration-300">Home</a>
-                <a href="{{ route('product') }}"
-                    class="text-base font-semibold text-white hover:text-gray-900 transition duration-300">Product</a>
-                <a href="{{ route('about') }}"
-                    class="text-base font-semibold text-white hover:text-gray-900 transition duration-300">About</a>
-                <a href="{{ route('contact') }}"
-                    class="text-base font-semibold  text-white hover:text-gray-900 transition duration-300">Contact</a>
-                <div class="relative ml-3">
-                    <button type="button"
-                        class="relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
-                        id="user-menu-button" aria-expanded="false" aria-haspopup="true">
-                        <span class="absolute -inset-1.5"></span>
-                        <span class="sr-only">Open user menu</span>
-                        <img class="h-10 w-10 rounded-full" src="{{ url('Picture/default.jpg') }}"
-                            alt="User Profile Picture">
-                    </button>
-
-                    <!-- Profile dropdown -->
-                    <div class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-slate-600 py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none transition-all duration-200 ease-out scale-0 group-hover:scale-100"
-                        role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
-                        <a href="{{ route('profile') }}"
-                            class="block px-4 py-2 text-lg text-gray-100 hover:bg-gray-900 transition-colors duration-150"
-                            role="menuitem" tabindex="-1" id="user-menu-item-0">Your Profile</a>
-                        <a href="#"
-                            class="block px-4 py-2 text-lg text-gray-100 hover:bg-gray-900 transition-colors duration-150"
-                            role="menuitem" tabindex="-1" id="user-menu-item-1">Settings</a>
-                        <a href="{{ route('login') }}"
-                            class="block px-4 py-2 text-lg text-gray-100 hover:bg-gray-900 transition-colors duration-150"
-                            role="menuitem" tabindex="-1" id="user-menu-item-2">Sign out</a>
-                    </div>
-                </div>
+            <button id="menu-toggle" class="block md:hidden">
+                <i class="fas fa-bars"></i>
+            </button>
+            <nav id="menu" class="hidden md:flex space-x-5 font-semibold">
+                <a href="{{ route('home') }}" class="{{ Request::routeIs('home') ? 'text-yellow-500' : 'text-white' }}">Home</a>
+                <a href="{{ route('product') }}" class="{{ Request::routeIs('product') ? 'text-yellow-500' : 'text-white' }}">Product</a>
+                <a href="{{ route('about') }}" class="{{ Request::routeIs('about') ? 'text-yellow-500' : 'text-white' }}">About</a>
+                <a href="{{ route('contact') }}" class="{{ Request::routeIs('contact') ? 'text-yellow-500' : 'text-white' }}">Contact</a>
             </nav>
+            <div class="relative">
+                <button id="user-menu-button" class="focus:outline-none">
+                    <img src="{{ url('Picture/default.jpg') }}" alt="User Profile Picture" class="w-10 h-10 rounded-full">
+                </button>
+                <div id="dropdown" class="hidden absolute mt-2 right-0 bg-gray-600 text-gray-50 rounded-md shadow-lg w-28">
+                    <a href="{{ route('profile') }}" class="block px-4 py-2 hover:bg-gray-700">Profile</a>
+                    <a href="{{ route('login') }}" class="block px-4 py-2 hover:bg-gray-700">Log Out</a>
+                </div>
+            </div>
         </header>
 
-        <section class="contact">
-            <div class="content">
-                <h2>Lanmar Bake Shoppe </h2>
-                <p>For Tasty and Quality Breads and Cakes</p>
+        <main class="contact flex flex-col items-center justify-center mt-16 min-h-screen px-6">
+            <div class="text-center mb-8 -mt-28">
+                <h2 class="text-4xl font-bold">Reach Out to Us</h2>
+                <p class="text-lg">We'd love to hear from you. Contact us!</p>
             </div>
-            <div class="container">
-                <div class="contactInfo">
-                    <div class="box">
-                        <div class="icon">
-                            <i class="fa fa-map-marker" aria-hidden="true"></i>
+            <div class="flex flex-col md:flex-row items-center space-y-10 md:space-y-0 md:space-x-10">
+                <div class="space-y-6">
+                    <div class="flex items-center space-x-6">
+                        <div class="w-16 h-16 bg-gradient-to-br from-blue-400 to-gray-800 rounded-full flex justify-center items-center shadow-md">
+                            <i class="fa fa-map-marker text-white text-2xl"></i>
                         </div>
-                        <div class="text">
-                            <h3>Address</h3>
+                        <div>
+                            <h3 class="text-teal-400 font-semibold">Address</h3>
                             <p>Concepcion, Virac, Catanduanes</p>
                         </div>
                     </div>
-                    <div class="box">
-                        <div class="icon">
-                            <i class="fa fa-phone"></i>
+                    <div class="flex items-center space-x-6">
+                        <div class="w-16 h-16 bg-gradient-to-br from-blue-400 to-gray-800 rounded-full flex justify-center items-center shadow-md">
+                            <i class="fa fa-phone text-white text-2xl"></i>
                         </div>
-                        <div class="text">
-                            <h3>Phone</h3>
+                        <div>
+                            <h3 class="text-teal-400 font-semibold">Phone</h3>
                             <p>+63 93 053 3237</p>
                         </div>
                     </div>
-                    <div class="box">
-                        <div class="icon">
-                            <i class="fa fa-envelope" aria-hidden="true"></i>
+                    <div class="flex items-center space-x-6">
+                        <div class="w-16 h-16 bg-gradient-to-br from-blue-400 to-gray-800 rounded-full flex justify-center items-center shadow-md">
+                            <i class="fa fa-envelope text-white text-2xl"></i>
                         </div>
-                        <div class="text">
-                            <h3>Email</h3>
+                        <div>
+                            <h3 class="text-teal-400 font-semibold">Email</h3>
                             <p>angeloarmendi4@gmail.com</p>
                         </div>
                     </div>
                 </div>
-                <div class="contactForm">
-                    <form action="">
-                        <h2>Message Us</h2>
-                        <div class="inputBox">
-                            <input type="text" name="" required>
-                            <span>Full Name</span>
+                <form class="bg-black bg-opacity-80 p-5 rounded-xl shadow-lg w-full md:w-96 transform transition-transform hover:scale-105">
+                    <h2 class="text-2xl font-semibold text-center mb-6 text-white">Message Us</h2>
+                    <div class="space-y-6">
+                        <!-- Full Name -->
+                        <div class="relative">
+                            <input 
+                                type="text"  
+                                id="full_name" 
+                                value="{{ $name }}" 
+                                required 
+                                class="bg-transparent border-b-2 border-gray-400 text-white w-full placeholder-gray-400 focus:outline-none focus:border-yellow-400 transition-all">
                         </div>
-                        <div class="inputBox">
-                            <input type="text" name="" required>
-                            <span>Email</span>
+                
+                        <!-- Email -->
+                        <div class="relative">
+                            <input 
+                                type="email" 
+                                id="email" 
+                                value="{{ $email }}" 
+                                required 
+                                class="bg-transparent border-b-2 border-gray-400 text-white w-full placeholder-gray-400 focus:outline-none focus:border-yellow-400 transition-all">
                         </div>
-                        <div class="inputBox">
-                            <input type="text" name="" required>
-                            <span>Your Message Here...</span>
+                
+                        <!-- Message -->
+                        <div class="relative">
+                            <textarea 
+                                wire:model="message" 
+                                id="message" 
+                                rows="4" 
+                                placeholder="Your Message Here..." 
+                                required 
+                                class="bg-transparent border-b-2 border-gray-400 text-white w-full placeholder-gray-400 focus:outline-none focus:border-yellow-400 transition-all"></textarea>
                         </div>
-                        <div class="inputBox">
-                            <input type="submit" name="" value="Send">
+                
+                        <!-- Submit Button -->
+                        <div>
+                            <button 
+                                type="submit" 
+                                class="w-full bg-gradient-to-r from-gray-700 to-gray-900 text-white font-bold py-2 rounded-lg hover:from-gray-600 hover:to-gray-800 transition">
+                                Send
+                            </button>
                         </div>
-                    </form>
-                </div>
+                    </div>
+                </form>
             </div>
-        </section>
-
-        <div class="footer-overlay"></div>
-        <footer class="-mt-20 p-6 text-center text-white z-50">
-            <p>&copy; 2024 Lanmar BakeShoppe. All Rights Reserved.</p>
-        </footer>
-
-        <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
+        </main>
     </body>
+    <script>
+        const menuToggle = document.getElementById('menu-toggle');
+        const menu = document.getElementById('menu');
+        const userMenuButton = document.getElementById('user-menu-button');
+        const dropdown = document.getElementById('dropdown');
+    
+        menuToggle.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+    
+        userMenuButton.addEventListener('click', () => {
+            dropdown.classList.toggle('hidden');
+        });
+    
+        document.addEventListener('click', (event) => {
+            if (!userMenuButton.contains(event.target) && !dropdown.contains(event.target)) {
+                dropdown.classList.add('hidden');
+            }
+        });
+    </script>
 </div>

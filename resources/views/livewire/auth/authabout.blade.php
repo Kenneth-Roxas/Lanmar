@@ -1,55 +1,46 @@
 <div>
     {{-- The best athlete wants his opponent at his best. --}}
-
+    @section('title', 'About Page')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
         integrity="sha384-RFYK5sE5J9ddxzS3LknDyT00H5y/cx6IIcOBM/tlT7p9IFi59VL52Lvnb7/57vEy" crossorigin="anonymous">
 
     <body class="bg-gradient-to-b from-gray-800 via-gray-700 to-gray-500 text-gray-900 font-sans">
 
         <!-- Header Section -->
-        <header class="flex justify-between items-center p-3 bg-opacity-50 bg-transparent shadow-lg">
+        <header
+            class="flex items-center justify-between px-6 py-3 bg-slate-700 shadow-lg text-white fixed top-0 w-full z-50"
+            id="navbar">
             <div class="flex items-center space-x-3">
-                <img src="{{ url('Picture/lanmar.png') }}" alt="Lanmar BakeShoppe Logo"
-                    class="w-12 h-12 rounded-full shadow-lg">
+                <img src="{{ url('Picture/lanmar.png') }}" alt="Lanmar BakeShoppe Logo" class="w-12 h-12 rounded-full">
             </div>
-            <nav class="flex items-center space-x-5">
+            <button id="menu-toggle" class="block md:hidden">
+                <i class="fas fa-bars text-white"></i>
+            </button>
+            <nav id="menu" class="hidden md:flex space-x-5 font-semibold">
                 <a href="{{ route('home') }}"
-                    class="text-base font-semibold text-white hover:text-gray-900 transition duration-300">Home</a>
+                    class="{{ Request::routeIs('home') ? 'text-yellow-500' : 'text-white' }} nav-item">Home</a>
                 <a href="{{ route('product') }}"
-                    class="text-base font-semibold text-white hover:text-gray-900 transition duration-300">Product</a>
+                    class="{{ Request::routeIs('product') ? 'text-yellow-500' : 'text-white' }} nav-item">Product</a>
                 <a href="{{ route('about') }}"
-                    class="text-base font-semibold text-white hover:text-gray-900 transition duration-300">About</a>
+                    class="{{ Request::routeIs('about') ? 'text-yellow-500' : 'text-white' }} nav-item">About</a>
                 <a href="{{ route('contact') }}"
-                    class="text-base font-semibold  text-white hover:text-gray-900 transition duration-300">Contact</a>
-                <div class="relative ml-3">
-                    <button type="button"
-                        class="relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
-                        id="user-menu-button" aria-expanded="false" aria-haspopup="true">
-                        <span class="absolute -inset-1.5"></span>
-                        <span class="sr-only">Open user menu</span>
-                        <img class="h-10 w-10 rounded-full" src="{{ url('Picture/roxas.jpg') }}"
-                            alt="User Profile Picture">
-                    </button>
-
-                    <!-- Profile dropdown -->
-                    <div class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-slate-600 py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none transition-all duration-200 ease-out scale-0 group-hover:scale-100"
-                        role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
-                        <a href="{{ route('profile') }}"
-                            class="block px-4 py-2 text-lg text-gray-100 hover:bg-gray-900 transition-colors duration-150"
-                            role="menuitem" tabindex="-1" id="user-menu-item-0">Your Profile</a>
-                        <a href="#"
-                            class="block px-4 py-2 text-lg text-gray-100 hover:bg-gray-900 transition-colors duration-150"
-                            role="menuitem" tabindex="-1" id="user-menu-item-1">Settings</a>
-                        <a href="{{ route('login') }}"
-                            class="block px-4 py-2 text-lg text-gray-100 hover:bg-gray-900 transition-colors duration-150"
-                            role="menuitem" tabindex="-1" id="user-menu-item-2">Sign out</a>
-                    </div>
-                </div>
+                    class="{{ Request::routeIs('contact') ? 'text-yellow-500' : 'text-white' }} nav-item">Contact</a>
             </nav>
+            <div class="relative">
+                <button id="user-menu-button" aria-expanded="true" class="focus:outline-none">
+                    <img src="{{ url('Picture/default.jpg') }}" class="w-10 h-10 rounded-full"
+                        alt="User Profile Picture">
+                </button>
+                <div id="dropdown"
+                    class="absolute hidden mt-2 text-lg font-normal right-0 bg-slate-600 text-gray-50 rounded-md shadow-lg w-28">
+                    <a href="{{ route('profile') }}" class="block px-4 py-2 hover:bg-gray-700 duration-150">Profile</a>
+                    <a href="{{ route('login') }}" class="block px-4 py-2 hover:bg-gray-700 duration-150">Log Out</a>
+                </div>
+            </div>
         </header>
 
         <!-- About Us Section -->
-        <section class="text-center">
+        <section class="text-center mt-24">
             <h1 class="text-5xl font-extrabold text-gray-100 tracking-tight">About Us</h1>
             <div class="w-32 h-1 bg-teal-500 mx-auto my-6 rounded"></div>
 
@@ -88,7 +79,7 @@
                 "Our goal is to build a long-term relationship with our customers based on trust,
                 reliability, and mutual success."
             </p>
-            
+
         </section>
 
         <!-- Founder's Message -->
@@ -101,7 +92,7 @@
                 joy."
             <p class="max-w-3xl mx-auto mt-4 text-xl text-gray-100 leading-relaxed text-right"> – Elizabeth Lianko</p>
             </p>
-            
+
         </section>
 
         <!-- Customer Testimonials Section -->
@@ -127,21 +118,25 @@
             <p>&copy; 2024 Lanmar BakeShoppe. All Rights Reserved.</p>
         </footer>
 
+
+        <script src="{{ url('JS/About.js')}}"></script>
         <script>
+            const menuToggle = document.getElementById('menu-toggle');
+            const menu = document.getElementById('menu');
+            const userMenuButton = document.getElementById('user-menu-button');
+            const dropdown = document.getElementById('dropdown');
+        
+            menuToggle.addEventListener('click', () => {
+                menu.classList.toggle('hidden');
+            });
+        
+            userMenuButton.addEventListener('click', () => {
+                dropdown.classList.toggle('hidden');
+            });
+        
             document.addEventListener('click', (event) => {
-                const button = document.getElementById('user-menu-button');
-                const dropdown = button.nextElementSibling;
-
-                // Toggle dropdown visibility on button click
-                button.addEventListener('click', () => {
-                    dropdown.classList.toggle('scale-150');
-                    dropdown.classList.toggle('hidden');
-                });
-
-                // Close dropdown if clicked outside
-                if (!button.contains(event.target) && !dropdown.contains(event.target)) {
+                if (!userMenuButton.contains(event.target) && !dropdown.contains(event.target)) {
                     dropdown.classList.add('hidden');
-                    dropdown.classList.remove('scale-150');
                 }
             });
         </script>

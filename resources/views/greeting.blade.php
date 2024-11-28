@@ -16,8 +16,6 @@
         <div class="flex justify-center space-x-4 mt-5">
             <a href="{{route('home')}}"><button
                 class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">Close</button></a>
-            <a href="{{route('product')}}"><button
-                class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">Buy More</button></a>
         </div>
     </div>
 </body>

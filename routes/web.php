@@ -1,8 +1,9 @@
 <?php
 
 use App\Livewire\Auth\Authabout;
+use App\Livewire\Auth\AuthAdmin;
+use App\Livewire\Auth\AuthBooking;
 use App\Livewire\Auth\AuthCart;
-use App\Livewire\Auth\AuthCategory;
 use App\Livewire\Auth\AuthCheckOut;
 use App\Livewire\Auth\Authcontact;
 use App\Livewire\Auth\AuthHome;
@@ -10,11 +11,15 @@ use App\Livewire\Auth\Authlogin;
 use App\Livewire\Auth\AuthProdOverView;
 use App\Livewire\Auth\Authproduct;
 use App\Livewire\Auth\AuthProfile;
-use App\Livewire\Auth\AuthWelcome;
+use App\Livewire\Auth\AuthSignUp;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers;
 use App\Http\Controllers\Order;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\CustomerOrderController;
+use App\Http\Controllers\ProductController;
+
+// Admin
+Route::get('/KennethRoxas', AuthAdmin::class);
 
 
 Route::get('/greeting', [OrderController::class, 'showGreeting'])->name('greeting');
@@ -28,19 +33,21 @@ Route::get('send-email', [Order::class,'sendEmail'])->name('PlaceOrder');
 Route::get('/', AuthHome::class)->name('home');
 
 // Login Page
-Route::get('/Lanmar/Login', Authlogin::class)->name('login');
+Route::get('/login', Authlogin::class)->name('login');
+Route::get('/register', AuthSignUp::class)->name('register');
 
 // Product Page
-Route::get('/Lanmar/Product', Authproduct::class)->name('product');
+Route::get('/product', Authproduct::class)->name('product');
 
 // About Page
-Route::get('/Lanmar/AboutUs', Authabout::class)->name('about');
+Route::get('/aboutUs', Authabout::class)->name('about');
 
 // Contact Page
-Route::get('/Lanmar/Contact', Authcontact::class)->name('contact');
+Route::get('/contact', Authcontact::class)->name('contact');
 
 
 // Not done
+Route::get('/Booking', AuthBooking::class)->name('booking');
 Route::get('/Cart', AuthCart::class);
 Route::get('/checkout', AuthCheckOut::class)->name('checkout');
 Route::get('/productname', AuthProdOverView::class)->name('overview');

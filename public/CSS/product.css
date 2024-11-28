@@ -25,16 +25,6 @@ html::-webkit-scrollbar-thumb{
     font-family: "Poppins", sans-serif;
 }
 
-.background-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.4);
-    z-index: 1; 
-}
-
 header {
     top: 0;
     right: 0;
@@ -50,7 +40,7 @@ header {
 }
 
 header.scrolled {
-    background-color: rgba(255, 255, 255, 0.5);
+    background-color: rgba(55, 65, 81, 1);
     box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
 }
 
@@ -80,38 +70,6 @@ header.scrolled .navbar a {
 }
 
 header.scrolled  .navbar a:hover {
-    color: var(--white);
-}
-
-header .navbar .btnLogin {
-    width: 100px;
-    height: 40px;
-    background: transparent;
-    border: 2px solid var(--white);
-    outline: none;
-    border-radius: 100px;
-    cursor: pointer;
-    font-size: 1.5rem;
-    color: var(--white);
-    font-weight: 700;
-    margin-left: 10px;
-    transition: 1s ease;
-}
-
-header .navbar .btnLogin:hover {
-    background: var(--white);
-    color: var(--black);
-}
-
-header.scrolled .navbar .btnLogin {
-    border-color: var(--black);
-    color: var(--black);
-    transition: .5s ease-in-out;
-}
-
-header.scrolled .navbar .btnLogin:hover {
-    border-color: #604b96;
-    background: #604b96;
     color: var(--white);
 }
 
@@ -145,7 +103,6 @@ h2 {
 
 /* Cards */
 .featured {
-    background: linear-gradient(#2b2b2b, #4b4b4b00);
     height: 100vh;
 }
 
@@ -239,22 +196,11 @@ section{
 }
 
 .cakes {
-    background: linear-gradient(#4b4b4b00, #2b2b2b);
     position: relative;
     width: 100%;
     height: 600px;
 }
 
-.cakes::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.4);
-    z-index: 1;
-}
 .cakes h2 {
     top: 35px;
     font-weight: bolder;
@@ -353,21 +299,9 @@ section{
 }
 
 .cupcake {
-    background: linear-gradient( #2b2b2b,#4b4b4b00);
     position: relative;
     width: 100%;
     height: 600px;
-}
-
-.cupcake::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.4);
-    z-index: 1;
 }
 
 .cupcake h2 {
@@ -467,21 +401,9 @@ section{
 }
 
 .cookies {
-    background: linear-gradient( #4b4b4b00, #2b2b2b);
     position: relative;
     width: 100%;
     height: 600px;
-}
-
-.cookies::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.4);
-    z-index: 1;
 }
 
 .cookies h2 {
@@ -582,21 +504,9 @@ section{
 }
 
 .other {
-    background: linear-gradient(#2b2b2b, #4b4b4b00);
     position: relative;
     width: 100%;
     height: 600px;
-}
-
-.other::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 115%;
-    background-color: rgba(0, 0, 0, 0.4);
-    z-index: 1;
 }
 
 .other h2 {
