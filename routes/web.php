@@ -1,7 +1,11 @@
 <?php
 
+use App\Http\Middleware\UserActivity;
+use App\Livewire\Auth\Admin\AuthProductList;
 use App\Livewire\Auth\Authabout;
+use App\Livewire\Auth\AuthAddProduct;
 use App\Livewire\Auth\AuthAdmin;
+use App\Livewire\Auth\AuthAdminUser;
 use App\Livewire\Auth\AuthBooking;
 use App\Livewire\Auth\AuthCart;
 use App\Livewire\Auth\AuthCheckOut;
@@ -15,12 +19,12 @@ use App\Livewire\Auth\AuthSignUp;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Order;
 use App\Http\Controllers\OrderController;
-use App\Http\Controllers\CustomerOrderController;
-use App\Http\Controllers\ProductController;
 
 // Admin
-Route::get('/KennethRoxas', AuthAdmin::class);
-
+Route::get('/KennethRoxas', AuthAdmin::class)->name('dashboard');
+Route::get('/users', AuthAdminUser::class)->middleware(UserActivity::class)->name('user');
+Route::get('/AdminProduct', AuthAddProduct::class)->name('adding');
+Route::get('/list', AuthProductList::class)->name('list');
 
 Route::get('/greeting', [OrderController::class, 'showGreeting'])->name('greeting');
 Route::get('/send-order-confirmation', [OrderController::class, 'sendOrderConfirmation'])->name('send.order.confirmation');
@@ -52,3 +56,7 @@ Route::get('/Cart', AuthCart::class);
 Route::get('/checkout', AuthCheckOut::class)->name('checkout');
 Route::get('/productname', AuthProdOverView::class)->name('overview');
 Route::get('/profile', AuthProfile::class)->name('profile');
+
+
+
+

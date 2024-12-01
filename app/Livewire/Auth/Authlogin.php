@@ -10,7 +10,8 @@ class Authlogin extends Component
 {
     public $email, $password;
 
-    public function login() {
+    public function login()
+    {
         $this->validate([
             'email' => 'required',
             'password' => 'required',
@@ -18,12 +19,13 @@ class Authlogin extends Component
 
         $field = filter_var($this->email, FILTER_VALIDATE_EMAIL) ? 'email' : 'contact_number';
 
-        if(Auth::attempt([$field => $this->email, 'password' => $this->password])) {
+        if (Auth::attempt([$field => $this->email, 'password' => $this->password])) {
             return redirect()->route('home');
         }
 
-        session()->flash('error', 'Email or Password is incorrect');
+        $this->addError('credentials', 'Email or Password is incorrect');
     }
+
     public function render()
     {
         return view('livewire.auth.authlogin');
