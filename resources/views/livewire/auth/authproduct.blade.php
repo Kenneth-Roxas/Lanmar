@@ -13,8 +13,7 @@
         <header
             class="fixed top-0 left-0 right-0 bg-slate-700 shadow-2xl flex items-center justify-between px-4 py-4 z-50 transition-all duration-500">
             <div class="flex items-center space-x-3">
-                <img src="{{ url('Picture/lanmar.png') }}" alt="logo"
-                    class="w-20 h-20 rounded-full shadow-md">
+                <img src="{{ url('Picture/lanmar.png') }}" alt="logo" class="w-20 h-20 rounded-full shadow-md">
             </div>
             <button id="menu-toggle" class="block md:hidden">
                 <i class="fas fa-bars text-white"></i>
@@ -50,187 +49,52 @@
                     <p>Most ordered right now</p>
                 </div>
             </div>
-
-            <div class="cards" data-product-id="1">
-                <div class="card">
-                    <div class="image">
-                        <a href="{{ route('overview') }}"><img src="{{ url('Picture/bongga.jpg') }}"></a>
-                    </div>
-                    <div class="content">
-                        <div class="star">
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
+            <div class="flex justify-center items-center mt-10">
+                @foreach ($products as $product)
+                    @if ($product->category_name === 'Feature')
+                        <div class="card">
+                            <div class="image">
+                                <a href="{{ route('checkout') }}">
+                                    <img src="{{ asset('storage/' . $product->image_product) }}"
+                                        alt="{{ $product->product_name }}">
+                                </a>
+                            </div>
+                            <div class="content -mt-2">
+                                <div class="title">
+                                    <h3>{{ $product->product_name }}</h3>
+                                    <p class="price">₱{{ $product->price }}</p>
+                                    <a href="{{ route('checkout') }}"><button class="addCartCard">Buy Now</button></a>
+                                </div>
+                            </div>
                         </div>
-                        <div class="title">
-                            <h3>Rosy Whirls</h3>
-                            <p>₱150</p>
-                            <button class="addCartCard">Buy Now</button>
-                        </div>
-                    </div>
-                </div>
-
-
-                <div class="card">
-                    <div class="image">
-                        <img src="{{ url('Picture/Untitled design.png') }}">
-                    </div>
-                    <div class="content">
-                        <div class="star">
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                        </div>
-                        <div class="title">
-                            <h3>Blossom in Twilight</h3>
-                            <p>₱6,000</p>
-                            <button class="addCartCard">Buy Now</button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <div class="image">
-                        <img src="{{ url('Picture/cringe.jpg') }}">
-                    </div>
-                    <div class="content">
-                        <div class="star">
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                        </div>
-                        <div class="title">
-                            <h3>Crinckels</h3>
-                            <p>₱50</p>
-                            <button class="addCartCard">Buy Now</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="image">
-                        <img src="{{ url('Picture/lah.jpg') }}">
-                    </div>
-                    <div class="content">
-                        <div class="star">
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                        </div>
-                        <div class="title">
-                            <h3>Siopao!</h3>
-                            <p>₱30</p>
-                            <button class="addCartCard">Buy Now</button>
-                        </div>
-                    </div>
-                </div>
+                    @endif
+                @endforeach
             </div>
         </section>
 
         <!-- Cake Section -->
         <section class="cakes bg-gradient-to-b from-gray-500 via-gray-700 to-gray-800">
-            <h2>Cakes Section</h2>
+            <h2 class="section-title">Cake Section</h2>
             <div class="cake-product">
-                <div class="box">
-                    <div class="cake-image">
-                        <img src="{{ url('Picture/product1.jpg') }}">
-                    </div>
-                    <div class="cake-content">
-                        <div class="cake-star">
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
+                @foreach ($products as $product)
+                    @if ($product->category_name === 'Cake')
+                        <div class="card">
+                            <div class="image">
+                                <a href="{{ route('booking')}}">
+                                    <img src="{{ asset('storage/' . $product->image_product) }}"
+                                        alt="{{ $product->product_name }}">
+                                </a>
+                            </div>
+                            <div class="content -mt-2">
+                                <div class="title">
+                                    <h3>{{ $product->product_name }}</h3>
+                                    <p class="price">₱{{ $product->price }}</p>
+                                    <a href="{{ route('booking') }}"><button class="addCartCard">Buy Now</button></a>
+                                </div>
+                            </div>
                         </div>
-                        <div class="cake-title">
-                            <h3>Wedding Cake</h3>
-                            <p>₱5,000 - ₱8,000</p>
-                            <button class="addCartCard">Book Now</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="box">
-                    <div class="cake-image">
-                        <img src="{{ url('Picture/numeric cake.jpg') }}">
-                    </div>
-                    <div class="cake-content">
-                        <div class="cake-star">
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                        </div>
-                        <div class="cake-title">
-                            <h3>Numeric Cake</h3>
-                            <p>₱550 - ₱2,550</p>
-                            <button class="addCartCard">Book Now</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="box">
-                    <div class="cake-image">
-                        <img src="{{ url('Picture/bday.jpg') }}">
-                    </div>
-                    <div class="cake-content">
-                        <div class="cake-star">
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                        </div>
-                        <div class="cake-title">
-                            <h3>Birthday Cake</h3>
-                            <p>₱1,000 - ₱2,500</p>
-                            <button class="addCartCard">Book Now</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="box">
-                    <div class="cake-image">
-                        <img src="{{ url('Picture/gento.jpg') }}">
-                    </div>
-                    <div class="cake-content">
-                        <div class="cake-star">
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                        </div>
-                        <div class="cake-title">
-                            <h3>Bento Cake</h3>
-                            <p>₱500 - ₱999</p>
-                            <button class="addCartCard">Book Now</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="box">
-                    <div class="cake-image">
-                        <img src="{{ url('Picture/fondant.jpg') }}">
-                    </div>
-                    <div class="cake-content">
-                        <div class="cake-star">
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                        </div>
-                        <div class="cake-title">
-                            <h3>Fondant Cake</h3>
-                            <p>₱999 - ₱2,000</p>
-                            <button class="addCartCard">Book Now</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="load-more-container">
-                    <button class="load-more-btn">Load More</button>
-                </div>
+                    @endif
+                @endforeach
             </div>
         </section>
 
@@ -238,82 +102,25 @@
         <section class="cupcake bg-gradient-to-b from-gray-800 via-gray-700 to-gray-500">
             <h2>Cupcakes Section</h2>
             <div class="cupcake-product">
-                <div class="cupcake-box">
-                    <div class="cupcake-image">
-                        <img src="{{ url('Picture/bongga.jpg') }}">
-                    </div>
-                    <div class="cupcake-content">
-                        <div class="cupcake-star">
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
+                @foreach ($products as $product)
+                    @if ($product->category_name === 'Cupcake')
+                        <div class="card">
+                            <div class="image">
+                                <a href="{{ route('checkout')}}">
+                                    <img src="{{ asset('storage/' . $product->image_product) }}"
+                                        alt="{{ $product->product_name }}">
+                                </a>
+                            </div>
+                            <div class="content -mt-2">
+                                <div class="title">
+                                    <h3>{{ $product->product_name }}</h3>
+                                    <p class="price">₱{{ $product->price }}</p>
+                                    <a href="{{ route('checkout') }}"><button class="addCartCard">Buy Now</button></a>
+                                </div>
+                            </div>
                         </div>
-                        <div class="cupcake-title">
-                            <h3>Rosy Whirls</h3>
-                            <p>₱150</p>
-                            <button class="addCartCard">Order Now</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="cupcake-box">
-                    <div class="cupcake-image">
-                        <img src="{{ url('Picture/trip.jpg') }}">
-                    </div>
-                    <div class="cupcake-content">
-                        <div class="cupcake-star">
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                        </div>
-                        <div class="cupcake-title">
-                            <h3>Customize Design</h3>
-                            <p>₱200</p>
-                            <button class="addCartCard">Order Now</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="cupcake-box">
-                    <div class="cupcake-image">
-                        <img src="{{ url('Picture/nda.jpg') }}">
-                    </div>
-                    <div class="cupcake-content">
-                        <div class="cupcake-star">
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                        </div>
-                        <div class="cupcake-title">
-                            <h3>Valentine's Cupcake</h3>
-                            <p>₱150</p>
-                            <button class="addCartCard">Order Now</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="cupcake-box">
-                    <div class="cupcake-image">
-                        <img src="{{ url('Picture/kabayan.jpg') }}">
-                    </div>
-                    <div class="cupcake-content">
-                        <div class="cupcake-star">
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                        </div>
-                        <div class="cupcake-title">
-                            <h3>Kabayan Cupcake</h3>
-                            <p>₱5 each</p>
-                            <button class="addCartCard">Order Now</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="load-more-container">
-                    <button class="load-more-btn">Load More</button>
-                </div>
+                    @endif
+                @endforeach
             </div>
         </section>
 
@@ -321,64 +128,25 @@
         <section class="cookies bg-gradient-to-b from-gray-500 via-gray-700 to-gray-800">
             <h2>Cookies Section</h2>
             <div class="cookies-product">
-                <div class="cookies-box">
-                    <div class="cookies-image">
-                        <img src="{{ url('Picture/cringe.jpg') }}">
-                    </div>
-                    <div class="cookies-content">
-                        <div class="cookies-star">
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
+                @foreach ($products as $product)
+                    @if ($product->category_name === 'Cookies')
+                        <div class="card">
+                            <div class="image">
+                                <a href="{{ route('checkout') }}">
+                                    <img src="{{ asset('storage/' . $product->image_product) }}"
+                                        alt="{{ $product->product_name }}">
+                                </a>
+                            </div>
+                            <div class="content -mt-2">
+                                <div class="title">
+                                    <h3>{{ $product->product_name }}</h3>
+                                    <p class="price">₱{{ $product->price }}</p>
+                                    <a href="{{ route('checkout') }}"><button class="addCartCard">Buy Now</button></a>
+                                </div>
+                            </div>
                         </div>
-                        <div class="cookies-title">
-                            <h3>Crinckels</h3>
-                            <p>₱50</p>
-                            <button class="addCartCard">Order Now</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="cookies-box">
-                    <div class="cookies-image">
-                        <img src="{{ url('Picture/meingue.jpg') }} ">
-                    </div>
-                    <div class="cookies-content">
-                        <div class="cookies-star">
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                        </div>
-                        <div class="cookies-title">
-                            <h3>Pacencia Cookie</h3>
-                            <p>₱50</p>
-                            <button class="addCartCard">Order Now</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="cookies-box">
-                    <div class="cookies-image">
-                        <img src="{{ url('Picture/hopia.jpg') }}">
-                    </div>
-                    <div class="cookies-content">
-                        <div class="cookies-star">
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                        </div>
-                        <div class="cookies-title">
-                            <h3>Filipino Hopia</h3>
-                            <p>₱50</p>
-                            <button class="addCartCard">Order Now</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="load-more-container">
-                    <button class="load-more-btn">Load More</button>
-                </div>
+                    @endif
+                @endforeach
             </div>
         </section>
 
@@ -387,47 +155,26 @@
         <section class="other bg-gradient-to-b from-gray-800 via-gray-700 to-gray-500">
             <h2>Other Product</h2>
             <div class="other-product">
-                <div class="other-box">
-                    <div class="other-image">
-                        <img src="{{ url('Picture/rolls.jpg') }}">
-                    </div>
-                    <div class="other-title">
-                        <h3>Chocolate Rolls</h3>
-                        <p>₱250</p>
-                        <button class="addCartCard">Order Now</button>
-                    </div>
+                    @foreach ($products as $product)
+                        @if ($product->category_name === 'Other')
+                            <div class="card">
+                                <div class="image">
+                                    <a href="{{ route('checkout') }}">
+                                        <img src="{{ asset('storage/' . $product->image_product) }}"
+                                            alt="{{ $product->product_name }}">
+                                    </a>
+                                </div>
+                                <div class="content -mt-2">
+                                    <div class="title">
+                                        <h3>{{ $product->product_name }}</h3>
+                                        <p class="price">₱{{ $product->price }}</p>
+                                        <a href="{{ route('checkout') }}"><button class="addCartCard">Buy Now</button></a>
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
+                    @endforeach
                 </div>
-                <div class="other-box">
-                    <div class="other-image">
-                        <img src="{{ url('Picture/donut.jpg') }}">
-                    </div>
-                    <div class="other-title">
-                        <h3>LanMar Donuts</h3>
-                        <p>₱100</p>
-                        <button class="addCartCard">Order Now</button>
-                    </div>
-                </div>
-                <div class="other-box">
-                    <div class="other-image">
-                        <img src="{{ url('Picture/spread.jpg') }}">
-                    </div>
-                    <div class="other-title">
-                        <h3>LanMar Spreads</h3>
-                        <p>₱75</p>
-                        <button class="addCartCard">Order Now</button>
-                    </div>
-                </div>
-                <div class="other-box">
-                    <div class="other-image">
-                        <img src="{{ url('Picture/rolls1.jpg') }}">
-                    </div>
-                    <div class="other-title">
-                        <h3>Cherry Rolls</h3>
-                        <p>₱250</p>
-                        <button class="addCartCard">Order Now</button>
-                    </div>
-                </div>
-            </div>
         </section>
 
         <script src="{{ url('JS/product.js') }}"></script>

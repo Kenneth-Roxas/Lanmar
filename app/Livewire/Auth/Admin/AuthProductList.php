@@ -12,12 +12,15 @@ class AuthProductList extends Component
 
     public $pricing;
 
+    public $product_image;
+
     public function mount() 
     {
         // Fetch
         $this->categories = Product::all();
         $this->products = Product::all();
         $this->pricing = Product::all();
+        $this->product_image = Product::all();
     }
 
     public function render()
@@ -26,6 +29,7 @@ class AuthProductList extends Component
             'categories' => $this->categories,
             'products' => $this->products,
             'pricing' => $this->pricing,
+            'product_image' => $this->product_image,
         ]);
     }
 }

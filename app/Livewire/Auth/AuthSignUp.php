@@ -20,7 +20,8 @@ class AuthSignUp extends Component
         'password' => 'required|min:6|confirmed',
     ];
 
-    public function register() {
+    public function register()
+    {
         $validatedData = $this->validate();
 
         // New User
@@ -34,7 +35,7 @@ class AuthSignUp extends Component
         Auth::login($user);
 
         session()->flash('message', 'Registration successful!');
-        return redirect()->route('login'); 
+        return redirect()->route('login');
     }
     public function render()
     {

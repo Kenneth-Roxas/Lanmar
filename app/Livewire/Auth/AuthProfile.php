@@ -11,7 +11,6 @@ class AuthProfile extends Component
 
     public function render()
     {
-        // User Name
         $this->name = Auth::check() ? Auth::user()->name : 'Guest';
         $this->email = Auth::check() ? Auth::user()->email : 'None';
         $this->contact_number = Auth::check() ? Auth::user()->contact_number : 'None';

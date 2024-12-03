@@ -1,56 +1,26 @@
-<?php
+<?php 
 
 namespace App\Mail;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
-use Illuminate\Mail\Mailables\Content;
-use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
 class OrderMail extends Mailable
 {
     use Queueable, SerializesModels;
-    public $msg;
-    public $subject;
-    /**
-     * Create a new message instance.
-     */
-    public function __construct($msg,$subject)
+
+    public $orderDetails;
+
+    public function __construct($orderDetails)
     {
-        //
-        $this->msg = $msg;
-        $this->subject = $subject;
+        $this->orderDetails = $orderDetails;
     }
 
-    /**
-     * Get the message envelope.
-     */
-    public function envelope(): Envelope
+    public function build()
     {
-        return new Envelope(
-            subject: $this->subject,
-        );
-    }
-
-    /**
-     * Get the message content definition.
-     */
-    public function content(): Content
-    {
-        return new Content(
-            view: 'mail',
-        );
-    }
-
-    /**
-     * Get the attachments for the message.
-     *
-     * @return array<int, \Illuminate\Mail\Mailables\Attachment>
-     */
-    public function attachments(): array
-    {
-        return [];
+        return $this->subject('Order Confirmation')
+                    ->view('emails.orderConfirmation')
+                    ->with('orderDetails', $this->orderDetails);
     }
 }

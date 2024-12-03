@@ -1,8 +1,25 @@
 <div>
     {{-- If your happiness depends on money, you will never be happy with yourself. --}}
     @section('title', 'Users')
+    <style>
+        #sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100%;
+            z-index: 1000;
+            overflow-y: auto;
+            width: 16rem; 
+        }
+      
+        main {
+            margin-left: 16rem; 
+            width: calc(100% - 16rem); 
+        }
+      </style>
+      
 
-    <body class="bg-gray-50 font-sans text-gray-900 dark:bg-gray-900 dark:text-white transition-all">
+      <body class="bg-gray-50 font-sans text-gray-900 dark:bg-gray-900 dark:text-white transition-all">
         <div class="flex min-h-screen">
             <!-- Sidebar -->
             <aside class="w-64 bg-slate-700 text-white flex flex-col shadow-lg transition-all duration-300 ease-in-out"
@@ -10,7 +27,7 @@
                 <div class="p-6 flex items-center space-x-4">
                     <img src="{{ url('Picture/lanmar.png') }}" alt="Lan-Mar Logo" class="w-14 h-14 rounded-full">
                 </div>
-
+    
                 <!-- Sidebar Navigation -->
                 <nav class=" flex-grow">
                     <ul class="space-y-4">
@@ -20,25 +37,31 @@
                                 <i class="fas fa-tachometer-alt mr-3"></i> Dashboard
                             </a>
                         </li>
-                        <li class="relative group">
-                            <a href="#" class="flex items-center py-2 px-4 rounded-lg hover:bg-slate-600">
+                        <li class="relative">
+                            <button id="productButton"
+                                class="flex items-center w-full py-2 px-4 rounded-lg hover:bg-slate-600 transition duration-300 ease-in-out">
                                 <i class="fas fa-box mr-3"></i> Products
                                 <i class="fas fa-caret-down ml-2"></i>
-                            </a>
-                            <ul
-                                class="absolute left-full top-0 mt-2 w-48 bg-slate-600 rounded-lg shadow-lg group-hover:block hidden">
-                                <li><a href="#" class="block py-2 px-4 hover:bg-slate-500">Products List</a></li>
-                                <li><a href="{{ route('adding') }}" class="block py-2 px-4 hover:bg-slate-500">Add New</a></li>
+                            </button>
+                            <ul id="productMenu" class="hidden mt-2 w-full bg-slate-600 rounded-lg shadow-lg">
+                                <li>
+                                    <a href="{{ route('list') }}" class="block py-2 px-4 hover:bg-slate-500">Products
+                                        List</a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('adding') }}" class="block py-2 px-4 hover:bg-slate-500">Add
+                                        New</a>
+                                </li>
                             </ul>
                         </li>
                         <li>
-                            <a href="#"
+                            <a href="{{ route('user') }}"
                                 class="flex items-center py-2 px-4 rounded-lg hover:bg-slate-600 transition duration-300 ease-in-out">
                                 <i class="fas fa-users mr-3"></i> Users
                             </a>
                         </li>
                         <li>
-                            <a href="{{ route('login')}}"
+                            <a href="{{ route('login') }}"
                                 class="flex items-center py-2 px-4 rounded-lg hover:bg-slate-600 transition duration-300 ease-in-out">
                                 <i class="fas fa-sign-out-alt mr-3"></i> Logout
                             </a>
@@ -106,28 +129,13 @@
 
         <!-- Scripts -->
         <script>
-            // Toggle Dark Mode
-            const themeToggleButton = document.getElementById('theme-toggle');
-            themeToggleButton.addEventListener('click', () => {
-                document.body.classList.toggle('dark');
-            });
+            document.addEventListener('DOMContentLoaded', function() {
+                const productButton = document.getElementById('productButton');
+                const productMenu = document.getElementById('productMenu');
 
-            // Sidebar Toggle
-            const sidebar = document.getElementById('sidebar');
-            const toggleSidebarButton = document.getElementById('toggleSidebar');
-            toggleSidebarButton.addEventListener('click', () => {
-                sidebar.classList.toggle('hidden');
-            });
-
-            // Modal
-            const modal = document.getElementById('productModal');
-            const closeModalButton = document.getElementById('closeModal');
-
-            function openModal() {
-                modal.classList.remove('hidden');
-            }
-            closeModalButton.addEventListener('click', () => {
-                modal.classList.add('hidden');
+                productButton.addEventListener('click', function() {
+                    productMenu.classList.toggle('hidden'); 
+                });
             });
         </script>
     </body>

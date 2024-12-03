@@ -8,114 +8,128 @@
         }
     </style>
 
-    <body class="p-4 bg-gray-300">
+<body class="p-4 bg-gray-300">
 
+    <div>
         <div class="max-w-lg mx-auto p-6 rounded-lg shadow-md bg-slate-200">
             <h1 class="text-xl text-center font-extrabold text-gray-800 mb-6">Checkout</h1>
 
             <!-- Product List -->
-            <div class="border border-gray-200 shadow-2xl rounded-lg p-4 bg-gray-50 mb-6">
+            <div class="border border-gray-200 rounded-lg p-4 bg-gray-50 mb-6">
                 <h2 class="text-lg font-medium text-gray-700 mb-4">Products</h2>
-                <div class="space-y-4">
-                    <!-- Product Item -->
-                    <div class="flex items-center space-x-4">
-                        <img src="{{ url('Picture/bongga.jpg') }}" alt="Product Image" class="w-16 h-16 rounded-md">
-                        <div class="flex-1">
-                            <p class="text-gray-800 font-medium">Rosy Whirls</p>
-                            <p class="text-sm text-gray-500">10pcs for ₱150.00</p>
-                        </div>
-                        <p class="text-gray-800 font-medium">₱150.00</p>
+
+                @if ($products->isEmpty())
+                    <p class="text-red-500">No products available. Please check the product IDs.</p>
+                @else
+                    <div class="space-y-4">
+                        @foreach ($products as $index => $product)
+                            <div class="flex items-center space-x-4">
+                                <!-- Product Image -->
+                                <img src="{{ $product->image_product ? url('storage/' . $product->image_product) : url('Picture/placeholder.jpg') }}"
+                                    alt="{{ $product->product_name }}" class="w-16 h-16 rounded-md">
+
+                                <!-- Product Details -->
+                                <div class="flex-1">
+                                    <p class="text-gray-800 font-medium">{{ $product->product_name }}</p>
+                                    <p class="text-sm text-gray-500">₱{{ number_format($product->price, 2) }} for 5 pcs</p>
+                                </div>
+
+                                <!-- Price -->
+                                <p class="text-gray-800 font-medium">
+                                    ₱{{ number_format($product->price * $product->quantity, 2) }}
+                                </p>
+
+                                <!-- Quantity Controls -->
+                                <div class="flex items-center space-x-2">
+                                    <button wire:click="decreaseQuantity({{ $index }})" class="px-3 py-1 bg-gray-200 text-sm rounded-md">-</button>
+                                    <span>{{ $product->quantity }}</span>
+                                    <button wire:click="increaseQuantity({{ $index }})" class="px-3 py-1 bg-gray-200 text-sm rounded-md">+</button>
+                                </div>
+                            </div>
+                        @endforeach
                     </div>
-                    <!-- Repeat above div for more products as needed -->
-                </div>
+                @endif
             </div>
 
             <!-- Delivery Information -->
-            <div class="border border-gray-200 shadow-2xl rounded-lg p-4 bg-gray-50 mb-6">
-                <h2 class="text-lg font-medium text-gray-700 mb-4">Delivery Address</h2>
-                <div class="space-y-4">
-                    <input type="text" value="{{ $name }}"
-                        class="w-full border-gray-200 rounded-md p-3 focus:ring-2 focus:ring-blue-500 outline-none"
-                        required>
-                    <input type="text" value="{{ $contact_number }}"
-                        class="w-full border-gray-200 rounded-md p-3 focus:ring-2 focus:ring-blue-500 outline-none">
-                    <!-- Street Selection -->
-                    <label class="block text-gray-700 text-sm">Street</label>
-                    <select
-                        class="w-full border-gray-200 rounded-md p-3 focus:ring-2 focus:ring-blue-500 outline-none scrollable">
-                        <option>Select a street</option>
-                        <option>San Vicente</option>
-                        <option>Cavinitan</option>
-                        <option>Sto. Domingo</option>
-                        <option>San Isidro Village</option>
-                        <option>Constantino Street</option>
-                        <option>Salvacion</option>
-                        <option>Sta. Elena</option>
-                        <option>Calatagan</option>
-                        <option>Calatagan Proper</option>
-                        <option>Calatagan Tibang</option>
-                        <option>Zamboanga</option>
-                        <option>San Pablo</option>
-                        <option>San Juan</option>
-                        <!-- Add more streets specific to Virac, Catanduanes as needed -->
-                    </select>
+            <div class="mb-6">
+                <label class="block text-gray-700 text-sm">Name</label>
+                <input type="text" wire:model="name"
+                    class="w-full border-gray-200 rounded-md p-3 focus:ring-2 focus:ring-blue-500 outline-none"
+                    required>
 
-                    <!-- City Selection (Virac only) -->
-                    <label class="block text-gray-700 text-sm">City</label>
-                    <input type="text" value="Virac"
-                        class="w-full border-gray-200 rounded-md p-3 focus:ring-2 focus:ring-blue-500 outline-none"
-                        required>
-                </div>
+                <label class="block text-gray-700 text-sm mt-4">Contact Number</label>
+                <input type="text" wire:model="contact_number"
+                    class="w-full border-gray-200 rounded-md p-3 focus:ring-2 focus:ring-blue-500 outline-none">
+
+                <label class="block text-gray-700 text-sm mt-4">Street</label>
+                <select wire:model="street"
+                    class="w-full border-gray-200 rounded-md p-3 focus:ring-2 focus:ring-blue-500 outline-none">
+                    <option>Select a street</option>
+                    <option>San Vicente</option>
+                    <option>Cavinitan</option>
+                    <option>Sto. Domingo</option>
+                    <option>San Isidro Village</option>
+                    <option>Constantino Street</option>
+                    <option>Salvacion</option>
+                    <option>Sta. Elena</option>
+                    <option>Calatagan</option>
+                    <option>Calatagan Proper</option>
+                    <option>Calatagan Tibang</option>
+                    <option>Zamboanga</option>
+                    <option>San Pablo</option>
+                    <option>San Juan</option>
+                </select>
+
+                <label class="block text-gray-700 text-sm mt-4">City</label>
+                <input type="text" wire:model="city" readonly
+                    class="w-full border-gray-200 rounded-md p-3 bg-gray-100 focus:ring-0 outline-none">
             </div>
 
             <!-- Payment Method -->
-            <div class="border border-gray-200 shadow-2xl rounded-lg p-4 bg-gray-50 mb-6">
+            <div class="mb-6">
                 <h2 class="text-lg font-medium text-gray-700 mb-4">Payment Method</h2>
-                <div class="space-y-3">
-                    <div class="flex items-center">
-                        <input type="radio" id="cod" name="paymentMethod" value="cod"
-                            class="mr-2 text-blue-500 focus:ring-0">
-                        <label for="cod" class="text-gray-600">Cash on Delivery(COD)</label>
-                    </div>
-                    <div class="flex items-center">
-                        <input type="radio" id="gcash" name="paymentMethod" value="gcash"
-                            class="mr-2 text-blue-500 focus:ring-0">
-                        <label for="gcash" class="text-gray-600">GCash</label>
-                    </div>
+                <div>
+                    <input type="radio" wire:model="paymentMethod" value="cod" id="cod" class="mr-2">
+                    <label for="cod" class="text-gray-600">Cash on Delivery (COD)</label>
+                </div>
+                <div>
+                    <input type="radio" wire:model="paymentMethod" value="gcash" id="gcash" class="mr-2">
+                    <label for="gcash" class="text-gray-600">GCash</label>
                 </div>
 
-                <!-- GCash Payment Info (conditional) -->
-                <div id="gcashInfo" class="mt-4 hidden shadow-2xl">
-                    <label class="block text-sm text-gray-700 mb-1">GCash Mobile Number</label>
-                    <input type="text" placeholder="09XXXXXXXXX"
-                        class="w-full border-gray-200 rounded-md p-3 focus:ring-2 focus:ring-blue-500 outline-none">
-                </div>
-            </div>
-
-            <!-- Order Summary -->
-            <div class="flex items-center justify-between pt-6">
-                <p class="text-lg font-semibold text-gray-800">Total: ₱150.00</p>
-                <a href="{{ route('send.order.confirmation') }}"><button
-                        class="px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 transition duration-150">Place
-                        Order</button></a>
-            </div>
-
-            <div id="orderModal"
-                class="fixed inset-0 bg-gray-500 bg-opacity-50 flex items-center justify-center hidden">
-                <div class="bg-white p-8 rounded-lg shadow-xl w-96">
-                    <h2 class="text-xl font-semibold text-center text-gray-800 mb-4">Order Confirmation</h2>
-                    <p class="text-gray-700 text-center mb-6">Thank you for ordering! Please open your email and confirm
-                        your order</p>
-                    <div class="flex justify-center space-x-4">
-                        <button id="closeModalBtn"
-                            class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">Close</button>
+                @if ($paymentMethod === 'gcash')
+                    <div class="mt-4">
+                        <label class="block text-gray-700 text-sm">GCash Mobile Number</label>
+                        <input type="text" wire:model="gcashNumber"
+                            class="w-full border-gray-200 rounded-md p-3 focus:ring-2 focus:ring-blue-500 outline-none">
+                        @error('gcashNumber')
+                            <span class="text-red-500 text-sm">{{ $message }}</span>
+                        @enderror
                     </div>
-                </div>
+                @endif
             </div>
+
+            <!-- Total Price & Place Order -->
+            <div>
+                <p class="text-lg font-semibold text-gray-800 mb-4">Total: ₱{{ number_format($total, 2) }}</p>
+                <button wire:click="placeOrder"
+                    class="px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 transition duration-150">
+                    Place Order
+                </button>
+            </div>
+
+            <!-- Success Message -->
+            @if (session()->has('message'))
+                <div class="mt-4 p-4 bg-green-100 text-green-800 rounded-md">
+                    {{ session('message') }}
+                </div>
+            @endif
         </div>
+    </div>
 
         <script>
-            // Show or hide GCash input based on selected payment method
+            // Show or hide GCash 
             document.addEventListener('DOMContentLoaded', function() {
                 const gcashRadio = document.getElementById('gcash');
                 const codRadio = document.getElementById('cod');
@@ -135,12 +149,12 @@
                 const orderModal = document.getElementById('orderModal');
                 const closeModalBtn = document.getElementById('closeModalBtn');
 
-                // Show the modal when the "Place Order" button is clicked
+
                 placeOrderBtn.addEventListener('click', function() {
                     orderModal.classList.remove('hidden');
                 });
 
-                // Close the modal when the "Close" button is clicked
+
                 closeModalBtn.addEventListener('click', function() {
                     orderModal.classList.add('hidden');
                 });

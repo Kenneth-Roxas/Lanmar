@@ -9,11 +9,11 @@ class Product extends Model
 {
     use HasFactory;
 
-    // Make sure 'price' is included in the fillable array as you intend to use it
     protected $fillable = [
         'category_name',
         'product_name',
         'price', 
+        'image_product',
     ];
 
     protected $casts = [
