@@ -59,11 +59,21 @@
                                 <i class="fas fa-users mr-3"></i> Users
                             </a>
                         </li>
-                        <li>
-                            <a href="{{ route('login') }}"
-                                class="flex items-center py-2 px-4 rounded-lg hover:bg-slate-600 transition duration-300 ease-in-out">
-                                <i class="fas fa-sign-out-alt mr-3"></i> Logout
-                            </a>
+                        <li class="relative">
+                            <button id="orderButton"
+                                class="flex items-center w-full py-2 px-4 rounded-lg hover:bg-slate-600 transition duration-300 ease-in-out">
+                                <i class="fas fa-box mr-3"></i> Order
+                                <i class="fas fa-caret-down ml-2"></i>
+                            </button>
+                            <ul id="orderMenu" class="hidden mt-2 w-full bg-slate-600 rounded-lg shadow-lg">
+                                <li>
+                                    <a href="" class="block py-2 px-4 hover:bg-slate-500">Place Order
+                                        List</a>
+                                </li>
+                                <li>
+                                    <a href="" class="block py-2 px-4 hover:bg-slate-500">Book</a>
+                                </li>
+                            </ul>
                         </li>
                     </ul>
                 </nav>
@@ -155,6 +165,16 @@
 
                 productButton.addEventListener('click', function() {
                     productMenu.classList.toggle('hidden'); 
+                });
+            });
+        </script>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const productButton = document.getElementById('orderButton');
+                const productMenu = document.getElementById('orderMenu');
+
+                productButton.addEventListener('click', function() {
+                    productMenu.classList.toggle('hidden');
                 });
             });
         </script>

@@ -151,20 +151,6 @@ h2 {
     display: flex;
     flex-direction: column;
 }
-  
-.star {
-    padding: 10px;
-    margin-bottom: -15px;
-    margin-left: -15px;
-    margin-top: -33px;
-}
-  
-.star span {
-    font-size: 17px;
-    color: #ccff15;
-    margin-left: 5px;
-    letter-spacing: -7px;
-}
 
 .title {
     margin-top: 5px;

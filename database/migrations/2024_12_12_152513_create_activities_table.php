@@ -10,19 +10,19 @@ return new class extends Migration {
      */
     public function up()
     {
-        Schema::table('products', function (Blueprint $table) {
-            $table->string('product_name')->nullable(); // Add this line
+        Schema::create('activities', function (Blueprint $table) {
+            $table->id();
+            $table->string('user_name');
+            $table->string('action');
+            $table->timestamps();
         });
     }
 
     /**
      * Reverse the migrations.
      */
-    public function down()
+    public function down(): void
     {
-        Schema::table('products', function (Blueprint $table) {
-            $table->dropColumn('product_name');
-        });
+        Schema::dropIfExists('activities');
     }
-
 };

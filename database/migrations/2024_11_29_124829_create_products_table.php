@@ -12,8 +12,8 @@ return new class extends Migration {
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->string('category_name')->nullable();
-            $table->string('product_name')->nullable();
+            $table->string('category_name')->nullable()->change(); 
+            $table->string('product_name')->nullable()->change();
             $table->decimal('price', 8, 2)->default(0.00);
             $table->string('image_product')->nullable(); 
             $table->timestamps();
@@ -26,5 +26,15 @@ return new class extends Migration {
     public function down(): void
     {
         Schema::dropIfExists('products');
+        Schema::table('products', function (Blueprint $table) {
+            $table->string('category_name')->nullable(false)->change(); 
+        });
+        Schema::table('products', function (Blueprint $table) {
+            $table->string('product_name')->nullable(false)->change();
+        });
+        Schema::table('products', function (Blueprint $table) {
+            // Remove the 'price' column if it exists
+            $table->dropColumn('price');
+        });
     }
 };

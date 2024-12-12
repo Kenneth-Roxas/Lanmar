@@ -4,6 +4,7 @@ namespace App\Livewire\Auth;
 
 use Livewire\Component;
 use App\Models\Product;
+use Illuminate\Support\Facades\Auth;
 
 class AuthHome extends Component
 {
@@ -14,6 +15,15 @@ class AuthHome extends Component
         $this->products = Product::all();
         $this->pricing = Product::all();
         $this->product_image = Product::all();
+    }
+
+    public function logout()
+    {
+        Auth::logout(); 
+        session()->invalidate(); 
+        session()->regenerateToken(); 
+
+        return redirect()->route('login'); 
     }
     
     public function render()

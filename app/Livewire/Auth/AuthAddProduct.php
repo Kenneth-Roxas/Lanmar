@@ -22,7 +22,7 @@ class AuthAddProduct extends Component
         ]);
 
         if ($this->image_product) {
-            $path = $this->image_product->store('images/products', 'public');  // Store file in public directory
+            $path = $this->image_product->store('images/products', 'public'); 
             Product::create([
                 'category_name' => $this->category_table,
                 'product_name' => $this->product_table,
@@ -31,13 +31,13 @@ class AuthAddProduct extends Component
             ]);
         }
 
-        // Reset fields
+        // Reset
         $this->category_table = '';
         $this->product_table = '';
         $this->pricing = '';
         $this->image_product = null;
 
-        // Provide feedback (optional)
+        // Feedback
         session()->flash('success', __('Product added successfully!'));
 
         return redirect()->route('adding');

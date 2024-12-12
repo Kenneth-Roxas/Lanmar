@@ -78,9 +78,11 @@
                         class="absolute inset-0 bg-black bg-opacity-60 flex flex-col items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-opacity duration-500">
                         <h3 class="text-3xl font-bold mb-2">Rosy Whirls</h3>
                         <p class="text-xl mb-4">₱150 for 10pcs.</p>
-                        <a href="{{ route('checkout') }}"><button
+                        {{-- <a href="{{ route('checkout') }}"> --}}
+                            <button
                                 class="addCartCard bg-gradient-to-b from-gray-500 to-gray-700 text-white px-6 py-3 rounded-md hover:bg-gradient-to-t transition-all duration-300">Buy
-                                Now</button></a>
+                                Now</button>
+                            {{-- </a> --}}
                     </div>
                 </div>
 
@@ -302,11 +304,11 @@
                 const swiper = new Swiper('.swiper', {
                     loop: true,
                     autoplay: {
-                        delay: 4500,
+                        delay: 3500,
                         disableOnInteraction: false,
                     },
                     slidesPerView: 2,
-                    spaceBetween: 30,
+                    spaceBetween: 25,
                     pagination: {
                         el: '.swiper-pagination',
                         clickable: true,

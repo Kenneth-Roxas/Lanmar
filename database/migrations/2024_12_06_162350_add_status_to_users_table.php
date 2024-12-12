@@ -8,12 +8,13 @@ return new class extends Migration {
     /**
      * Run the migrations.
      */
-    public function up(): void
+    public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('contact_number', 15)->nullable();
+            $table->string('status')->default('offline'); // Add a status field
         });
     }
+
 
     /**
      * Reverse the migrations.
@@ -21,7 +22,7 @@ return new class extends Migration {
     public function down(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('contact_number');
+            //
         });
     }
 };

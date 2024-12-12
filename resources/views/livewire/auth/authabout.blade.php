@@ -6,35 +6,33 @@
 
     <body class="bg-gradient-to-b from-gray-800 via-gray-700 to-gray-500 text-gray-900 font-sans">
 
-        <!-- Header Section -->
-        <header
-            class="flex items-center justify-between px-6 py-3 bg-slate-700 shadow-lg text-white fixed top-0 w-full z-50"
-            id="navbar">
+        <header class="flex items-center justify-between px-6 py-3 bg-gray-700 shadow-lg fixed top-0 w-full z-50">
             <div class="flex items-center space-x-3">
                 <img src="{{ url('Picture/lanmar.png') }}" alt="Lanmar BakeShoppe Logo" class="w-12 h-12 rounded-full">
             </div>
             <button id="menu-toggle" class="block md:hidden">
-                <i class="fas fa-bars text-white"></i>
+                <i class="fas fa-bars"></i>
             </button>
             <nav id="menu" class="hidden md:flex space-x-5 font-semibold">
                 <a href="{{ route('home') }}"
-                    class="{{ Request::routeIs('home') ? 'text-yellow-500' : 'text-white' }} nav-item">Home</a>
+                    class="{{ Request::routeIs('home') ? 'text-yellow-500' : 'text-white' }}">Home</a>
                 <a href="{{ route('product') }}"
-                    class="{{ Request::routeIs('product') ? 'text-yellow-500' : 'text-white' }} nav-item">Product</a>
+                    class="{{ Request::routeIs('product') ? 'text-yellow-500' : 'text-white' }}">Product</a>
                 <a href="{{ route('about') }}"
-                    class="{{ Request::routeIs('about') ? 'text-yellow-500' : 'text-white' }} nav-item">About</a>
+                    class="{{ Request::routeIs('about') ? 'text-yellow-500' : 'text-white' }}">About</a>
                 <a href="{{ route('contact') }}"
-                    class="{{ Request::routeIs('contact') ? 'text-yellow-500' : 'text-white' }} nav-item">Contact</a>
+                    class="{{ Request::routeIs('contact') ? 'text-yellow-500' : 'text-white' }}">Contact</a>
             </nav>
             <div class="relative">
-                <button id="user-menu-button" aria-expanded="true" class="focus:outline-none">
-                    <img src="{{ url('Picture/default.jpg') }}" class="w-10 h-10 rounded-full"
-                        alt="User Profile Picture">
+                <button id="user-menu-button" class="focus:outline-none">
+                    <img src="{{ url('Picture/default.jpg') }}" alt="User Profile Picture"
+                        class="w-10 h-10 rounded-full">
                 </button>
                 <div id="dropdown"
-                    class="absolute hidden mt-2 text-lg font-normal right-0 bg-slate-600 text-gray-50 rounded-md shadow-lg w-28">
-                    <a href="{{ route('profile') }}" class="block px-4 py-2 hover:bg-gray-700 duration-150">Profile</a>
-                    <a href="{{ route('login') }}" class="block px-4 py-2 hover:bg-gray-700 duration-150">Log Out</a>
+                    class="hidden absolute mt-2 right-0 text-base bg-gray-600 text-gray-50 rounded-md shadow-lg w-28">
+                    <a href="{{ route('profile') }}" class="block px-4 py-2 hover:bg-gray-700">Profile</a>
+                    <a href="{{ route('login') }}" class="block px-4 py-2 hover:bg-gray-700">Log In</a>
+                    <a href="{{ route('login') }}" class="block px-4 py-2 hover:bg-gray-700">Log Out</a>
                 </div>
             </div>
         </header>
@@ -120,25 +118,5 @@
 
 
         <script src="{{ url('JS/About.js')}}"></script>
-        <script>
-            const menuToggle = document.getElementById('menu-toggle');
-            const menu = document.getElementById('menu');
-            const userMenuButton = document.getElementById('user-menu-button');
-            const dropdown = document.getElementById('dropdown');
-        
-            menuToggle.addEventListener('click', () => {
-                menu.classList.toggle('hidden');
-            });
-        
-            userMenuButton.addEventListener('click', () => {
-                dropdown.classList.toggle('hidden');
-            });
-        
-            document.addEventListener('click', (event) => {
-                if (!userMenuButton.contains(event.target) && !dropdown.contains(event.target)) {
-                    dropdown.classList.add('hidden');
-                }
-            });
-        </script>
     </body>
 </div>
