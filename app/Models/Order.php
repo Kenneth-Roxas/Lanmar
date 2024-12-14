@@ -10,14 +10,15 @@ class Order extends Model
     use HasFactory;
 
     protected $fillable = [
-        'user_id', 'name', 'contact_number', 'street', 'city', 
-        'payment_method', 'gcash_number', 'product_name', 
-        'product_price', 'quantity', 'total_price',
+        'user_id', 'name', 
+        'contact_number', 
+        'street', 'city', 
+        'payment_method', 
+        'gcash_number',
     ];
 
-    public function user()
+    public function items()
     {
         return $this->belongsTo(User::class);
     }
 }
-

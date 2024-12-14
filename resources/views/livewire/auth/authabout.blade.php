@@ -1,11 +1,18 @@
 <div>
     {{-- The best athlete wants his opponent at his best. --}}
-    @section('title', 'About Page')
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-        integrity="sha384-RFYK5sE5J9ddxzS3LknDyT00H5y/cx6IIcOBM/tlT7p9IFi59VL52Lvnb7/57vEy" crossorigin="anonymous">
-
+    <head>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+        @section('title', 'About Page')
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+            integrity="sha384-RFYK5sE5J9ddxzS3LknDyT00H5y/cx6IIcOBM/tlT7p9IFi59VL52Lvnb7/57vEy" crossorigin="anonymous">
+    
+    </head>
+   
     <body class="bg-gradient-to-b from-gray-800 via-gray-700 to-gray-500 text-gray-900 font-sans">
 
+        
         <header class="flex items-center justify-between px-6 py-3 bg-gray-700 shadow-lg fixed top-0 w-full z-50">
             <div class="flex items-center space-x-3">
                 <img src="{{ url('Picture/lanmar.png') }}" alt="Lanmar BakeShoppe Logo" class="w-12 h-12 rounded-full">
@@ -23,16 +30,25 @@
                 <a href="{{ route('contact') }}"
                     class="{{ Request::routeIs('contact') ? 'text-yellow-500' : 'text-white' }}">Contact</a>
             </nav>
-            <div class="relative">
-                <button id="user-menu-button" class="focus:outline-none">
-                    <img src="{{ url('Picture/default.jpg') }}" alt="User Profile Picture"
-                        class="w-10 h-10 rounded-full">
-                </button>
-                <div id="dropdown"
-                    class="hidden absolute mt-2 right-0 text-base bg-gray-600 text-gray-50 rounded-md shadow-lg w-28">
-                    <a href="{{ route('profile') }}" class="block px-4 py-2 hover:bg-gray-700">Profile</a>
-                    <a href="{{ route('login') }}" class="block px-4 py-2 hover:bg-gray-700">Log In</a>
-                    <a href="{{ route('login') }}" class="block px-4 py-2 hover:bg-gray-700">Log Out</a>
+            <div class="flex items-center space-x-4">
+                <!-- Add to Cart Icon -->
+                <a href="{{ route('cart') }}" class="text-white relative">
+                    <i class="fas fa-shopping-cart text-lg text-gray-950"></i>
+                    <span class="absolute -top-2 -right-3 bg-red-600 text-xs font-bold rounded-full px-1 text-gray-50">
+                        {{ $cartCount }}
+                    </span>                    
+                </a>
+                <!-- User Profile Dropdown -->
+                <div class="relative">
+                    <button id="user-menu-button" class="focus:outline-none">
+                        <img src="{{ url('Picture/default.jpg') }}" alt="User Profile Picture"
+                            class="w-10 h-10 rounded-full">
+                    </button>
+                    <div id="dropdown"
+                        class="hidden absolute mt-2 right-0 text-base bg-gray-600 text-gray-50 rounded-md shadow-lg w-28">
+                        <a href="{{ route('profile') }}" class="block px-4 py-2 hover:bg-gray-700">Profile</a>
+                        <button wire:click="logout" class="w-full block px-4 py-2 hover:bg-gray-700 duration-150">Logout</button>
+                    </div>
                 </div>
             </div>
         </header>
@@ -118,5 +134,27 @@
 
 
         <script src="{{ url('JS/About.js')}}"></script>
+        
+
+        <script>
+            const menuToggle = document.getElementById('menu-toggle');
+            const menu = document.getElementById('menu');
+            const userMenuButton = document.getElementById('user-menu-button');
+            const dropdown = document.getElementById('dropdown');
+        
+            menuToggle.addEventListener('click', () => {
+                menu.classList.toggle('hidden');
+            });
+        
+            userMenuButton.addEventListener('click', () => {
+                dropdown.classList.toggle('hidden');
+            });
+        
+            document.addEventListener('click', (event) => {
+                if (!userMenuButton.contains(event.target) && !dropdown.contains(event.target)) {
+                    dropdown.classList.add('hidden');
+                }
+            });
+        </script>
     </body>
 </div>

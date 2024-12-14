@@ -37,17 +37,33 @@
                 <a href="{{ route('login') }}"
                     class="{{ Request::routeIs('login') ? 'text-yellow-500' : 'text-white' }} nav-item">Sign Up</a>
             </nav>
-            <div class="relative">
+            <!-- Add to Cart Icon -->
+
+            <div class="flex items-center space-x-4 relative">
+                <!-- Cart Icon -->
+                <a href="{{ route('cart') }}" class="relative">
+                    <i class="fas fa-shopping-cart text-3xl text-gray-950 mt-2"></i>
+                    <span class="absolute -top-2 -right-4 bg-red-600 text-xl font-bold rounded-full px-2 text-gray-50">
+                        {{ $cartCount }}
+                    </span>
+                </a>
+
+                <!-- User Profile -->
                 <button id="user-menu-button" aria-expanded="true" class="focus:outline-none">
                     <img src="{{ url('Picture/default.jpg') }}" class="w-16 h-16 rounded-full"
                         alt="User Profile Picture">
                 </button>
+
+                <!-- Dropdown Menu -->
                 <div id="dropdown"
-                    class="absolute hidden mt-2 right-0 bg-slate-600 text-gray-50 rounded-md shadow-lg w-28">
-                    <a href="{{ route('profile') }}" class="block px-4 py-2 hover:bg-gray-700 duration-150">Profile</a>
-                    <a href="{{ route('login') }}" class="block px-4 py-2 hover:bg-gray-700 duration-150">Log Out</a>
+                    class="hidden absolute mt-2 right-0 text-base bg-gray-600 text-gray-50 rounded-md shadow-lg w-28">
+                    <a href="{{ route('profile') }}"
+                        class="w-full block px-4 py-2 hover:bg-gray-700 duration-150">Profile</a>
+                    <button wire:click="logout"
+                        class="w-full block px-4 py-2 hover:bg-gray-700 duration-150">Logout</button>
                 </div>
             </div>
+
         </header>
 
         <!-- Home Section -->
@@ -57,7 +73,8 @@
                     <h2>Lan-Mar
                         Bake Shoppe</h2>
                     <div class="home-btn">
-                        <p class="mt-3">Our goal is to build a long-term relationship with our customers based on <br> trust, reliability, and mutual success.</p>
+                        <p class="mt-3">Our goal is to build a long-term relationship with our customers based on <br>
+                            trust, reliability, and mutual success.</p>
                     </div>
                 </div>
             </div>
@@ -69,49 +86,38 @@
             <div class="absolute inset-0 bg-gradient-to-t from-gray-600 to-transparent z-10"></div>
             <h2 class="text-4xl md:text-5xl font-bold text-white text-shadow mb-10 z-20 relative">Best-Seller Product
             </h2>
+            <div class="flex flex-wrap justify-center items-center mt-2 relative z-30">
+                @foreach ($products as $product)
+                    @if ($product->category_name === 'Feature')
+                        <div
+                            class="w-96 h-full rounded-xl border-2 border-gray-300 m-6 overflow-hidden transition-transform duration-300 ease-in-out hover:scale-105">
+                            <div>
+                                <img class="w-full h-64 object-cover transition-transform duration-1000 transform origin-bottom hover:scale-110"
+                                    src="{{ asset('storage/' . $product->image_product) }}"
+                                    alt="{{ $product->product_name }}">
+                            </div>
+                            <div class="flex flex-col -mt-2">
+                                <div
+                                    class="mt-1 px-4 py-4 font-bold bg-white/20 border border-white/30 backdrop-blur-sm rounded-md shadow-md">
+                                    <input type="hidden" value="{{ $product->id }}">
+                                    <h3 class="text-xl font-poppins text-gray-800">{{ $product->product_name }}</h3>
+                                    <p class="text-lg text-gray-700">₱{{ $product->price }}</p>
 
-            <div class="slider flex justify-center space-x-14 relative z-20">
-                <div class="box w-96 h-96 bg-amber-200 rounded-[20px] overflow-hidden shadow-lg relative group">
-                    <img src="{{ url('Picture/bongga.jpg') }}" alt="Rosy Whirls"
-                        class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
-                    <div
-                        class="absolute inset-0 bg-black bg-opacity-60 flex flex-col items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                        <h3 class="text-3xl font-bold mb-2">Rosy Whirls</h3>
-                        <p class="text-xl mb-4">₱150 for 10pcs.</p>
-                        {{-- <a href="{{ route('checkout') }}"> --}}
-                            <button
-                                class="addCartCard bg-gradient-to-b from-gray-500 to-gray-700 text-white px-6 py-3 rounded-md hover:bg-gradient-to-t transition-all duration-300">Buy
-                                Now</button>
-                            {{-- </a> --}}
-                    </div>
-                </div>
-
-                <div class="box w-96 h-96 bg-amber-200 rounded-[20px] overflow-hidden shadow-lg relative group">
-                    <img src="{{ url('Picture/weddingCake.jpg') }}" alt="White Rose"
-                        class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
-                    <div
-                        class="absolute inset-0 bg-black bg-opacity-60 flex flex-col items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                        <h3 class="text-3xl font-bold mb-2">White Rose</h3>
-                        <p class="text-xl mb-4">Negotiable</p>
-                        <a href="{{ route('booking') }}">
-                            <button
-                                class="addCartCard bg-gradient-to-b from-gray-500 to-gray-700 text-white px-6 py-3 rounded-md hover:bg-gradient-to-t transition-all duration-300">Book Now</button>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="box w-96 h-96 bg-amber-200 rounded-[20px] overflow-hidden shadow-lg relative group">
-                    <img src="{{ url('Picture/cringe.jpg') }}" alt="Crinckles"
-                        class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
-                    <div
-                        class="absolute inset-0 bg-black bg-opacity-60 flex flex-col items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                        <h3 class="text-3xl font-bold mb-2">Crinckles</h3>
-                        <p class="text-xl mb-4">₱50 for 10pcs.</p>
-                        <button
-                            class="addCartCard bg-gradient-to-b from-gray-500 to-gray-700 text-white px-6 py-3 rounded-md hover:bg-gradient-to-t transition-all duration-300">Buy
-                            Now</button>
-                    </div>
-                </div>
+                                    <a href="{{ route('checkout', ['id' => $product->id]) }}">
+                                        <button
+                                            class="buy-now-button mt-3 px-6 py-3 bg-blue-600 text-white text-md rounded hover:bg-blue-700 transition">
+                                            Buy Now
+                                        </button>
+                                    </a>
+                                    <button type="button" wire:click="addToCart({{ $product->id }})"
+                                        class="buy-now-button mt-3 px-6 py-3 bg-blue-600 text-white text-md rounded hover:bg-blue-700 transition">
+                                        Add To Cart
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+                @endforeach
             </div>
         </section>
         <!-- End of Product Section -->

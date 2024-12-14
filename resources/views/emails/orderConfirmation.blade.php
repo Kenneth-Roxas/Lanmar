@@ -54,7 +54,7 @@
 
         <!-- Footer -->
         <footer class="mt-8 text-center text-gray-600 text-sm">
-            <p>&copy; 2024 Your Company Name. All rights reserved.</p>
+            <p>&copy; 2024 Lanmar BakeShoppe. All rights reserved.</p>
         </footer>
     </div>
 </body>

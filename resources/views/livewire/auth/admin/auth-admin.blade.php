@@ -90,10 +90,10 @@
                 class="flex-1 bg-gray-100 p-8 overflow-y-auto dark:bg-gray-800 transition-all duration-300 ease-in-out">
                 <!-- User Profile Section -->
                 <div class="flex items-center justify-between mb-5 -mt-3">
-                        <img src="{{ url('Picture\lanmar.png') }}" alt="Profile Picture" class="w-14 h-14 rounded-full">
-                        <div class="text-3xl">
-                            <h3 class="font-semibold">Lanmar BakeShoppe Admin Dashboard</h3>
-                        </div>
+                    <img src="{{ url('Picture\lanmar.png') }}" alt="Profile Picture" class="w-14 h-14 rounded-full">
+                    <div class="text-3xl">
+                        <h3 class="font-semibold">Lanmar BakeShoppe Admin Dashboard</h3>
+                    </div>
                     <a href="{{ route('login') }}"><button
                             class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition duration-300">
                             Log Out</button></a>
@@ -137,45 +137,114 @@
                             <i class="fas fa-dollar-sign text-2xl"></i>
                         </div>
                         <div class="ml-4">
-                            <p class="text-gray-500 dark:text-gray-400">Revenue</p>
-                            <h3 class="text-2xl font-bold dark:text-white">₱5,000</h3>
+                            <p class="text-gray-500 dark:text-gray-400">Number of Products</p>
+                        <h3 class="text-2xl font-bold dark:text-white">{{ $productCount }}</h3>
                         </div>
                     </div>
                 </div>
 
-                <!-- Recent Activity Section -->
-                <div class="bg-white dark:bg-gray-700 p-6 rounded-lg shadow-md mb-8">
-                    <h2 class="text-xl font-semibold mb-4 dark:text-white">Recent Activity</h2>
-                    <ul class="divide-y divide-gray-200 dark:divide-gray-600">
-                        @forelse ($recentActivities as $activity)
-                            <li class="py-3 flex justify-between items-center">
-                                <div class="text-gray-500 dark:text-gray-400">
-                                    <p class="font-medium dark:text-white">{{ $activity->name ?? 'Unknown User' }}</p>
-                                    <p>Registered a new account</p> <!-- Modify based on your data -->
-                                </div>
-                                <span class="text-sm text-gray-400">{{ $activity->created_at->diffForHumans() }}</span>
-                            </li>
-                        @empty
-                            <li class="py-3 text-gray-500 dark:text-gray-400">
-                                No recent activities.
-                            </li>
-                        @endforelse
-                    </ul>
-                </div>
+                <!-- Orders List -->
+                <div>
+                    <h1 class="text-3xl font-bold text-gray-800 dark:text-gray-100 mb-6">Orders List</h1>
+                    <div class="overflow-x-auto rounded-lg shadow-lg">
+                        <table
+                            class="table-auto w-full border-collapse bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-100">
+                            <thead class="bg-gray-100 dark:bg-gray-700">
+                                <tr>
+                                    <th
+                                        class="px-4 py-2 text-left font-semibold text-sm tracking-wide border-b border-gray-300 dark:border-gray-600">
+                                        Order ID
+                                    </th>
+                                    <th
+                                        class="px-4 py-2 text-left font-semibold text-sm tracking-wide border-b border-gray-300 dark:border-gray-600">
+                                        User
+                                    </th>
+                                    <th
+                                        class="px-4 py-2 text-left font-semibold text-sm tracking-wide border-b border-gray-300 dark:border-gray-600">
+                                        Product
+                                    </th>
+                                    <th
+                                        class="px-4 py-2 text-left font-semibold text-sm tracking-wide border-b border-gray-300 dark:border-gray-600">
+                                        Quantity
+                                    </th>
+                                    <th
+                                        class="px-4 py-2 text-left font-semibold text-sm tracking-wide border-b border-gray-300 dark:border-gray-600">
+                                        Total Price
+                                    </th>
+                                    <th
+                                        class="px-4 py-2 text-left font-semibold text-sm tracking-wide border-b border-gray-300 dark:border-gray-600">
+                                        Payment Method
+                                    </th>
+                                    <th
+                                        class="px-4 py-2 text-left font-semibold text-sm tracking-wide border-b border-gray-300 dark:border-gray-600">
+                                        Date
+                                    </th>
+                                    <th
+                                        class="px-4 py-2 text-left font-semibold text-sm tracking-wide border-b border-gray-300 dark:border-gray-600">
+                                        Time
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($orders as $order)
+                                    <tr
+                                        class="hover:bg-gray-50 dark:hover:bg-gray-700 transition duration-200 ease-in-out">
+                                        <td class="px-4 py-3 border-b border-gray-300 dark:border-gray-600">
+                                            {{ $order->id }}</td>
+                                        <td class="px-4 py-3 border-b border-gray-300 dark:border-gray-600">
+                                            {{ $order->user->name }}</td>
+                                        <td class="px-4 py-3 border-b border-gray-300 dark:border-gray-600">
+                                            {{ $order->product_name }}</td>
+                                        <td class="px-4 py-3 border-b border-gray-300 dark:border-gray-600">
+                                            {{ $order->quantity }}</td>
+                                        <td class="px-4 py-3 border-b border-gray-300 dark:border-gray-600">
+                                            {{ $order->total_price }}</td>
+                                        <td class="px-4 py-3 border-b border-gray-300 dark:border-gray-600">
+                                            {{ $order->payment_method }}</td>
+                                        <td class="px-4 py-3 border-b border-gray-300 dark:border-gray-600">
+                                            {{ $order->created_at->format('M j, Y') }}</td>
+                                        <td class="px-4 py-3 border-b border-gray-300 dark:border-gray-600">
+                                            {{ $order->created_at->format('g:i a') }}</td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                        <!-- Recent Activity Section -->
+                        <div class="bg-white dark:bg-gray-700 p-6 rounded-lg shadow-md mb-8 mt-10">
+                            <h2 class="text-xl font-semibold mb-4 dark:text-white">Recent Activity</h2>
+                            <ul class="divide-y divide-gray-200 dark:divide-gray-600">
+                                @forelse ($recentActivities as $activity)
+                                    <li class="py-3 flex justify-between items-center">
+                                        <div class="text-gray-500 dark:text-gray-400">
+                                            <p class="font-medium dark:text-white">
+                                                {{ $activity->name ?? 'Unknown User' }}</p>
+                                            <p>Registered a new account</p> 
+                                        </div>
+                                        <span
+                                            class="text-sm text-gray-400">{{ $activity->created_at->diffForHumans() }}</span>
+                                    </li>
+                                @empty
+                                    <li class="py-3 text-gray-500 dark:text-gray-400">
+                                        No recent activities.
+                                    </li>
+                                @endforelse
+                            </ul>
+                        </div>
 
 
-                <!-- Additional Content Section -->
-                <div class="bg-white dark:bg-gray-700 p-6 rounded-lg shadow-md">
-                    <h2 class="text-xl font-semibold mb-4 dark:text-white">Additional Insights</h2>
-                    <p class="text-gray-500 dark:text-gray-400">
-                        Use this space to display any other important information, charts, or actions specific to your
-                        admin panel.
-                    </p>
-                    <button
-                        class="mt-4 px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition duration-300">
-                        View More
-                    </button>
-                </div>
+                        <!-- Additional Content Section -->
+                        <div class="bg-white dark:bg-gray-700 p-6 rounded-lg shadow-md">
+                            <h2 class="text-xl font-semibold mb-4 dark:text-white">Additional Insights</h2>
+                            <p class="text-gray-500 dark:text-gray-400">
+                                Use this space to display any other important information, charts, or actions specific
+                                to your
+                                admin panel.
+                            </p>
+                            <button
+                                class="mt-4 px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition duration-300">
+                                View More
+                            </button>
+                        </div>
             </main>
 
         </div>

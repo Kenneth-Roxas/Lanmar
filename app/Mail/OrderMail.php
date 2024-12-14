@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace App\Mail;
 
@@ -12,6 +12,7 @@ class OrderMail extends Mailable
 
     public $orderDetails;
 
+    // Constructor now accepts the orderDetails array
     public function __construct($orderDetails)
     {
         $this->orderDetails = $orderDetails;
@@ -20,7 +21,7 @@ class OrderMail extends Mailable
     public function build()
     {
         return $this->subject('Order Confirmation')
-                    ->view('emails.orderConfirmation')
+                    ->view('emails.orderConfirmation')  // Blade view path
                     ->with('orderDetails', $this->orderDetails);
     }
 }

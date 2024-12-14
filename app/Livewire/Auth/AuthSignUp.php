@@ -51,4 +51,3 @@ class AuthSignUp extends Component
         return view('livewire.auth.auth-sign-up');
     }
 }
-

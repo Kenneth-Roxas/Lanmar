@@ -59,6 +59,10 @@ Route::get('/profile', AuthProfile::class)->name('profile');
 Route::post('/CartPage', [\App\Http\Controllers\CartController::class, 'store'])->name('addToCart');
 
 
+Route::post('/checkout/all', function () {
+    session()->put('checkout_cart', session('cart')); // Store cart in session for checkout
+    return redirect()->route('checkout', ['id' => 'all']);
+})->name('checkout.all');
 Route::get('/checkout/{id}', AuthCheckOut::class)->name('checkout');
 // Route::get('/checkout/{id}', \App\Livewire\Auth\AuthCheckOut::class)->name('checkout');
 Route::get('/product', \App\Livewire\Auth\Authproduct::class)->name('product');
