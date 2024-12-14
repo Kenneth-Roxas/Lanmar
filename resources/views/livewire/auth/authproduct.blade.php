@@ -2,7 +2,7 @@
     {{-- Nothing in the world is as soft and yielding as water. --}}
 
     <head>
-        
+
         @section('title', 'Product Page')
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -10,7 +10,7 @@
     </head>
 
     <body>
-        
+
         <header class="flex items-center justify-between px-6 py-3 bg-gray-700 shadow-lg fixed top-0 w-full z-50">
             <div class="flex items-center space-x-3">
                 <img src="{{ url('Picture/lanmar.png') }}" alt="Lanmar BakeShoppe Logo" class="w-12 h-12 rounded-full">
@@ -31,12 +31,12 @@
             <div class="flex items-center space-x-4">
                 <!-- Add to Cart Icon -->
                 <a href="{{ route('cart') }}" class="text-white relative">
-                    <i class="fas fa-shopping-cart text-lg text-gray-950"></i>
+                    <i class="fas fa-shopping-cart text-lg text-gray-50"></i>
                     <span class="absolute -top-2 -right-3 bg-red-600 text-xs font-bold rounded-full px-1 text-gray-50">
                         {{ $cartCount }}
                     </span>
                 </a>
-                
+
                 <!-- User Profile Dropdown -->
                 <div class="relative">
                     <button id="user-menu-button" class="focus:outline-none">
@@ -47,7 +47,8 @@
                         class="hidden absolute mt-2 right-0 text-base bg-gray-600 text-gray-50 rounded-md shadow-lg w-28">
                         <a href="{{ route('profile') }}" class="block px-4 py-2 hover:bg-gray-700">Profile</a>
                         <a href="{{ route('login') }}" class="block px-4 py-2 hover:bg-gray-700">Log In</a>
-                        <button wire:click="logout" class="w-full block px-4 py-2 hover:bg-gray-700 duration-150">Logout</button>
+                        <button wire:click="logout"
+                            class="w-full block px-4 py-2 hover:bg-gray-700 duration-150">Logout</button>
                     </div>
                 </div>
             </div>
@@ -55,8 +56,9 @@
 
         <!-- featured section -->
         <section class="h-screen bg-gradient-to-b from-gray-800 via-gray-700 to-gray-500">
-            <div class="mx-auto text-left py-4">
-                <h2 class="text-3xl font-semibold text-white mt-14 ml-16">COOKIES PRODUCT</h2>
+            <div class="mx-auto py-4 text-center">
+                <h2 class="text-5xl font-bold text-white mt-14 ml-16">POPULAR</h2>
+                <p class="text-xl font-semibold text-white mt-1 ml-16">Most Order Products</p>
             </div>
             <div class="flex flex-wrap justify-center items-center mt-2 relative z-30">
                 @foreach ($products as $product)
@@ -92,7 +94,6 @@
             </div>
         </section>
 
-
         <!-- Cake Section -->
         <section class="h-screen bg-gradient-to-b from-gray-500 via-gray-700 to-gray-800">
             <div class="mx-auto text-left py-4">
@@ -108,15 +109,23 @@
                                     src="{{ asset('storage/' . $product->image_product) }}"
                                     alt="{{ $product->product_name }}">
                             </div>
-                            <div class=" flex flex-col -mt-2">
+                            <div class="flex flex-col -mt-2">
                                 <div
-                                    class=" mt-1 px-2 py-3 font-bold bg-white/20 border border-white/30 backdrop-blur-sm rounded-md shadow-md">
+                                    class="mt-1 px-2 py-3 font-bold bg-white/20 border border-white/30 backdrop-blur-sm rounded-md shadow-md">
                                     <h3 class="text-lg font-poppins text-gray-800">{{ $product->product_name }}</h3>
                                     <p class="text-sm text-gray-700">₱{{ $product->price }}</p>
-                                    <button wire:click="booking"
+                                    <button type="button" wire:click="booking({{ $product->id }})"
                                         class="book-now-button mt-2 px-4 py-2 bg-blue-600 text-white text-sm rounded hover:bg-blue-700 transition">
                                         Book Now
                                     </button>
+                                    <div>
+                                        @if ($message)
+                                            <div
+                                                class="mt-2 text-sm {{ $messageType === 'success' ? 'text-green-600' : 'text-red-600' }}">
+                                                {{ $message }}
+                                            </div>
+                                        @endif
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -124,6 +133,7 @@
                 @endforeach
             </div>
         </section>
+
 
         <!-- Cupcake Section -->
         <section class="h-screen bg-gradient-to-b from-gray-800 via-gray-700 to-gray-500" id="featured">
@@ -222,11 +232,6 @@
                             <div class="flex flex-col -mt-2">
                                 <div
                                     class="mt-1 px-2 py-3 font-bold bg-white/20 border border-white/30 backdrop-blur-sm rounded-md shadow-md">
-                                    @if ($message)
-                                        <div class="alert alert-{{ $messageType }}">
-                                            {{ $message }}
-                                        </div>
-                                    @endif
                                     <input type="hidden" value="{{ $product->id }}">
                                     <h3 class="text-lg font-poppins text-gray-800">{{ $product->product_name }}</h3>
                                     <p class="text-sm text-gray-700">₱{{ $product->price }}</p>
@@ -248,22 +253,22 @@
             </div>
         </section>
 
-        
+
 
         <script>
             const menuToggle = document.getElementById('menu-toggle');
             const menu = document.getElementById('menu');
             const userMenuButton = document.getElementById('user-menu-button');
             const dropdown = document.getElementById('dropdown');
-        
+
             menuToggle.addEventListener('click', () => {
                 menu.classList.toggle('hidden');
             });
-        
+
             userMenuButton.addEventListener('click', () => {
                 dropdown.classList.toggle('hidden');
             });
-        
+
             document.addEventListener('click', (event) => {
                 if (!userMenuButton.contains(event.target) && !dropdown.contains(event.target)) {
                     dropdown.classList.add('hidden');

@@ -1,94 +1,77 @@
 <div>
-    {{-- Because she competes with no one, no one can compete with her. --}}
     @section('title', 'Check Out')
-
-    <style>
-        select.scrollable {
-            max-height: 150px;
-            overflow-y: auto;
-        }
-    </style>
-
-    <body class="p-4 bg-gray-300">
-
-        {{-- <h2>{{ $product->product_name }}</h2>
-        <p>Price: {{ $product->price }}</p>
-        <img src="{{ asset('storage/' . $product->image_product) }}" alt="Product Image"> --}}
+    <body class="p-6 bg-gray-900">
         <div>
-            <div class="max-w-lg mx-auto p-6 rounded-lg shadow-md bg-slate-200">
-                <h1 class="text-xl text-center font-extrabold text-gray-800 mb-6">Checkout</h1>
+            <div class="max-w-2xl mx-auto p-6 rounded-lg shadow-lg bg-gray-800">
+                <h1 class="text-2xl text-center font-semibold text-gray-100 mb-6">Checkout</h1>
 
+                <!-- Product Details -->
                 @if (is_array($product)) <!-- Multiple Products -->
-                    <div>
-                        <h2 class="text-lg font-medium text-gray-700 mb-4">Products in Your Cart</h2>
+                    <div class="mb-6">
+                        <h2 class="text-lg font-medium text-gray-200 mb-4">Products in Your Cart</h2>
                         @foreach ($product as $item)
                             <div class="flex items-center space-x-4 mb-4">
                                 <!-- Product Image -->
                                 <img src="{{ asset('storage/' . ($item['image_product'] ?? 'default-image.jpg')) }}"
-                                    alt="{{ $item['name'] ?? 'Product' }}" class="w-16 h-16 rounded-md">
+                                    alt="{{ $item['name'] ?? 'Product' }}" class="w-14 h-14 rounded-md border border-gray-700">
                                 <!-- Product Details -->
                                 <div class="flex-1">
-                                    <p class="text-gray-800 font-medium">{{ $item['name'] ?? 'Product Name' }}</p>
-                                    <p class="text-sm text-gray-500">₱{{ number_format($item['price'], 2) }} x
-                                        {{ $item['quantity'] }}</p>
+                                    <p class="text-gray-100 font-medium text-sm">{{ $item['name'] ?? 'Product Name' }}</p>
+                                    <p class="text-xs text-gray-400">₱{{ number_format($item['price'], 2) }} x {{ $item['quantity'] }}</p>
                                 </div>
-                                <!-- Total Price for Each Product -->
-                                <p class="text-gray-800 font-medium">
-                                    ₱{{ number_format($item['price'] * $item['quantity'], 2) }}</p>
+                                <!-- Total Price -->
+                                <p class="text-gray-200 font-semibold text-sm">
+                                    ₱{{ number_format($item['price'] * $item['quantity'], 2) }}
+                                </p>
                             </div>
                         @endforeach
                     </div>
                 @else
                     <!-- Single Product -->
-                    <div class="border border-gray-200 rounded-lg p-4 bg-gray-50 mb-6">
-                        <h2 class="text-lg font-medium text-gray-700 mb-4">Product</h2>
-                        <div class="space-y-4">
-                            <div class="flex items-center space-x-4">
-                                <!-- Product Image -->
-                                <img src="{{ asset('storage/' . $product->image_product) }}"
-                                    alt="{{ $product->product_name }}" class="w-16 h-16 rounded-md">
-                                <!-- Product Details -->
-                                <div class="flex-1">
-                                    <p class="text-gray-800 font-medium">{{ $product->product_name }}</p>
-                                    <p class="text-sm text-gray-500">₱{{ number_format($product->price, 2) }}</p>
-                                </div>
-
-                                <div class="flex items-center space-x-2">
-                                    <button type="button" wire:loading.attr="disabled"
-                                        wire:click="decrement({{ $product->id }})"
-                                        class="px-3 py-1 bg-gray-200 text-sm rounded-md">-</button>
-                                    <span>{{ $quantity }}</span>
-                                    <button type="button" wire:loading.attr="disabled"
-                                        wire:click="increment({{ $product->id }})"
-                                        class="px-3 py-1 bg-gray-200 text-sm rounded-md">+</button>
-                                </div>
+                    <div class="border border-gray-700 rounded-md p-4 bg-gray-700 mb-6">
+                        <h2 class="text-lg font-medium text-gray-200 mb-4">Product</h2>
+                        <div class="flex items-center space-x-4">
+                            <!-- Product Image -->
+                            <img src="{{ asset('storage/' . $product->image_product) }}"
+                                alt="{{ $product->product_name }}" class="w-14 h-14 rounded-md">
+                            <!-- Product Details -->
+                            <div class="flex-1">
+                                <p class="text-gray-100 font-medium">{{ $product->product_name }}</p>
+                                <p class="text-sm text-gray-400">₱{{ number_format($product->price, 2) }}</p>
+                            </div>
+                            <!-- Quantity Controls -->
+                            <div class="flex items-center space-x-2">
+                                <button type="button" wire:loading.attr="disabled"
+                                    wire:click="decrement({{ $product->id }})"
+                                    class="px-3 py-1 bg-gray-600 text-gray-300 text-xs rounded-md hover:bg-gray-500">-</button>
+                                <span class="text-gray-200 text-sm">{{ $quantity }}</span>
+                                <button type="button" wire:loading.attr="disabled"
+                                    wire:click="increment({{ $product->id }})"
+                                    class="px-3 py-1 bg-gray-600 text-gray-300 text-xs rounded-md hover:bg-gray-500">+</button>
                             </div>
                         </div>
                     </div>
                 @endif
 
-
                 <!-- Delivery Information -->
                 <div class="mb-6">
-                    <label class="block text-gray-700 text-sm">Name</label>
+                    <h2 class="text-lg font-medium text-gray-200 mb-4">Delivery Information</h2>
+
+                    <label class="block text-sm font-medium text-gray-300">Name</label>
                     <input type="text" wire:model="name"
-                        class="w-full border-gray-200 rounded-md p-3 focus:ring-2 focus:ring-blue-500 outline-none"
+                        class="w-full mt-1 p-2 border border-gray-700 rounded-md bg-gray-700 text-gray-200 focus:ring-blue-500 focus:border-blue-500"
                         required>
-                    @error('name')
-                        <span class="text-red-500 text-sm">{{ $message }}</span>
-                    @enderror
+                    @error('name') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
 
-                    <label class="block text-gray-700 text-sm mt-4">Contact Number</label>
+                    <label class="block text-sm font-medium text-gray-300 mt-4">Contact Number</label>
                     <input type="text" wire:model="contact_number"
-                        class="w-full border-gray-200 rounded-md p-3 focus:ring-2 focus:ring-blue-500 outline-none"
+                        class="w-full mt-1 p-2 border border-gray-700 rounded-md bg-gray-700 text-gray-200 focus:ring-blue-500 focus:border-blue-500"
                         required>
-                    @error('contact_number')
-                        <span class="text-red-500 text-sm">{{ $message }}</span>
-                    @enderror
+                    @error('contact_number') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
 
-                    <label class="block text-gray-700 text-sm mt-4">Street</label>
+                    <label class="block text-sm font-medium text-gray-300 mt-4">Street</label>
                     <select wire:model="street"
-                        class="w-full border-gray-200 rounded-md p-3 focus:ring-2 focus:ring-blue-500 outline-none"
+                        class="w-full mt-1 p-2 border border-gray-700 rounded-md bg-gray-700 text-gray-200 focus:ring-blue-500 focus:border-blue-500"
                         required>
                         <option value="">Select a street</option>
                         <option>San Vicente</option>
@@ -105,92 +88,50 @@
                         <option>San Pablo</option>
                         <option>San Juan</option>
                     </select>
-                    @error('street')
-                        <span class="text-red-500 text-sm">{{ $message }}</span>
-                    @enderror
+                    @error('street') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
 
-                    <label class="block text-gray-700 text-sm mt-4">City</label>
+                    <label class="block text-sm font-medium text-gray-300 mt-4">City</label>
                     <input type="text" wire:model="city" readonly
-                        class="w-full border-gray-200 rounded-md p-3 bg-gray-100 focus:ring-0 outline-none">
+                        class="w-full mt-1 p-2 border border-gray-700 rounded-md bg-gray-700 text-gray-400">
                 </div>
-
 
                 <!-- Payment Method -->
                 <div class="mb-6">
-                    <h2 class="text-lg font-medium text-gray-700 mb-4">Payment Method</h2>
+                    <h2 class="text-lg font-medium text-gray-200 mb-4">Payment Method</h2>
                     <div>
                         <input type="radio" wire:model="paymentMethod" value="cod" id="cod" class="mr-2">
-                        <label for="cod" class="text-gray-600">Cash on Delivery (COD)</label>
+                        <label for="cod" class="text-gray-300 text-sm">Cash on Delivery (COD)</label>
                     </div>
                     <div>
                         <input type="radio" wire:model="paymentMethod" value="gcash" id="gcash" class="mr-2">
-                        <label for="gcash" class="text-gray-600">GCash</label>
+                        <label for="gcash" class="text-gray-300 text-sm">GCash</label>
                     </div>
-
-                    @error('paymentMethod')
-                        <span class="text-red-500 text-sm">{{ $message }}</span>
-                    @enderror
 
                     @if ($paymentMethod === 'gcash')
                         <div class="mt-4">
-                            <label class="block text-gray-700 text-sm">GCash Mobile Number</label>
+                            <label class="block text-sm font-medium text-gray-300">GCash Mobile Number</label>
                             <input type="text" wire:model="gcashNumber"
-                                class="w-full border-gray-200 rounded-md p-3 focus:ring-2 focus:ring-blue-500 outline-none">
-                            @error('gcashNumber')
-                                <span class="text-red-500 text-sm">{{ $message }}</span>
-                            @enderror
+                                class="w-full mt-1 p-2 border border-gray-700 rounded-md bg-gray-700 text-gray-200 focus:ring-blue-500 focus:border-blue-500">
                         </div>
                     @endif
                 </div>
 
                 <!-- Total Price & Place Order -->
                 <div>
-                    <p class="text-lg font-semibold text-gray-800 mb-4">Total: ₱{{ number_format($totalPrice, 2) }}</p>
+                    <p class="text-lg font-semibold text-gray-100 mb-4">Total: ₱{{ number_format($totalPrice, 2) }}</p>
                     <button wire:click="placeOrder"
-                        class="px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 transition duration-150">
+                        class="w-full py-3 bg-blue-600 text-gray-100 font-semibold rounded-md hover:bg-blue-500 transition">
                         Place Order
                     </button>
                 </div>
 
-                <!-- Success Message Box -->
+                <!-- Success Message -->
                 @if (session()->has('message'))
-                    <div class="mt-4 p-4 bg-green-100 text-green-800 rounded-md">
+                    <div class="mt-4 p-3 bg-green-600 text-gray-100 text-center rounded-md">
                         {{ session('message') }}
                     </div>
                 @endif
             </div>
         </div>
-        <script>
-            // Show or hide GCash 
-            document.addEventListener('DOMContentLoaded', function() {
-                const gcashRadio = document.getElementById('gcash');
-                const codRadio = document.getElementById('cod');
-                const gcashInfo = document.getElementById('gcashInfo');
-
-                codRadio.addEventListener('change', toggleGcashInfo);
-                gcashRadio.addEventListener('change', toggleGcashInfo);
-
-                function toggleGcashInfo() {
-                    gcashInfo.classList.toggle('hidden', !gcashRadio.checked);
-                }
-            });
-        </script>
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                const placeOrderBtn = document.querySelector('button');
-                const orderModal = document.getElementById('orderModal');
-                const closeModalBtn = document.getElementById('closeModalBtn');
-
-
-                placeOrderBtn.addEventListener('click', function() {
-                    orderModal.classList.remove('hidden');
-                });
-
-
-                closeModalBtn.addEventListener('click', function() {
-                    orderModal.classList.add('hidden');
-                });
-            });
-        </script>
     </body>
 </div>

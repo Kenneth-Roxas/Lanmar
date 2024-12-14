@@ -122,12 +122,12 @@
                             <span>${{ number_format($this->getCartTotal(), 2) }}</span>
                         </p>
                     </div>
-                    <form action="{{ route('checkout.all') }}" method="POST">
+                    <form wire:submit.prevent="redirectToCheckout">
                         @csrf
                         <button type="submit" class="mt-6 w-full px-4 py-2 text-white bg-indigo-600 hover:bg-indigo-700 rounded-md text-center">
                             Checkout
                         </button>
-                    </form>                    
+                    </form>                                 
                 </div>
             </div>
         </div>

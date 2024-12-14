@@ -28,7 +28,7 @@ class AuthCart extends Component
     private function getCartCount()
     {
         if (Auth::check()) {
-            // Get cart count for authenticated user
+            // Get cart count
             return Cart::where('user_id', Auth::id())->sum('quantity');
         } else {
             // Fallback for guest users
@@ -40,7 +40,7 @@ class AuthCart extends Component
     private function refreshCartItems()
     {
         if (Auth::check()) {
-            // Fetch cart items from the database for authenticated user
+            // Fetch cart from user
             $this->cartItems = Cart::where('user_id', Auth::id())
                 ->with('product')
                 ->get()
@@ -56,7 +56,6 @@ class AuthCart extends Component
                 })
                 ->toArray();
         } else {
-            // Fallback for guest users
             $cart = session()->get('cart', []);
             $this->cartItems = collect($cart)->map(function ($item) {
                 $product = Product::find($item['id']);
@@ -75,14 +74,12 @@ class AuthCart extends Component
     public function incrementQuantity($itemId)
     {
         if (Auth::check()) {
-            // Increment quantity in the database
             $cartItem = Cart::where('user_id', Auth::id())->where('product_id', $itemId)->first();
             if ($cartItem) {
                 $cartItem->quantity++;
                 $cartItem->save();
             }
         } else {
-            // Increment quantity in session for guest users
             $cart = session()->get('cart', []);
             if (isset($cart[$itemId])) {
                 $cart[$itemId]['quantity']++;
@@ -97,14 +94,12 @@ class AuthCart extends Component
     public function decrementQuantity($itemId)
     {
         if (Auth::check()) {
-            // Decrement quantity in the database
             $cartItem = Cart::where('user_id', Auth::id())->where('product_id', $itemId)->first();
             if ($cartItem && $cartItem->quantity > 1) {
                 $cartItem->quantity--;
                 $cartItem->save();
             }
         } else {
-            // Decrement quantity in session for guest users
             $cart = session()->get('cart', []);
             if (isset($cart[$itemId]) && $cart[$itemId]['quantity'] > 1) {
                 $cart[$itemId]['quantity']--;
@@ -119,10 +114,8 @@ class AuthCart extends Component
     public function removeItem($itemId)
     {
         if (Auth::check()) {
-            // Remove item from the database for authenticated user
             Cart::where('user_id', Auth::id())->where('product_id', $itemId)->delete();
         } else {
-            // Remove item from session for guest users
             $cart = session()->get('cart', []);
             unset($cart[$itemId]);
             session()->put('cart', $cart);
@@ -140,10 +133,10 @@ class AuthCart extends Component
     public function checkout()
     {
         if (Auth::check()) {
-            // Example: Save cart details to orders table or process payment
+            // Save cart details 
             Cart::where('user_id', Auth::id())->delete();
         } else {
-            session()->forget('cart'); // Clear the cart for guest users
+            session()->forget('cart'); 
         }
 
         $this->cartItems = [];
@@ -151,13 +144,17 @@ class AuthCart extends Component
 
         session()->flash('success', 'Checkout completed successfully!');
     }
+    public function redirectToCheckout()
+    {
+        return redirect()->route('cart.checkout');
+    }
     public function logout()
     {
-        Auth::logout(); 
-        session()->invalidate(); 
-        session()->regenerateToken(); 
+        Auth::logout();
+        session()->invalidate();
+        session()->regenerateToken();
 
-        return redirect()->route('login'); 
+        return redirect()->route('login');
     }
 
     public function render()

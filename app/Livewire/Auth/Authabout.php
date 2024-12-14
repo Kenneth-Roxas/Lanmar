@@ -17,10 +17,9 @@ class Authabout extends Component
     private function getCartCount()
     {
         if (Auth::check()) {
-            // Get cart items count for authenticated users
+            // Get cart items 
             return Cart::where('user_id', Auth::id())->sum('quantity');
         } else {
-            // Fallback for guest users
             $cart = session()->get('cart', []);
             return array_sum(array_column($cart, 'quantity'));
         }

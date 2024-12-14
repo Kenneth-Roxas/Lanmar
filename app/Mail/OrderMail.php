@@ -12,7 +12,7 @@ class OrderMail extends Mailable
 
     public $orderDetails;
 
-    // Constructor now accepts the orderDetails array
+    // Constructor orderDetails
     public function __construct($orderDetails)
     {
         $this->orderDetails = $orderDetails;

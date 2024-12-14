@@ -34,10 +34,8 @@ class Authproduct extends Component
     private function getCartCount()
     {
         if (Auth::check()) {
-            // Get cart items count for authenticated users
             return Cart::where('user_id', Auth::id())->sum('quantity');
         } else {
-            // Fallback for guest users
             $cart = session()->get('cart', []);
             return array_sum(array_column($cart, 'quantity'));
         }
@@ -54,7 +52,7 @@ class Authproduct extends Component
         }
 
         if (Auth::check()) {
-            // Authenticated user - store in the database
+            // Authenticating the user
             $cartItem = Cart::where('user_id', Auth::id())->where('product_id', $productId)->first();
 
             if ($cartItem) {
@@ -68,7 +66,7 @@ class Authproduct extends Component
                 ]);
             }
         } else {
-            // Guest user - store in session
+            // Guest user
             $cart = session()->get('cart', []);
 
             if (isset($cart[$productId])) {
@@ -92,12 +90,32 @@ class Authproduct extends Component
     }
     public function logout()
     {
-        Auth::logout(); 
-        session()->invalidate(); 
-        session()->regenerateToken(); 
+        Auth::logout();
+        session()->invalidate();
+        session()->regenerateToken();
 
-        return redirect()->route('login'); 
+        return redirect()->route('login');
     }
+
+    // Booking
+    public function booking(int $productId)
+    {
+        $product = Product::find($productId);
+
+        if (!$product) {
+            $this->message = 'Product not found.';
+            $this->messageType = 'error';
+            return;
+        }
+
+        if (Auth::check()) {
+            return redirect()->route('booking', ['id' => $productId]);
+        } else {
+            $this->message = 'You must be logged in to book.';
+            $this->messageType = 'error';
+        }
+    }
+
 
     public function render()
     {

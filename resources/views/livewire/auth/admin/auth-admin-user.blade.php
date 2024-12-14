@@ -25,9 +25,13 @@
             <aside class="w-64 bg-slate-700 text-white flex flex-col shadow-lg transition-all duration-300 ease-in-out"
                 id="sidebar">
                 <div class="p-6 flex items-center space-x-4">
-                    <img src="{{ url('Picture/lanmar.png') }}" alt="Lan-Mar Logo" class="w-14 h-14 rounded-full">
+                    <img src="{{ url('Picture/roxas.jpg') }}" alt="Profile Picture" class="w-10 h-10 rounded-full">
+                    <div>
+                        <p class="font-semibold text-base dark:text-white">Kenneth T. Roxas</p>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">Administrator</p>
+                    </div>
                 </div>
-
+                <hr class="border-t-1 border-gray-500">
                 <!-- Sidebar Navigation -->
                 <nav class=" flex-grow">
                     <ul class="space-y-4">
@@ -68,11 +72,12 @@
                             </button>
                             <ul id="orderMenu" class="hidden mt-2 w-full bg-slate-600 rounded-lg shadow-lg">
                                 <li>
-                                    <a href="" class="block py-2 px-4 hover:bg-slate-500">Place Order
+                                    <a href="{{ route('placedOrder') }}"
+                                        class="block py-2 px-4 hover:bg-slate-500">Place Order
                                         List</a>
                                 </li>
                                 <li>
-                                    <a href="" class="block py-2 px-4 hover:bg-slate-500">Book</a>
+                                    <a href="{{ route('bookingList') }}" class="block py-2 px-4 hover:bg-slate-500">Book</a>
                                 </li>
                             </ul>
                         </li>

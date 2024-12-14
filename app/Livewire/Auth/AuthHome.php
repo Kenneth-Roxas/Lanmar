@@ -44,10 +44,8 @@ class AuthHome extends Component
     private function getCartCount()
     {
         if (Auth::check()) {
-            // Get cart items count for authenticated users
             return Cart::where('user_id', Auth::id())->sum('quantity');
         } else {
-            // Fallback for guest users
             $cart = session()->get('cart', []);
             return array_sum(array_column($cart, 'quantity'));
         }
@@ -64,7 +62,6 @@ class AuthHome extends Component
         }
 
         if (Auth::check()) {
-            // Authenticated user - store in the database
             $cartItem = Cart::where('user_id', Auth::id())->where('product_id', $productId)->first();
 
             if ($cartItem) {

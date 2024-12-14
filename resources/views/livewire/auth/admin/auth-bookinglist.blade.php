@@ -1,4 +1,6 @@
 <div>
+    {{-- Do your work, then step back. --}}
+
     @section('title', 'Admin Panel')
 
     <style>
@@ -22,7 +24,8 @@
             border-collapse: collapse;
         }
 
-        th, td {
+        th,
+        td {
             padding: 1rem;
             text-align: left;
         }
@@ -116,59 +119,87 @@
                     </div>
                 </div>
 
-                <!-- Orders List -->
+                <!-- Booking List -->
                 <div>
-                    <h1 class="text-3xl text-center font-bold text-gray-800 dark:text-gray-900 mb-6">Orders List</h1>
+                    <h1 class="text-3xl text-center font-bold text-gray-800 dark:text-gray-900 mb-6">Booking List</h1>
                     <div class="overflow-x-auto rounded-lg shadow-lg">
-                        <table class="table-auto w-full border-collapse bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-100">
+                        <table
+                            class="table-auto w-full border-collapse bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-100">
                             <thead class="bg-gray-100 dark:bg-gray-700">
                                 <tr>
-                                    <th class="px-4 py-2 text-left font-semibold text-sm tracking-wide border-b border-gray-300 dark:border-gray-600">
+                                    <th
+                                        class="px-4 py-2 text-left font-semibold text-sm tracking-wide border-b border-gray-300 dark:border-gray-600">
                                         Order ID
                                     </th>
-                                    <th class="px-4 py-2 text-left font-semibold text-sm tracking-wide border-b border-gray-300 dark:border-gray-600">
+                                    <th
+                                        class="px-4 py-2 text-left font-semibold text-sm tracking-wide border-b border-gray-300 dark:border-gray-600">
                                         User
                                     </th>
-                                    <th class="px-4 py-2 text-left font-semibold text-sm tracking-wide border-b border-gray-300 dark:border-gray-600">
+                                    <th
+                                        class="px-4 py-2 text-left font-semibold text-sm tracking-wide border-b border-gray-300 dark:border-gray-600">
                                         Product
                                     </th>
-                                    <th class="px-4 py-2 text-left font-semibold text-sm tracking-wide border-b border-gray-300 dark:border-gray-600">
-                                        Quantity
+                                    <th
+                                        class="px-4 py-2 text-left font-semibold text-sm tracking-wide border-b border-gray-300 dark:border-gray-600">
+                                        Price
                                     </th>
-                                    <th class="px-4 py-2 text-left font-semibold text-sm tracking-wide border-b border-gray-300 dark:border-gray-600">
-                                        Total Price
+                                    <th
+                                        class="px-4 py-2 text-left font-semibold text-sm tracking-wide border-b border-gray-300 dark:border-gray-600">
+                                        Date Delivery
                                     </th>
-                                    <th class="px-4 py-2 text-left font-semibold text-sm tracking-wide border-b border-gray-300 dark:border-gray-600">
-                                        Payment Method
+                                    <th
+                                        class="px-4 py-2 text-left font-semibold text-sm tracking-wide border-b border-gray-300 dark:border-gray-600">
+                                        Time Delivery
                                     </th>
-                                    <th class="px-4 py-2 text-left font-semibold text-sm tracking-wide border-b border-gray-300 dark:border-gray-600">
-                                        Date
+                                    <th
+                                        class="px-4 py-2 text-left font-semibold text-sm tracking-wide border-b border-gray-300 dark:border-gray-600">
+                                        Message
                                     </th>
-                                    <th class="px-4 py-2 text-left font-semibold text-sm tracking-wide border-b border-gray-300 dark:border-gray-600">
-                                        Time
+                                    <th
+                                        class="px-4 py-2 text-left font-semibold text-sm tracking-wide border-b border-gray-300 dark:border-gray-600">
+                                        Design
                                     </th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($orders as $order)
-                                    <tr class="hover:bg-gray-500 dark:hover:bg-gray-700 transition duration-200 ease-in-out">
-                                        <td class="px-4 py-3 border-b border-gray-500 dark:border-gray-600">{{ $order->id }}</td>
-                                        <td class="px-4 py-3 border-b border-gray-300 dark:border-gray-600">
-                                            {{ $order->user->name ?? 'No User' }}
-                                        </td>                                        
-                                        <td class="px-4 py-3 border-b border-gray-500 dark:border-gray-600">{{ $order->product_name ?? 'No product' }}</td>
-                                        <td class="px-4 py-3 border-b border-gray-500 dark:border-gray-600">{{ $order->quantity ?? 0 }}</td>
-                                        <td class="px-4 py-3 border-b border-gray-500 dark:border-gray-600">{{ $order->total_price ?? '0.00' }}</td>
-                                        <td class="px-4 py-3 border-b border-gray-500 dark:border-gray-600">{{ $order->payment_method }}</td>
-                                        <td class="px-4 py-3 border-b border-gray-500 dark:border-gray-600">{{ $order->created_at->format('M j, Y') }}</td>
-                                        <td class="px-4 py-3 border-b border-gray500 dark:border-gray-600">{{ $order->created_at->format('g:i a') }}</td>
+                                @foreach ($bookings as $booking)
+                                    <tr
+                                        class="hover:bg-gray-500 dark:hover:bg-gray-700 transition duration-200 ease-in-out">
+                                        <td class="px-4 py-3 border-b border-gray-500 dark:border-gray-600">
+                                            {{ $booking->id }}
+                                        </td>
+                                        <td class="px-4 py-3 border-b border-gray-500 dark:border-gray-600">
+                                            {{ $booking->name }}
+                                        </td>
+                                        <td class="px-4 py-3 border-b border-gray-500 dark:border-gray-600">
+                                            {{ $booking->product_name }}
+                                        </td>
+                                        <td class="px-4 py-3 border-b border-gray-500 dark:border-gray-600">
+                                            {{ number_format($booking->price, 2) }} {{-- Format price --}}
+                                        </td>
+                                        <td class="px-4 py-3 border-b border-gray-500 dark:border-gray-600">
+                                            {{ $booking->date }}
+                                        </td>
+                                        <td class="px-4 py-3 border-b border-gray-500 dark:border-gray-600">
+                                            {{ $booking->time }}
+                                        </td>
+                                        <td class="px-4 py-3 border-b border-gray-500 dark:border-gray-600">
+                                            {{ $booking->message }}
+                                        </td>
+                                        <td class="px-4 py-3 border-b border-gray-500 dark:border-gray-600">
+                                            @if ($booking->design)
+                                                <img src="{{ asset('storage/' . $booking->design) }}"
+                                                    alt="Design Image" class="w-16 h-16 object-cover">
+                                            @else
+                                                No design
+                                            @endif
+                                        </td>
                                     </tr>
                                 @endforeach
-                            </tbody>                            
+                            </tbody>
                         </table>
                     </div>
                 </div>
-                
             </main>
         </div>
 

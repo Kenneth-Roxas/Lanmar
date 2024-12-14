@@ -77,7 +77,7 @@
                                         List</a>
                                 </li>
                                 <li>
-                                    <a href="" class="block py-2 px-4 hover:bg-slate-500">Book</a>
+                                    <a href="{{ route('bookingList') }}" class="block py-2 px-4 hover:bg-slate-500">Book</a>
                                 </li>
                             </ul>
                         </li>
@@ -128,7 +128,7 @@
                         </div>
                         <div class="ml-4">
                             <p class="text-gray-500 dark:text-gray-400">Bookings</p>
-                            <h3 class="text-2xl font-bold dark:text-white">3</h3>
+                            <h3 class="text-2xl font-bold dark:text-white">{{ $bookingCount }}</h3>
                         </div>
                     </div>
                     <!-- Revenue -->
@@ -138,14 +138,14 @@
                         </div>
                         <div class="ml-4">
                             <p class="text-gray-500 dark:text-gray-400">Number of Products</p>
-                        <h3 class="text-2xl font-bold dark:text-white">{{ $productCount }}</h3>
+                            <h3 class="text-2xl font-bold dark:text-white">{{ $productCount }}</h3>
                         </div>
                     </div>
                 </div>
 
                 <!-- Orders List -->
                 <div>
-                    <h1 class="text-3xl font-bold text-gray-800 dark:text-gray-100 mb-6">Orders List</h1>
+                    <h1 class="text-3xl text-center font-bold text-gray-800 dark:text-gray-100 mb-6">Orders List</h1>
                     <div class="overflow-x-auto rounded-lg shadow-lg">
                         <table
                             class="table-auto w-full border-collapse bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-100">
@@ -192,7 +192,8 @@
                                         <td class="px-4 py-3 border-b border-gray-300 dark:border-gray-600">
                                             {{ $order->id }}</td>
                                         <td class="px-4 py-3 border-b border-gray-300 dark:border-gray-600">
-                                            {{ $order->user->name }}</td>
+                                            {{ $order->user->name ?? 'No User' }}
+                                        </td>
                                         <td class="px-4 py-3 border-b border-gray-300 dark:border-gray-600">
                                             {{ $order->product_name }}</td>
                                         <td class="px-4 py-3 border-b border-gray-300 dark:border-gray-600">
@@ -209,6 +210,89 @@
                                 @endforeach
                             </tbody>
                         </table>
+
+                        {{-- Booking List --}}
+                        <div>
+                            <h1 class="text-3xl text-center font-bold text-gray-800 dark:text-gray-50 mt-5 mb-6">Booking List</h1>
+                            <div class="overflow-x-auto rounded-lg shadow-lg">
+                                <table
+                                    class="table-auto w-full border-collapse bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-100">
+                                    <thead class="bg-gray-100 dark:bg-gray-700">
+                                        <tr>
+                                            <th
+                                                class="px-4 py-2 text-left font-semibold text-sm tracking-wide border-b border-gray-300 dark:border-gray-600">
+                                                Order ID
+                                            </th>
+                                            <th
+                                                class="px-4 py-2 text-left font-semibold text-sm tracking-wide border-b border-gray-300 dark:border-gray-600">
+                                                User
+                                            </th>
+                                            <th
+                                                class="px-4 py-2 text-left font-semibold text-sm tracking-wide border-b border-gray-300 dark:border-gray-600">
+                                                Product
+                                            </th>
+                                            <th
+                                                class="px-4 py-2 text-left font-semibold text-sm tracking-wide border-b border-gray-300 dark:border-gray-600">
+                                                Price
+                                            </th>
+                                            <th
+                                                class="px-4 py-2 text-left font-semibold text-sm tracking-wide border-b border-gray-300 dark:border-gray-600">
+                                                Date Delivery
+                                            </th>
+                                            <th
+                                                class="px-4 py-2 text-left font-semibold text-sm tracking-wide border-b border-gray-300 dark:border-gray-600">
+                                                Time Delivery
+                                            </th>
+                                            <th
+                                                class="px-4 py-2 text-left font-semibold text-sm tracking-wide border-b border-gray-300 dark:border-gray-600">
+                                                Message
+                                            </th>
+                                            <th
+                                                class="px-4 py-2 text-left font-semibold text-sm tracking-wide border-b border-gray-300 dark:border-gray-600">
+                                                Design
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($bookings as $booking)
+                                            <tr
+                                                class="hover:bg-gray-500 dark:hover:bg-gray-700 transition duration-200 ease-in-out">
+                                                <td class="px-4 py-3 border-b border-gray-500 dark:border-gray-600">
+                                                    {{ $booking->id }}
+                                                </td>
+                                                <td class="px-4 py-3 border-b border-gray-500 dark:border-gray-600">
+                                                    {{ $booking->name }}
+                                                </td>
+                                                <td class="px-4 py-3 border-b border-gray-500 dark:border-gray-600">
+                                                    {{ $booking->product_name }}
+                                                </td>
+                                                <td class="px-4 py-3 border-b border-gray-500 dark:border-gray-600">
+                                                    {{ number_format($booking->price, 2) }} {{-- Format price --}}
+                                                </td>
+                                                <td class="px-4 py-3 border-b border-gray-500 dark:border-gray-600">
+                                                    {{ $booking->date }}
+                                                </td>
+                                                <td class="px-4 py-3 border-b border-gray-500 dark:border-gray-600">
+                                                    {{ $booking->time }}
+                                                </td>
+                                                <td class="px-4 py-3 border-b border-gray-500 dark:border-gray-600">
+                                                    {{ $booking->message }}
+                                                </td>
+                                                <td class="px-4 py-3 border-b border-gray-500 dark:border-gray-600">
+                                                    @if ($booking->design)
+                                                        <img src="{{ asset('storage/' . $booking->design) }}"
+                                                            alt="Design Image" class="w-16 h-16 object-cover">
+                                                    @else
+                                                        No design
+                                                    @endif
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
                         <!-- Recent Activity Section -->
                         <div class="bg-white dark:bg-gray-700 p-6 rounded-lg shadow-md mb-8 mt-10">
                             <h2 class="text-xl font-semibold mb-4 dark:text-white">Recent Activity</h2>
@@ -218,7 +302,7 @@
                                         <div class="text-gray-500 dark:text-gray-400">
                                             <p class="font-medium dark:text-white">
                                                 {{ $activity->name ?? 'Unknown User' }}</p>
-                                            <p>Registered a new account</p> 
+                                            <p>Registered a new account</p>
                                         </div>
                                         <span
                                             class="text-sm text-gray-400">{{ $activity->created_at->diffForHumans() }}</span>

@@ -49,7 +49,17 @@ class AuthCheckOut extends Component
 
     public function placeOrder()
     {
-        // Validation for GCash payment
+        // Validate required fields
+        $this->validate([
+            'street' => 'required|string',
+            'paymentMethod' => 'required|in:cod,gcash',
+        ], [
+            'street.required' => 'Please select a street.',
+            'paymentMethod.required' => 'Please select a payment method.',
+            'paymentMethod.in' => 'Invalid payment method selected.',
+        ]);
+
+        // Validation for GCash 
         if ($this->paymentMethod === 'gcash') {
             if (empty($this->gcashNumber)) {
                 $this->addError('gcashNumber', 'GCash number is required for GCash payment.');
@@ -63,7 +73,7 @@ class AuthCheckOut extends Component
         }
 
         if (Auth::check()) {
-            // Save Order to the database
+            // Save order to display in administrator
             $order = Order::create([
                 'user_id' => Auth::id(),
                 'name' => $this->name,
@@ -78,7 +88,7 @@ class AuthCheckOut extends Component
                 'total_price' => $this->getTotalPrice(),
             ]);
 
-            // Create order details array to pass to the email
+            // Details to pass in email
             $orderDetails = [
                 'name' => $this->name,
                 'product_name' => $this->product->product_name,
