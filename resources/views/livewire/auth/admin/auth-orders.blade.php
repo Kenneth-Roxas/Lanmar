@@ -22,7 +22,8 @@
             border-collapse: collapse;
         }
 
-        th, td {
+        th,
+        td {
             padding: 1rem;
             text-align: left;
         }
@@ -95,7 +96,8 @@
                                         List</a>
                                 </li>
                                 <li>
-                                    <a href="{{ route('bookingList') }}" class="block py-2 px-4 hover:bg-slate-500">Book</a>
+                                    <a href="{{ route('bookingList') }}"
+                                        class="block py-2 px-4 hover:bg-slate-500">Book</a>
                                 </li>
                             </ul>
                         </li>
@@ -120,55 +122,124 @@
                 <div>
                     <h1 class="text-3xl text-center font-bold text-gray-800 dark:text-gray-900 mb-6">Orders List</h1>
                     <div class="overflow-x-auto rounded-lg shadow-lg">
-                        <table class="table-auto w-full border-collapse bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-100">
+                        <table
+                            class="table-auto w-full border-collapse bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-100">
                             <thead class="bg-gray-100 dark:bg-gray-700">
                                 <tr>
-                                    <th class="px-4 py-2 text-left font-semibold text-sm tracking-wide border-b border-gray-300 dark:border-gray-600">
+                                    <th
+                                        class="px-4 py-2 text-center font-semibold text-sm tracking-wide border-b border-gray-300 dark:border-gray-600">
                                         Order ID
                                     </th>
-                                    <th class="px-4 py-2 text-left font-semibold text-sm tracking-wide border-b border-gray-300 dark:border-gray-600">
+                                    <th
+                                        class="px-4 py-2 text-center font-semibold text-sm tracking-wide border-b border-gray-300 dark:border-gray-600">
                                         User
                                     </th>
-                                    <th class="px-4 py-2 text-left font-semibold text-sm tracking-wide border-b border-gray-300 dark:border-gray-600">
+                                    <th
+                                        class="px-4 py-2 text-center font-semibold text-sm tracking-wide border-b border-gray-300 dark:border-gray-600">
                                         Product
                                     </th>
-                                    <th class="px-4 py-2 text-left font-semibold text-sm tracking-wide border-b border-gray-300 dark:border-gray-600">
+                                    <th
+                                        class="px-4 py-2 text-center font-semibold text-sm tracking-wide border-b border-gray-300 dark:border-gray-600">
                                         Quantity
                                     </th>
-                                    <th class="px-4 py-2 text-left font-semibold text-sm tracking-wide border-b border-gray-300 dark:border-gray-600">
+                                    <th
+                                        class="px-4 py-2 text-center font-semibold text-sm tracking-wide border-b border-gray-300 dark:border-gray-600">
                                         Total Price
                                     </th>
-                                    <th class="px-4 py-2 text-left font-semibold text-sm tracking-wide border-b border-gray-300 dark:border-gray-600">
+                                    <th
+                                        class="px-4 py-2 text-center font-semibold text-sm tracking-wide border-b border-gray-300 dark:border-gray-600">
                                         Payment Method
                                     </th>
-                                    <th class="px-4 py-2 text-left font-semibold text-sm tracking-wide border-b border-gray-300 dark:border-gray-600">
+                                    <th
+                                        class="px-4 py-2 text-center font-semibold text-sm tracking-wide border-b border-gray-300 dark:border-gray-600">
+                                        Street
+                                    </th>
+                                    <th
+                                        class="px-4 py-2 text-center font-semibold text-sm tracking-wide border-b border-gray-300 dark:border-gray-600">
                                         Date
                                     </th>
-                                    <th class="px-4 py-2 text-left font-semibold text-sm tracking-wide border-b border-gray-300 dark:border-gray-600">
+                                    <th
+                                        class="px-4 py-2 text-center font-semibold text-sm tracking-wide border-b border-gray-300 dark:border-gray-600">
                                         Time
+                                    </th>
+                                    <th
+                                        class="px-4 py-2 text-center font-semibold text-sm tracking-wide border-b border-gray-300 dark:border-gray-600">
+                                        Status
                                     </th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($orders as $order)
-                                    <tr class="hover:bg-gray-500 dark:hover:bg-gray-700 transition duration-200 ease-in-out">
-                                        <td class="px-4 py-3 border-b border-gray-500 dark:border-gray-600">{{ $order->id }}</td>
-                                        <td class="px-4 py-3 border-b border-gray-300 dark:border-gray-600">
+                                    <tr
+                                        class="hover:bg-gray-500 dark:hover:bg-gray-700 transition duration-200 ease-in-out">
+                                        <td class="px-1 py-3 border-b text-center border-gray-500 dark:border-gray-600">
+                                            {{ $order->id }}</td>
+                                        <td class="px-1 py-3 border-b text-center border-gray-300 dark:border-gray-600">
                                             {{ $order->user->name ?? 'No User' }}
-                                        </td>                                        
-                                        <td class="px-4 py-3 border-b border-gray-500 dark:border-gray-600">{{ $order->product_name ?? 'No product' }}</td>
-                                        <td class="px-4 py-3 border-b border-gray-500 dark:border-gray-600">{{ $order->quantity ?? 0 }}</td>
-                                        <td class="px-4 py-3 border-b border-gray-500 dark:border-gray-600">{{ $order->total_price ?? '0.00' }}</td>
-                                        <td class="px-4 py-3 border-b border-gray-500 dark:border-gray-600">{{ $order->payment_method }}</td>
-                                        <td class="px-4 py-3 border-b border-gray-500 dark:border-gray-600">{{ $order->created_at->format('M j, Y') }}</td>
-                                        <td class="px-4 py-3 border-b border-gray500 dark:border-gray-600">{{ $order->created_at->format('g:i a') }}</td>
+                                        </td>
+                                        <td class="px-1 py-3 border-b text-center border-gray-500 dark:border-gray-600">
+                                            {{ $order->product_name ?? 'No product' }}</td>
+                                        <td class="px-1 py-3 border-b text-center border-gray-500 dark:border-gray-600">
+                                            {{ $order->quantity ?? 0 }}</td>
+                                        <td class="px-1 py-3 border-b text-center border-gray-500 dark:border-gray-600">
+                                            {{ $order->total_price ?? '0.00' }}</td>
+                                        <td class="px-1 py-3 border-b text-center border-gray-500 dark:border-gray-600">
+                                            {{ $order->payment_method }}</td>
+                                        <td class="px-1 py-3 border-b text-center border-gray-500 dark:border-gray-600">
+                                            {{ $order->street }}</td>
+                                        <td class="px-1 py-3 border-b text-center border-gray-500 dark:border-gray-600">
+                                            {{ $order->created_at->format('M j, Y') }}</td>
+                                        <td class="px-1 py-3 border-b text-center border-gray500 dark:border-gray-600">
+                                            {{ $order->created_at->format('g:i a') }}</td>
+                                        <td class="px-1 py-3 border-b text-center border-gray500 dark:border-gray-600">
+                                            <div>
+                                                <p>Current Status: <strong
+                                                        class="text-lg">{{ ucfirst($order->status ?? 'N/A') }}</strong>
+                                                </p>
+                                                <div class="space-y-2 mt-2">
+                                                    <button
+                                                        wire:click="updateStatus({{ $order->id }}, 'processing')"
+                                                        class="px-2 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none">
+                                                        Processing
+                                                    </button>
+                                                    <button wire:click="updateStatus({{ $order->id }}, 'preparing')"
+                                                        class="px-2 py-2 bg-yellow-500 text-white rounded hover:bg-yellow-600 focus:outline-none">
+                                                        Preparing
+                                                    </button>
+                                                    <button wire:click="updateStatus({{ $order->id }}, 'delivery')"
+                                                        class="px-2 py-2 bg-green-500 text-white rounded hover:bg-green-600 focus:outline-none">
+                                                        Delivery
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </td>
                                     </tr>
                                 @endforeach
-                            </tbody>                            
+                                @if (session()->has('message'))
+                                    <div class="relative mt-3 flex items-center justify-between p-4 rounded-lg bg-green-100 border-l-4 border-green-500 shadow-md"
+                                        role="alert">
+                                        <!-- Message Content -->
+                                        <div class="text-green-800 font-medium">
+                                            {{ session('message') }}
+                                        </div>
+
+                                        <!-- Close Button -->
+                                        <button type="button"
+                                            class="text-green-700 hover:text-green-900 focus:outline-none"
+                                            onclick="this.parentElement.remove();">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
+                                                viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M6 18L18 6M6 6l12 12" />
+                                            </svg>
+                                        </button>
+                                    </div>
+                                @endif
+                            </tbody>
                         </table>
                     </div>
                 </div>
-                
+
             </main>
         </div>
 

@@ -21,6 +21,7 @@ class Order extends Model
         'product_price',
         'quantity',
         'total_price',
+        'status',
     ];
 
     public function user()

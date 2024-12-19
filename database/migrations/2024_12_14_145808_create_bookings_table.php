@@ -18,7 +18,8 @@ class CreateBookingsTable extends Migration
             $table->date('date');
             $table->time('time');
             $table->text('message')->nullable();
-            $table->string('design')->nullable(); 
+            $table->string('design')->nullable();
+            $table->string('status')->default('processing');
             $table->timestamps();
             
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');

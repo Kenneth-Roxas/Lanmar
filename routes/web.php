@@ -1,5 +1,6 @@
 <?php
 
+use App\Livewire\Auth\Admin\AuthupdateProduct;
 use Illuminate\Support\Facades\Route;
 
 // Admin
@@ -51,3 +52,5 @@ Route::get('/Booking/{id}', AuthBooking::class)->name('booking');
 Route::post('/CartPage', [\App\Http\Controllers\CartController::class, 'store'])->name('addToCart');
 Route::get('/cart/checkout', AuthCartCheckout::class)->name('cart.checkout');
 Route::get('/checkout/{id}', AuthCheckOut::class)->name('checkout');
+
+Route::get('updateProduct/{id}', AuthupdateProduct::class)->name('updateProduct');

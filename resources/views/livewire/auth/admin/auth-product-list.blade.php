@@ -113,6 +113,7 @@
                                             <th class="py-3 px-6 text-center border border-slate-600"></th>
                                             <th class="py-3 px-6 text-left border border-slate-600"></th>
                                             <th class="py-3 px-6 text-left border border-slate-600"></th>
+                                            <th class="py-3 px-6 text-left border border-slate-600"></th>
                                         </tr>
 
                                     </thead>
@@ -132,6 +133,7 @@
                                                     <th class="py-3 px-6 text-left"></th>
                                                     <th class="py-3 px-6 text-left"></th>
                                                     <th class="py-3 px-6 text-left"></th>
+                                                    <th class="py-3 px-6 text-left"></th>
                                                 </tr>
 
                                                 @php
@@ -145,6 +147,7 @@
                                                     <td class="py-3 px-6 border text-center border-slate-600">Price</td>
                                                     <td class="py-3 px-6 border text-center border-slate-600">Product
                                                         Image</td>
+                                                    <td class="py-3 px-6 border border-slate-600"></td>
                                                     <td class="py-3 px-6 border border-slate-600"></td>
                                                 </tr>
 
@@ -166,6 +169,10 @@
                                                                     alt="Product Image" class="h-28 w-36 object-cover">
                                                             </td>
                                                             <td class="py-3 px-6 text-center border border-slate-600">
+                                                                <button wire:click="update({{ $product->id }})" class="text-green-800">Update</button>
+                                                            </td>
+                                                            <td class="py-3 px-6 text-center border border-slate-600">
+                                                                <button wire:click="delete({{ $product->id }})" class="text-red-500">Delete</button>
                                                             </td>
                                                         </tr>
                                                     @endif

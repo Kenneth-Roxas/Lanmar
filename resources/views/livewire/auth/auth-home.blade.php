@@ -50,7 +50,7 @@
 
                 <!-- User Profile -->
                 <button id="user-menu-button" aria-expanded="true" class="focus:outline-none">
-                    <img src="{{ url('Picture/default.jpg') }}" class="w-16 h-16 rounded-full"
+                    <img src="{{Auth::check() && Auth::user()->profile_picture ? asset('storage/' . Auth::user()->profile_picture) : url('Picture/default.jpg') }}" class="w-16 h-16 rounded-full"
                         alt="User Profile Picture">
                 </button>
 
@@ -60,7 +60,7 @@
                     <a href="{{ route('profile') }}"
                         class="w-full block px-4 py-2 hover:bg-gray-700 duration-150">Profile</a>
                     <button wire:click="logout"
-                        class="w-full block px-4 py-2 hover:bg-gray-700 duration-150">Logout</button>
+                        class=" block px-4 py-2 hover:bg-gray-700 duration-150">Logout</button>
                 </div>
             </div>
 

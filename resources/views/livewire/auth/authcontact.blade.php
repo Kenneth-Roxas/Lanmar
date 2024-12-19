@@ -31,7 +31,7 @@
             <div class="flex items-center space-x-4">
                 <!-- Add to Cart Icon -->
                 <a href="{{ route('cart') }}" class="text-white relative">
-                    <i class="fas fa-shopping-cart text-lg text-gray-950"></i>
+                    <i class="fas fa-shopping-cart text-lg text-gray-50"></i>
                     <span class="absolute -top-2 -right-3 bg-red-600 text-xs font-bold rounded-full px-1 text-gray-50">
                         {{ $cartCount }}
                     </span>
@@ -39,14 +39,14 @@
                 <!-- User Profile Dropdown -->
                 <div class="relative">
                     <button id="user-menu-button" class="focus:outline-none">
-                        <img src="{{ url('Picture/default.jpg') }}" alt="User Profile Picture"
+                        <img src="{{Auth::check() && Auth::user()->profile_picture ? asset('storage/' . Auth::user()->profile_picture) : url('Picture/default.jpg') }}" alt="User Profile Picture"
                             class="w-10 h-10 rounded-full">
                     </button>
                     <div id="dropdown"
                         class="hidden absolute mt-2 right-0 text-base bg-gray-600 text-gray-50 rounded-md shadow-lg w-28">
-                        <a href="{{ route('profile') }}" class="w-full block px-4 py-2 hover:bg-gray-700 duration-150">Profile</a>
-                        <a href="{{ route('login') }}" class="w-full block px-4 py-2 hover:bg-gray-700 duration-150">Log In</a>
-                        <button wire:click="logout" class="w-full block px-4 py-2 hover:bg-gray-700 duration-150">Logout</button>
+                        <a href="{{ route('profile') }}" class=" block px-4 py-2 hover:bg-gray-700 duration-150">Profile</a>
+                        <a href="{{ route('login') }}" class=" block px-4 py-2 hover:bg-gray-700 duration-150">Log In</a>
+                        <button wire:click="logout" class=" block px-4 py-2 hover:bg-gray-700 duration-150">Logout</button>
                     </div>
                 </div>
             </div>

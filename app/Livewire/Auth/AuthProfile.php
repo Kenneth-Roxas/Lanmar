@@ -8,9 +8,13 @@ use Illuminate\Support\Facades\Hash;
 use App\Models\Cart;
 use App\Models\Order;
 use App\Models\Booking;
+use Illuminate\Support\Facades\Storage;
+use Livewire\WithFileUploads;
 
 class AuthProfile extends Component
 {
+    use WithFileUploads;
+
     public $name, $email, $contact_number;
     public $updateName;
     public $updateEmail;
@@ -18,6 +22,8 @@ class AuthProfile extends Component
     public $newPassword;
     public $cartCount = 0;
     public $userCount;
+    public $profilePicture;
+
 
     public function mount()
     {
@@ -64,18 +70,56 @@ class AuthProfile extends Component
         }
     }
 
+    public function updateProfile()
+    {
+        $this->validate([
+            'updateName' => 'required|string|max:255',
+            'updateEmail' => 'required|email|unique:users,email,' . Auth::id(),
+            'updateContact' => 'nullable|string|max:15',
+            'newPassword' => 'nullable|min:8',
+            'profilePicture' => 'nullable|image|max:2048', // Validate the image file
+        ]);
+
+        $user = Auth::user();
+
+        $user->name = trim($this->updateName);
+        $user->email = trim($this->updateEmail);
+        $user->contact_number = trim($this->updateContact);
+
+        // Handle profile picture upload
+        if ($this->profilePicture) {
+            // Delete old profile picture if exists
+            if ($user->profile_picture) {
+                Storage::delete('public/' . $user->profile_picture);
+            }
+
+            // Store new profile picture
+            $path = $this->profilePicture->store('profile-pictures', 'public');
+            $user->profile_picture = $path;
+        }
+
+
+        if (!empty($this->newPassword)) {
+            $user->password = Hash::make($this->newPassword);
+        }
+
+        $user->save();
+
+        session()->flash('success', 'Your Account Has Been Updated!');
+    }
+
     public function render()
     {
         $this->name = Auth::check() ? Auth::user()->name : 'Guest';
         $this->email = Auth::check() ? Auth::user()->email : 'None';
         $this->contact_number = Auth::check() ? Auth::user()->contact_number : 'None';
 
-        // Fetch orders
+        // orders
         $orders = Order::where('user_id', Auth::id())
             ->latest()
             ->paginate(3);
 
-        // Fetch bookings
+        // bookings
         $bookings = Booking::where('user_id', Auth::id())
             ->latest()
             ->paginate(3);

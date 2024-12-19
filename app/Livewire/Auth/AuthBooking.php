@@ -78,8 +78,8 @@ class AuthBooking extends Component
         Mail::to($this->email)->send(new BookingMail($booking));
 
         $this->reset(['date', 'time', 'message', 'design']);
-        $this->message = 'Booking successful! A confirmation email has been sent.';
-        $this->messageType = 'success';
+        session()->flash('success', 'Booking successful! A order details has sent in email.');
+        session()->flash('error', 'Product not found or missing information.');
     }
 
 

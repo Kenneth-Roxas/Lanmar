@@ -20,6 +20,7 @@ class Booking extends Model
         'design',
         'product_name',
         'price',
+        'status',
     ];
     public function user()
     {

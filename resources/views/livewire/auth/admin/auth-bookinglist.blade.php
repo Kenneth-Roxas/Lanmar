@@ -98,7 +98,8 @@
                                         List</a>
                                 </li>
                                 <li>
-                                    <a href="{{ route('bookingList') }}" class="block py-2 px-4 hover:bg-slate-500">Book</a>
+                                    <a href="{{ route('bookingList') }}"
+                                        class="block py-2 px-4 hover:bg-slate-500">Book</a>
                                 </li>
                             </ul>
                         </li>
@@ -128,36 +129,40 @@
                             <thead class="bg-gray-100 dark:bg-gray-700">
                                 <tr>
                                     <th
-                                        class="px-4 py-2 text-left font-semibold text-sm tracking-wide border-b border-gray-300 dark:border-gray-600">
+                                        class="px-4 py-2 text-center font-semibold text-sm tracking-wide border-b border-gray-300 dark:border-gray-600">
                                         Order ID
                                     </th>
                                     <th
-                                        class="px-4 py-2 text-left font-semibold text-sm tracking-wide border-b border-gray-300 dark:border-gray-600">
+                                        class="px-4 py-2 text-center font-semibold text-sm tracking-wide border-b border-gray-300 dark:border-gray-600">
                                         User
                                     </th>
                                     <th
-                                        class="px-4 py-2 text-left font-semibold text-sm tracking-wide border-b border-gray-300 dark:border-gray-600">
+                                        class="px-4 py-2 text-center font-semibold text-sm tracking-wide border-b border-gray-300 dark:border-gray-600">
                                         Product
                                     </th>
                                     <th
-                                        class="px-4 py-2 text-left font-semibold text-sm tracking-wide border-b border-gray-300 dark:border-gray-600">
+                                        class="px-4 py-2 text-center font-semibold text-sm tracking-wide border-b border-gray-300 dark:border-gray-600">
                                         Price
                                     </th>
                                     <th
-                                        class="px-4 py-2 text-left font-semibold text-sm tracking-wide border-b border-gray-300 dark:border-gray-600">
+                                        class="px-4 py-2 text-center font-semibold text-sm tracking-wide border-b border-gray-300 dark:border-gray-600">
                                         Date Delivery
                                     </th>
                                     <th
-                                        class="px-4 py-2 text-left font-semibold text-sm tracking-wide border-b border-gray-300 dark:border-gray-600">
+                                        class="px-4 py-2 text-center font-semibold text-sm tracking-wide border-b border-gray-300 dark:border-gray-600">
                                         Time Delivery
                                     </th>
                                     <th
-                                        class="px-4 py-2 text-left font-semibold text-sm tracking-wide border-b border-gray-300 dark:border-gray-600">
+                                        class="px-4 py-2 text-center font-semibold text-sm tracking-wide border-b border-gray-300 dark:border-gray-600">
                                         Message
                                     </th>
                                     <th
-                                        class="px-4 py-2 text-left font-semibold text-sm tracking-wide border-b border-gray-300 dark:border-gray-600">
+                                        class="px-4 py-2 text-center font-semibold text-sm tracking-wide border-b border-gray-300 dark:border-gray-600">
                                         Design
+                                    </th>
+                                    <th
+                                        class="px-4 py-2 font-semibold text-sm text-center tracking-wide border-b border-gray-300 dark:border-gray-600">
+                                        Status
                                     </th>
                                 </tr>
                             </thead>
@@ -194,8 +199,44 @@
                                                 No design
                                             @endif
                                         </td>
+                                        <td class="px-4 py-3 border-b border-gray-500 dark:border-gray-600 text-center">
+                                            <div>
+                                                <p>Current Status: <strong
+                                                        class="text-lg">{{ ucfirst($booking->status ?? 'N/A') }}</strong>
+                                                </p>
+                                                <div class="space-y-2 mt-2">
+                                                    <button
+                                                        wire:click="updateStatus({{ $booking->id }}, 'processing')"
+                                                        class="px-3 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none">
+                                                        Processing
+                                                    </button>
+                                                    <button wire:click="updateStatus({{ $booking->id }}, 'preparing')"
+                                                        class="px-3 py-2 bg-yellow-500 text-white rounded hover:bg-yellow-600 focus:outline-none">
+                                                        Preparing
+                                                    </button>
+                                                    <button wire:click="updateStatus({{ $booking->id }}, 'delivery')"
+                                                        class="px-3 py-2 bg-green-500 text-white rounded hover:bg-green-600 focus:outline-none">
+                                                        Delivery
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </td>
                                     </tr>
                                 @endforeach
+
+                                @if (session()->has('message'))
+                                    <div class="mt-3 text-green-600 font-semibold">
+                                        {{ session('message') }}
+                                    </div>
+                                @endif
+
+
+                                @if (session()->has('message'))
+                                    <div class="mt-3 alert alert-success">
+                                        {{ session('message') }}
+                                    </div>
+                                @endif
+
                             </tbody>
                         </table>
                     </div>

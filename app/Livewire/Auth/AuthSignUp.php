@@ -31,7 +31,6 @@ class AuthSignUp extends Component
     public function register()
     {
         $validatedData = $this->validate();
-
         // New User
         $user = User::create([
             'name' => $validatedData['name'],
@@ -44,6 +43,7 @@ class AuthSignUp extends Component
 
         session()->flash('message', 'Registration successful!');
         return redirect()->route('login');
+        
     }
 
     public function render()

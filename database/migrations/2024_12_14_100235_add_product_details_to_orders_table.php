@@ -11,12 +11,21 @@ return new class extends Migration {
     public function up()
     {
         Schema::table('orders', function (Blueprint $table) {
-            $table->string('product_name')->after('gcash_number');
-            $table->decimal('product_price', 10, 2)->after('product_name');
-            $table->integer('quantity')->after('product_price');
-            $table->decimal('total_price', 10, 2)->after('quantity');
+            if (!Schema::hasColumn('orders', 'product_name')) {
+                $table->string('product_name')->after('gcash_number');
+            }
+            if (!Schema::hasColumn('orders', 'product_price')) {
+                $table->decimal('product_price', 10, 2)->after('product_name');
+            }
+            if (!Schema::hasColumn('orders', 'quantity')) {
+                $table->integer('quantity')->after('product_price');
+            }
+            if (!Schema::hasColumn('orders', 'total_price')) {
+                $table->decimal('total_price', 10, 2)->after('quantity');
+            }
         });
     }
+
 
     public function down()
     {

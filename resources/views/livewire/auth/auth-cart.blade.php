@@ -25,7 +25,7 @@
         <div class="flex items-center space-x-4">
             <!-- Add to Cart Icon -->
             <a href="{{ route('cart') }}" class="text-white relative">
-                <i class="fas fa-shopping-cart text-lg text-gray-950"></i>
+                <i class="fas fa-shopping-cart text-lg text-gray-50"></i>
                 <span class="absolute -top-2 -right-3 bg-red-600 text-xs font-bold rounded-full px-1 text-gray-50">
                     {{ $cartCount }}
                 </span>
@@ -33,7 +33,7 @@
             <!-- User Profile Dropdown -->
             <div class="relative">
                 <button id="user-menu-button" class="focus:outline-none">
-                    <img src="{{ url('Picture/default.jpg') }}" alt="User Profile Picture"
+                    <img src="{{ Auth::check() && Auth::user()->profile_picture ? asset('storage/' . Auth::user()->profile_picture) : url('Picture/default.jpg') }}" alt="User Profile Picture"
                         class="w-10 h-10 rounded-full">
                 </button>
                 <div id="dropdown"

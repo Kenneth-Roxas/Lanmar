@@ -40,7 +40,7 @@
                 <!-- User Profile Dropdown -->
                 <div class="relative">
                     <button id="user-menu-button" class="focus:outline-none">
-                        <img src="{{ url('Picture/default.jpg') }}" alt="User Profile Picture"
+                        <img src="{{ Auth::check() && Auth::user()->profile_picture ? asset('storage/' . Auth::user()->profile_picture) : url('Picture/default.jpg') }}" alt="User Profile Picture"
                             class="w-10 h-10 rounded-full">
                     </button>
                     <div id="dropdown"
