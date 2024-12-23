@@ -18,7 +18,7 @@ class Authproduct extends Component
 
     public function mount()
     {
-        $this->products = Product::where('is_active', '1')->get();
+        $this->products = Product::where('status', 1)->get();
         $this->categories = Product::all();
         $this->pricing = Product::all();
         $this->product_image = Product::all();
@@ -115,8 +115,6 @@ class Authproduct extends Component
             $this->messageType = 'error';
         }
     }
-
-
     public function render()
     {
         return view('livewire.auth.authproduct', [

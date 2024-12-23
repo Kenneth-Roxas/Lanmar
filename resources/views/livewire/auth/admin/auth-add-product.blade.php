@@ -76,7 +76,8 @@
                                         List</a>
                                 </li>
                                 <li>
-                                    <a href="{{ route('bookingList') }}" class="block py-2 px-4 hover:bg-slate-500">Book</a>
+                                    <a href="{{ route('bookingList') }}"
+                                        class="block py-2 px-4 hover:bg-slate-500">Book</a>
                                 </li>
                             </ul>
                         </li>
@@ -103,6 +104,12 @@
 
                         <form wire:submit.prevent="add_category" enctype="multipart/form-data">
                             @csrf
+
+                            @if (session()->has('success'))
+                                <div class="mt-4 text-green-500">
+                                    {{ session('success') }}
+                                </div>
+                            @endif
                             <div class="mt-4">
                                 <label for="productCategory" class="block text-sm text-gray-600 dark:text-gray-400">
                                     Product Category
@@ -143,12 +150,24 @@
                                 @enderror
                             </div>
 
+                            
                             <div class="mt-4">
                                 <label for="productImage" class="block text-sm text-gray-600 dark:text-gray-400">Product
                                     Image</label>
                                 <input type="file" id="productImage"
                                     class="w-full mt-2 p-3 border border-gray-300 rounded-lg dark:bg-gray-700 dark:text-white"
                                     accept="image/*" wire:model="image_product">
+                            </div>
+
+                            <div class="mt-4">
+                                <label for="productName" class="block text-sm text-gray-600 dark:text-gray-400">Product
+                                    Description</label>
+                                <input type="text" id="productName"
+                                    class="w-full mt-2 p-3 border border-gray-300 rounded-lg dark:bg-gray-700 dark:text-white"
+                                    placeholder="Enter Product Description" wire:model="product_description" required>
+                                @error('product_table')
+                                    <span class="text-red-500 text-sm">{{ $message }}</span>
+                                @enderror
                             </div>
 
                             <div class="flex justify-end mt-6">
@@ -169,7 +188,7 @@
                 const productMenu = document.getElementById('productMenu');
 
                 productButton.addEventListener('click', function() {
-                    productMenu.classList.toggle('hidden'); 
+                    productMenu.classList.toggle('hidden');
                 });
             });
         </script>

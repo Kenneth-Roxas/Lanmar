@@ -15,6 +15,7 @@ class AuthupdateProduct extends Component
     public $productName;
     public $price;
     public $imageProduct;
+    public $productDescription;
 
     public function mount($id)
     {
@@ -26,6 +27,7 @@ class AuthupdateProduct extends Component
             $this->productName = $product->product_name;
             $this->price = $product->price;
             $this->imageProduct = $product->image_product;
+            $this->productDescription = $product->description;
         } else {
             session()->flash('error', 'Product not found.');
         }
@@ -55,6 +57,7 @@ class AuthupdateProduct extends Component
                 'product_name' => $this->productName,
                 'price' => $this->price,
                 'image_product' => $imagePath,
+                'description' => $this->productDescription,
             ]);
 
             session()->flash('message', 'Product updated successfully.');

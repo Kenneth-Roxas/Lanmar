@@ -131,7 +131,7 @@
                             <h3 class="text-2xl font-bold dark:text-white">{{ $bookingCount }}</h3>
                         </div>
                     </div>
-                    <!-- Revenue -->
+                    <!-- Product Number -->
                     <div class="bg-white dark:bg-gray-700 p-6 rounded-lg shadow-md flex items-center">
                         <div class="text-red-500 bg-red-100 dark:bg-red-500 p-4 rounded-full">
                             <i class="fas fa-dollar-sign text-2xl"></i>
@@ -139,6 +139,17 @@
                         <div class="ml-4">
                             <p class="text-gray-500 dark:text-gray-400">Number of Products</p>
                             <h3 class="text-2xl font-bold dark:text-white">{{ $productCount }}</h3>
+                        </div>
+                    </div>
+
+                    <!-- Shop Rate -->
+                    <div class="bg-white dark:bg-gray-700 p-6 rounded-lg shadow-md flex items-center">
+                        <div class="text-slate-500 bg-red-100 dark:bg-slate-800 p-4 rounded-full">
+                            <i class="fas fa-dollar-sign text-2xl"></i>
+                        </div>
+                        <div class="ml-4">
+                            <p class="text-gray-500 dark:text-gray-400">Shop Ratings</p>
+                            <h3 class="text-2xl font-bold dark:text-white">{{ $ratings ? number_format($ratings) : 'No ratings yet' }}</h3>
                         </div>
                     </div>
                 </div>
@@ -293,6 +304,61 @@
                             </div>
                         </div>
 
+
+                        {{-- User Feedback --}}
+                        <div>
+                            <h1 class="text-3xl text-center font-bold text-gray-800 dark:text-gray-50 mt-5 mb-6">Booking List</h1>
+                            <div class="overflow-x-auto rounded-lg shadow-lg">
+                                <table
+                                    class="table-auto w-full border-collapse bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-100">
+                                    <thead class="bg-gray-100 dark:bg-gray-700">
+                                        <tr>
+                                            <th
+                                                class="px-4 py-2 text-center font-semibold text-sm tracking-wide border-b border-gray-300 dark:border-gray-600">
+                                                Name
+                                            </th>
+                                            <th
+                                                class="px-4 py-2 text-center font-semibold text-sm tracking-wide border-b border-gray-300 dark:border-gray-600">
+                                                Review
+                                            </th>
+                                            <th
+                                                class="px-4 py-2 text-center font-semibold text-sm tracking-wide border-b border-gray-300 dark:border-gray-600">
+                                                Rate
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($feedbacks as $rating)
+                                            <tr
+                                                class="hover:bg-gray-500 dark:hover:bg-gray-700 transition duration-200 ease-in-out">
+                                                <td
+                                                class="px-4 py-2 text-center font-semibold text-sm tracking-wide border-b border-gray-300 dark:border-gray-600">
+                                                {{ $rating->name }}
+                                            </td>
+                                            <td
+                                                class="px-4 py-2 text-center font-semibold text-sm tracking-wide border-b border-gray-300 dark:border-gray-600">
+                                                {{ $rating->feedback }}
+                                            </td>
+                                            <td
+                                                class="px-4 py-2 text-center font-semibold text-sm tracking-wide border-b border-gray-300 dark:border-gray-600">
+                                                {{ $rating->rating }}
+                                            </td>
+                                                {{-- <td class="px-4 py-3 border-b border-gray-500 dark:border-gray-600">
+                                                    {{ $rating->name }}
+                                                </td>
+                                                <td class="px-4 py-3 border-b border-gray-500 dark:border-gray-600">
+                                                    {{ $rating->feedback }}
+                                                </td>
+                                                <td class="px-4 py-3 border-b border-gray-500 dark:border-gray-600">
+                                                    {{ $rating->rating }}
+                                                </td> --}}
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
                         <!-- Recent Activity Section -->
                         <div class="bg-white dark:bg-gray-700 p-6 rounded-lg shadow-md mb-8 mt-10">
                             <h2 class="text-xl font-semibold mb-4 dark:text-white">Recent Activity</h2>
@@ -313,21 +379,6 @@
                                     </li>
                                 @endforelse
                             </ul>
-                        </div>
-
-
-                        <!-- Additional Content Section -->
-                        <div class="bg-white dark:bg-gray-700 p-6 rounded-lg shadow-md">
-                            <h2 class="text-xl font-semibold mb-4 dark:text-white">Additional Insights</h2>
-                            <p class="text-gray-500 dark:text-gray-400">
-                                Use this space to display any other important information, charts, or actions specific
-                                to your
-                                admin panel.
-                            </p>
-                            <button
-                                class="mt-4 px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition duration-300">
-                                View More
-                            </button>
                         </div>
             </main>
 

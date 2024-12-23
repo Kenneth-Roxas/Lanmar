@@ -114,7 +114,7 @@ class AuthCartCheckout extends Component
         Cart::where('user_id', $userId)->delete();
 
         session()->flash('success', 'Your order has been placed successfully! A confirmation email has been sent.');
-        return redirect()->route('home');
+        return redirect()->route('cart');
     }
 
     public function render()

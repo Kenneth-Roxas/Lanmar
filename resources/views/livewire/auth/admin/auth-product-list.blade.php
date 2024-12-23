@@ -10,17 +10,17 @@
             height: 100%;
             z-index: 1000;
             overflow-y: auto;
-            width: 16rem; 
+            width: 16rem;
         }
-      
-        main {
-            margin-left: 16rem; 
-            width: calc(100% - 16rem); 
-        }
-      </style>
-      
 
-      <body class="bg-gray-50 font-sans text-gray-900 dark:bg-gray-900 dark:text-white transition-all">
+        main {
+            margin-left: 16rem;
+            width: calc(100% - 16rem);
+        }
+    </style>
+
+
+    <body class="bg-gray-50 font-sans text-gray-900 dark:bg-gray-900 dark:text-white transition-all">
         <div class="flex min-h-screen">
             <!-- Sidebar -->
             <aside class="w-64 bg-slate-700 text-white flex flex-col shadow-lg transition-all duration-300 ease-in-out"
@@ -78,7 +78,8 @@
                                         List</a>
                                 </li>
                                 <li>
-                                    <a href="{{ route('bookingList') }}" class="block py-2 px-4 hover:bg-slate-500">Book</a>
+                                    <a href="{{ route('bookingList') }}"
+                                        class="block py-2 px-4 hover:bg-slate-500">Book</a>
                                 </li>
                             </ul>
                         </li>
@@ -107,10 +108,11 @@
                                 <table class="w-full table-auto border">
                                     <thead>
                                         <tr class="bg-gray-700 text-gray-50 text-sm leading-normal ">
-                                            <th class="py-3 px-3 text-left text-xl border border-slate-600">Products
+                                            <th class="py-3 px-3 text-left text-xl border border-slate-600">
                                             </th>
                                             <th class="py-3 px-6 text-left border border-slate-600"></th>
-                                            <th class="py-3 px-6 text-center border border-slate-600"></th>
+                                            <th class="py-3 px-6 text-left border border-slate-600"></th>
+                                            <th class="py-3 px-6 text-center text-3xl border border-slate-600">PRODUCTS</th>
                                             <th class="py-3 px-6 text-left border border-slate-600"></th>
                                             <th class="py-3 px-6 text-left border border-slate-600"></th>
                                             <th class="py-3 px-6 text-left border border-slate-600"></th>
@@ -126,14 +128,16 @@
                                         @foreach ($categories as $category)
                                             @if (!in_array($category->category_name, $displayedCategories))
                                                 <tr class="bg-gray-500 hover:bg-gray-500">
-                                                    <th class="py-3 px-3 text-center font-bold">
+                                                    <th class="py-3 px-3 text-center text-2xl">
                                                         {{ $category->category_name }}
                                                     </th>
                                                     <th class="py-3 px-6 text-"></th>
                                                     <th class="py-3 px-6 text-left"></th>
+                                                    <th class="py-3 px-6 "></th>
                                                     <th class="py-3 px-6 text-left"></th>
                                                     <th class="py-3 px-6 text-left"></th>
-                                                    <th class="py-3 px-6 text-left"></th>
+                                                    <th class="py-3 px-6 text-left">
+                                                    </th>
                                                 </tr>
 
                                                 @php
@@ -142,11 +146,14 @@
 
                                                 <tr
                                                     class="bg-gray-400 border-b border-gray-400 text-gray-900 text-base font-semibold">
-                                                    <td class="py-3 px-6 text-center border border-slate-600"></td>
+                                                    
                                                     <td class="py-3 px-6 text-center border border-slate-600">Name</td>
                                                     <td class="py-3 px-6 border text-center border-slate-600">Price</td>
                                                     <td class="py-3 px-6 border text-center border-slate-600">Product
                                                         Image</td>
+                                                    <td class="py-3 px-6 border text-center border-slate-600">Product
+                                                        Description</td>
+                                                    <td class="py-3 px-6 border border-slate-600"></td>
                                                     <td class="py-3 px-6 border border-slate-600"></td>
                                                     <td class="py-3 px-6 border border-slate-600"></td>
                                                 </tr>
@@ -155,8 +162,7 @@
                                                     @if ($product->category_name == $category->category_name)
                                                         <tr
                                                             class="bg-gray-400 border-b border-gray-400 text-gray-900 text-base font-bold">
-                                                            <td class="py-3 px-6 text-center border border-slate-600">
-                                                            </td>
+                                                            
                                                             <td class="py-3 px-6 text-center border border-slate-600">
                                                                 {{ $product->product_name }}
                                                             </td>
@@ -164,12 +170,28 @@
                                                                 {{ $product->price }}
                                                             </td>
                                                             <td
-                                                                class="flex justify-center items-center py-3 px-6 border-b border-slate-600">
+                                                                class="flex justify-center items-center py-3 px-6 border border-slate-600">
                                                                 <img src="{{ asset('storage/' . $product->image_product) }}"
-                                                                    alt="Product Image" class="h-28 w-36 object-cover">
+                                                                    alt="Product Image" class="h-32 w-full object-cover">
+                                                            </td>
+                                                            <td
+                                                                class="py-3 px-6 text-center font-light border border-slate-600">
+                                                                {{ $product->description }}
                                                             </td>
                                                             <td class="py-3 px-6 text-center border border-slate-600">
-                                                                <button wire:click="update({{ $product->id }})" class="text-green-800">Update</button>
+                                                                <button wire:click="update({{ $product->id }})"
+                                                                    class="text-green-800">Update</button>
+                                                            </td>
+                                                            <td class="py-3 px-6 text-center border border-slate-600">
+                                                                @if ($product->status)
+                                                                    <button
+                                                                        wire:click="toggleStatus({{ $product->id }})"
+                                                                        class="text-red-700">Disable</button>
+                                                                @else
+                                                                    <button
+                                                                        wire:click="toggleStatus({{ $product->id }})"
+                                                                        class="text-green-900">Enable</button>
+                                                                @endif
                                                             </td>
                                                             <td class="py-3 px-6 text-center border border-slate-600">
                                                                 <button wire:click="delete({{ $product->id }})" class="text-red-500">Delete</button>
@@ -197,7 +219,7 @@
                 const productMenu = document.getElementById('productMenu');
 
                 productButton.addEventListener('click', function() {
-                    productMenu.classList.toggle('hidden'); 
+                    productMenu.classList.toggle('hidden');
                 });
             });
         </script>

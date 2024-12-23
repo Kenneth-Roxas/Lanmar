@@ -218,6 +218,10 @@
                                                         class="px-3 py-2 bg-green-500 text-white rounded hover:bg-green-600 focus:outline-none">
                                                         Delivery
                                                     </button>
+                                                    <button wire:click="markAsDone({{ $booking->id }})"
+                                                        class="px-2 py-2 bg-gray-500 text-white rounded hover:bg-gray-600 focus:outline-none">
+                                                        Done
+                                                    </button>
                                                 </div>
                                             </div>
                                         </td>
@@ -225,14 +229,7 @@
                                 @endforeach
 
                                 @if (session()->has('message'))
-                                    <div class="mt-3 text-green-600 font-semibold">
-                                        {{ session('message') }}
-                                    </div>
-                                @endif
-
-
-                                @if (session()->has('message'))
-                                    <div class="mt-3 alert alert-success">
+                                    <div class="mt-3 text-green-900 font-bold">
                                         {{ session('message') }}
                                     </div>
                                 @endif

@@ -50,8 +50,8 @@
 
                 <!-- User Profile -->
                 <button id="user-menu-button" aria-expanded="true" class="focus:outline-none">
-                    <img src="{{Auth::check() && Auth::user()->profile_picture ? asset('storage/' . Auth::user()->profile_picture) : url('Picture/default.jpg') }}" class="w-16 h-16 rounded-full"
-                        alt="User Profile Picture">
+                    <img src="{{ Auth::check() && Auth::user()->profile_picture ? asset('storage/' . Auth::user()->profile_picture) : url('Picture/default.jpg') }}"
+                        class="w-16 h-16 rounded-full" alt="User Profile Picture">
                 </button>
 
                 <!-- Dropdown Menu -->
@@ -59,7 +59,7 @@
                     class="hidden absolute mt-2 right-0 text-base bg-gray-600 text-gray-50 rounded-md shadow-lg w-28">
                     <a href="{{ route('profile') }}"
                         class="w-full block px-4 py-2 hover:bg-gray-700 duration-150">Profile</a>
-                    <button wire:click="logout"
+                    <button type="button" wire:click="logout"
                         class=" block px-4 py-2 hover:bg-gray-700 duration-150">Logout</button>
                 </div>
             </div>
@@ -73,8 +73,8 @@
                     <h2>Lan-Mar
                         Bake Shoppe</h2>
                     <div class="home-btn">
-                        <p class="mt-3">Our goal is to build a long-term relationship with our customers based on <br>
-                            trust, reliability, and mutual success.</p>
+                        <p class="mt-2">Open at Monday to Saturday <br>
+                            6:00 a.m to 6:00 p.m</p>
                     </div>
                 </div>
             </div>
@@ -86,7 +86,7 @@
             <div class="absolute inset-0 bg-gradient-to-t from-gray-600 to-transparent z-10"></div>
             <h2 class="text-4xl md:text-5xl font-bold text-white text-shadow mb-10 z-20 relative">Best-Seller Product
             </h2>
-            <div class="flex flex-wrap justify-center items-center mt-2 relative z-30">
+            <div class="flex flex-wrap justify-center items-center relative z-30">
                 @foreach ($products as $product)
                     @if ($product->category_name === 'Feature')
                         <div
@@ -96,21 +96,21 @@
                                     src="{{ asset('storage/' . $product->image_product) }}"
                                     alt="{{ $product->product_name }}">
                             </div>
-                            <div class="flex flex-col -mt-2">
+                            <div class="flex flex-col -mt-1">
                                 <div
                                     class="mt-1 px-4 py-4 font-bold bg-white/20 border border-white/30 backdrop-blur-sm rounded-md shadow-md">
                                     <input type="hidden" value="{{ $product->id }}">
-                                    <h3 class="text-xl font-poppins text-gray-800">{{ $product->product_name }}</h3>
-                                    <p class="text-lg text-gray-700">₱{{ $product->price }}</p>
+                                    <h3 class="text-2xl font-poppins text-gray-800">{{ $product->product_name }}</h3>
+                                    <p class="text-xl text-gray-700">₱{{ $product->price }}</p>
 
                                     <a href="{{ route('checkout', ['id' => $product->id]) }}">
                                         <button
-                                            class="buy-now-button mt-3 px-6 py-3 bg-blue-600 text-white text-md rounded hover:bg-blue-700 transition">
+                                            class="buy-now-button mt-3 px-6 py-3 bg-blue-600 text-white text-xl rounded hover:bg-blue-700 transition">
                                             Buy Now
                                         </button>
                                     </a>
                                     <button type="button" wire:click="addToCart({{ $product->id }})"
-                                        class="buy-now-button mt-3 px-6 py-3 bg-blue-600 text-white text-md rounded hover:bg-blue-700 transition">
+                                        class="buy-now-button mt-3 px-6 py-3 bg-green-600 text-white text-xl rounded hover:bg-green-700 transition">
                                         Add To Cart
                                     </button>
                                 </div>
@@ -197,97 +197,37 @@
             </div>
         </section>
 
-        {{-- Review Section --}}
-        <div class="bg-gray-400 py-24 -mt-10 sm:py-32 mb-0 top-80">
-            <div class="mx-auto max-w-full px-7 lg:px-8 -mt-10 ">
-                <div class="mx-auto max-w-full lg:mx-0 ">
-                    <h2
-                        class="text-pretty text-6xl font-semibold tracking-tight text-gray-900 sm:text-7xl text-center">
-                        Reviews</h2>
-                    <p class="mt-4 text-lg/9 text-gray-800 text-center sm:text-4xl">Costumers feedback in our product
-                        and services</p>
+        <!-- Review Section -->
+        <div class="bg-gray-400 py-16 sm:py-24">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <!-- Section Header -->
+                <div class="text-center mb-12">
+                    <h2 class="text-5xl sm:text-7xl font-bold tracking-tight text-gray-900">Reviews</h2>
+                    <p class="mt-4 text-2xl text-gray-700">Customer feedback on our products and services</p>
                 </div>
-                <div
-                    class="mx-auto mt-7 grid max-w-2xl max-h-full grid-cols-1 gap-x-8 gap-y-16 border-t-4 border-gray-700 pt-10 sm:mt-16 sm:pt-16 lg:mx-0 lg:max-w-none lg:grid-cols-3">
-                    <article class="flex flex-col items-start justify-between max-w-xl max-h-60 mt-9">
-                        <div class="flex items-center gap-x-8 text-xs">
-                            <time datetime="2024-08-06" class="text-gray-700 text-2xl">August 6, 2024</time>
-                            <a href="#"
-                                class="relative z-10 rounded-full bg-gray-400 px-3 py-1.5 font-medium text-gray-900 hover:bg-gray-500 text-2xl">Costumer</a>
-                        </div>
-                        <div class="group relative">
-                            <p class="mt-5 line-clamp-3 text-2xl text-gray-900">The cake from LanMar was a delightful
-                                indulgence, perfectly balanced between rich flavors and a light, fluffy texture that
-                                melted in each bite.</p>
-                        </div>
-                        <div class="relative mt-8 flex items-center gap-x-4">
-                            <img src="{{ url('Picture/gojo.jpg') }}" alt=""
-                                class="h-16 w-16 rounded-full bg-gray-500">
-                            <div class="text-xl">
-                                <p class="font-semibold text-gray-900">
-                                    <a href="#">
-                                        <span class="absolute inset-0 text-xl"></span>
-                                        1/2 Gojo Saturu
-                                    </a>
-                                </p>
-                                <p class="text-gray-600 text-xl">Strongest Sorcerer</p>
+
+                <!-- Feedback Grid -->
+                <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+                    @foreach ($feedbacks as $feedback)
+                        <div class="bg-white shadow-md rounded-lg p-6 flex flex-col h-full">
+                            <!-- Feedback Content -->
+                            <p class="text-gray-800 text-2xl mb-4 line-clamp-3">{{ $feedback->feedback }}</p>
+
+                            <!-- Customer Info -->
+                            <div class="flex items-center mt-auto">
+                                <img src="{{ url('Picture/default.jpg') }}" alt="Customer image"
+                                    class="h-16 w-16 rounded-full bg-gray-300">
+                                <div class="ml-4">
+                                    <h3 class="text-2xl text-gray-900 font-semibold">{{ $feedback->name }}</h3>
+                                    <p class="text-xl text-gray-600">{{$feedback->email}}</p>
+                                </div>
                             </div>
                         </div>
-                    </article>
-                    <article class="flex flex-col items-start justify-between max-w-xl max-h-48 mt-7">
-                        <div class="flex items-center gap-x-8 text-xs">
-                            <time datetime="2024-08-06" class="text-gray-700 text-2xl">November 4, 2024</time>
-                            <a href="#"
-                                class="relative z-10 rounded-full bg-gray-400 px-3 py-1.5 font-medium text-gray-900 hover:bg-gray-500 text-2xl">Costumer</a>
-                        </div>
-                        <div class="group relative">
-                            <p class="mt-5 line-clamp-3 text-2xl text-gray-900">The service at LanMar was exceptional,
-                                with staff who were both friendly and attentive, making sure every detail was just
-                                right.</p>
-                        </div>
-                        <div class="relative mt-8 flex items-center gap-x-4">
-                            <img src="{{ url('Picture/kenneth.jpg') }}" alt=""
-                                class="h-16 w-16 rounded-full bg-gray-500">
-                            <div class="text-xl">
-                                <p class="font-semibold text-gray-900">
-                                    <a href="#">
-                                        <span class="absolute inset-0"></span>
-                                        Kenneth T. Roxas
-                                    </a>
-                                </p>
-                                <p class="text-gray-600">3rd yr/ComSci</p>
-                            </div>
-                        </div>
-                    </article>
-                    <article class="flex flex-col items-start justify-between max-w-xl max-h-48 mt-7">
-                        <div class="flex items-center gap-x-8 text-xs">
-                            <time datetime="2024-08-06" class="text-gray-700 text-2xl">November 1, 2024</time>
-                            <a href="#"
-                                class="relative z-10 rounded-full bg-gray-400 px-3 py-1.5 font-medium text-gray-900 hover:bg-gray-500 text-2xl">Costumer</a>
-                        </div>
-                        <div class="group relative">
-                            <p class="mt-5 line-clamp-3 text-2xl text-gray-900">LanMar's bread had an incredibly soft
-                                interior with a crispy golden crust, offering the perfect blend of texture and warmth in
-                                every slice</p>
-                        </div>
-                        <div class="relative mt-8 flex items-center gap-x-4">
-                            <img src="{{ url('Picture/okarun.jpg') }}" alt=""
-                                class="h-16 w-16 rounded-full bg-gray-500">
-                            <div class="text-xl">
-                                <p class="font-semibold text-gray-900">
-                                    <a href="#">
-                                        <span class="absolute inset-0"></span>
-                                        Ken Takakura
-                                    </a>
-                                </p>
-                                <p class="text-gray-600">Occult</p>
-                            </div>
-                        </div>
-                    </article>
-                    <!-- More posts... -->
+                    @endforeach
                 </div>
             </div>
         </div>
+
 
         <!-- Footer -->
 

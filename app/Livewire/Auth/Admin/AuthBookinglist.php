@@ -25,6 +25,19 @@ class AuthBookinglist extends Component
         $this->bookings = Booking::with('user')->latest()->get();
     }
 
+    public function markAsDone($bookingId)
+    {
+        // update
+        $booking = Booking::findOrFail($bookingId);
+        $booking->update(['status' => 'done']);
+
+        // remove
+        $this->bookings = $this->bookings->filter(fn($booking) => $booking->id !== $bookingId);
+
+        // Flash a message indicating success
+        session()->flash('message', "booking #{$bookingId} marked as done.");
+    }
+
     public function render()
     {
         return view('livewire.auth.admin.auth-bookinglist', [

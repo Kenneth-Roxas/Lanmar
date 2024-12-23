@@ -15,6 +15,7 @@ return new class extends Migration {
             $table->string('category_name')->nullable();
             $table->string('product_name')->nullable();
             $table->decimal('price', 8, 2)->default(0.00);
+            $table->string('description')->nullable();
             $table->string('image_product')->nullable();
             $table->timestamps();
         });

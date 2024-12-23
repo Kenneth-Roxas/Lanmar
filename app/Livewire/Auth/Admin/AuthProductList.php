@@ -11,36 +11,38 @@ class AuthProductList extends Component
     public $products;
 
     public $pricing;
-
     public $product_image;
+    public $productdDescription;
 
     public function mount()
     {
-        // Fetch
+        $this->products = Product::where('status', 1)->get();
+        // Fetch all products
         $this->products = Product::all();
         $this->categories = $this->products;
         $this->pricing = $this->products;
         $this->product_image = $this->products;
-
+        $this->productdDescription = $this->products;
     }
 
-    public function delete($id)
+    public function toggleStatus($id)
     {
-        $deleteProducts = Product::find($id);
-        if ($deleteProducts) {
-            $deleteProducts->delete();
+        $product = Product::find($id);
+        if ($product) {
+            $product->status = !$product->status; // Toggle between 1 and 0
+            $product->save();
+            session()->flash('success', 'Product status updated successfully.');
         } else {
-            session()->flash('error', 'Product not Found');
+            session()->flash('error', 'Product not found.');
         }
 
-        $this->products = Product::all();
+        $this->products = Product::all(); // Refresh the product list
     }
-
     public function update($id)
     {
         return redirect()->route('updateProduct', ['id' => $id]);
     }
-    
+
     public function render()
     {
         return view('livewire.auth.admin.auth-product-list', [
@@ -48,6 +50,7 @@ class AuthProductList extends Component
             'products' => $this->products,
             'pricing' => $this->pricing,
             'product_image' => $this->product_image,
+            'productdDescription' => $this->productdDescription,
         ]);
     }
 }

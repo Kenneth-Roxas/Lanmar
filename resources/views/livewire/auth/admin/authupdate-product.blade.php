@@ -128,6 +128,13 @@
                                     accept="image/*" wire:model="imageProduct">
                             </div>
 
+                            <div class="mt-4">
+                                <label for="productName" class="block text-sm text-gray-600 dark:text-gray-400">Product
+                                    Description</label>
+                                    <textarea wire:model="productDescription" id="message" rows="4" placeholder="Your Message Here..." required
+                                    class="bg-transparent border-b-2 border-t-2 border-gray-400 text-white w-full placeholder-gray-400 focus:outline-none focus:border-yellow-400 transition-all"></textarea>
+                            </div>
+
                             <div class="flex justify-end mt-6">
                                 <button type="button" class="bg-blue-600 text-white py-2 px-4 rounded-lg"
                                     id="closeModal">Close</button>

@@ -210,6 +210,10 @@
                                                         class="px-2 py-2 bg-green-500 text-white rounded hover:bg-green-600 focus:outline-none">
                                                         Delivery
                                                     </button>
+                                                    <button wire:click="markAsDone({{ $order->id }})"
+                                                        class="px-2 py-2 bg-gray-500 text-white rounded hover:bg-gray-600 focus:outline-none">
+                                                        Done
+                                                    </button>
                                                 </div>
                                             </div>
                                         </td>

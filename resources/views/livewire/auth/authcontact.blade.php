@@ -39,14 +39,17 @@
                 <!-- User Profile Dropdown -->
                 <div class="relative">
                     <button id="user-menu-button" class="focus:outline-none">
-                        <img src="{{Auth::check() && Auth::user()->profile_picture ? asset('storage/' . Auth::user()->profile_picture) : url('Picture/default.jpg') }}" alt="User Profile Picture"
-                            class="w-10 h-10 rounded-full">
+                        <img src="{{ Auth::check() && Auth::user()->profile_picture ? asset('storage/' . Auth::user()->profile_picture) : url('Picture/default.jpg') }}"
+                            alt="User Profile Picture" class="w-10 h-10 rounded-full">
                     </button>
                     <div id="dropdown"
                         class="hidden absolute mt-2 right-0 text-base bg-gray-600 text-gray-50 rounded-md shadow-lg w-28">
-                        <a href="{{ route('profile') }}" class=" block px-4 py-2 hover:bg-gray-700 duration-150">Profile</a>
-                        <a href="{{ route('login') }}" class=" block px-4 py-2 hover:bg-gray-700 duration-150">Log In</a>
-                        <button wire:click="logout" class=" block px-4 py-2 hover:bg-gray-700 duration-150">Logout</button>
+                        <a href="{{ route('profile') }}"
+                            class=" block px-4 py-2 hover:bg-gray-700 duration-150">Profile</a>
+                        <a href="{{ route('login') }}" class=" block px-4 py-2 hover:bg-gray-700 duration-150">Log
+                            In</a>
+                        <button wire:click="logout"
+                            class=" block px-4 py-2 hover:bg-gray-700 duration-150">Logout</button>
                     </div>
                 </div>
             </div>
@@ -90,36 +93,60 @@
                         </div>
                     </div>
                 </div>
-                <form
+                <form wire:submit.prevent="submitFeedback"
                     class="bg-black bg-opacity-80 p-5 rounded-xl shadow-lg w-full md:w-96 transform transition-transform hover:scale-105">
-                    <h2 class="text-2xl font-semibold text-center mb-6 text-white">Message Us</h2>
+                    <h2 class="text-2xl font-semibold text-center mb-6 text-white">User Feedback</h2>
                     <div class="space-y-6">
                         <!-- Full Name -->
                         <div class="relative">
-                            <input type="text" id="full_name" value="{{ $name }}" required
+                            <input type="text" id="full_name" value="{{ $name }}" readonly
                                 class="bg-transparent border-b-2 border-gray-400 text-white w-full placeholder-gray-400 focus:outline-none focus:border-yellow-400 transition-all">
                         </div>
 
                         <!-- Email -->
                         <div class="relative">
-                            <input type="email" id="email" value="{{ $email }}" required
+                            <input type="email" id="email" value="{{ $email }}" readonly
                                 class="bg-transparent border-b-2 border-gray-400 text-white w-full placeholder-gray-400 focus:outline-none focus:border-yellow-400 transition-all">
                         </div>
 
-                        <!-- Message -->
+                        <!-- Feedback -->
                         <div class="relative">
-                            <textarea wire:model="message" id="message" rows="4" placeholder="Your Message Here..." required
+                            <textarea wire:model="feedback" id="feedback" rows="4" placeholder="Your Feedback Here..." required
                                 class="bg-transparent border-b-2 border-gray-400 text-white w-full placeholder-gray-400 focus:outline-none focus:border-yellow-400 transition-all"></textarea>
+                            @error('feedback')
+                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                            @enderror
+                        </div>
+
+                        <!-- Rating -->
+                        <div class="relative">
+                            <label for="rating" class="text-white block mb-2">
+                                Rating: <span id="ratingValue" class="font-bold">{{ $rating ?? 5 }}</span>
+                            </label>
+                            <input type="range" wire:model="rating" id="rating" min="1" max="10"
+                                step="1"
+                                class="w-full h-2 bg-gray-400 rounded-lg appearance-none cursor-pointer focus:outline-none focus:ring-2 focus:ring-yellow-400 transition-all"
+                                oninput="document.getElementById('ratingValue').textContent = this.value;">
+                            @error('rating')
+                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                            @enderror
                         </div>
 
                         <!-- Submit Button -->
                         <div>
                             <button type="submit"
                                 class="w-full bg-gradient-to-r from-gray-700 to-gray-900 text-white font-bold py-2 rounded-lg hover:from-gray-600 hover:to-gray-800 transition">
-                                Send
+                                Submit Feedback
                             </button>
                         </div>
                     </div>
+
+                    <!-- Success Message -->
+                    @if (session()->has('success'))
+                        <div class="text-green-500 text-sm mt-4">
+                            {{ session('success') }}
+                        </div>
+                    @endif
                 </form>
             </div>
         </main>

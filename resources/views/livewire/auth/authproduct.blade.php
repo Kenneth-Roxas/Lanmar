@@ -40,8 +40,8 @@
                 <!-- User Profile Dropdown -->
                 <div class="relative">
                     <button id="user-menu-button" class="focus:outline-none">
-                        <img src="{{ Auth::check() && Auth::user()->profile_picture ? asset('storage/' . Auth::user()->profile_picture) : url('Picture/default.jpg') }}" alt="User Profile Picture"
-                            class="w-10 h-10 rounded-full">
+                        <img src="{{ Auth::check() && Auth::user()->profile_picture ? asset('storage/' . Auth::user()->profile_picture) : url('Picture/default.jpg') }}"
+                            alt="User Profile Picture" class="w-10 h-10 rounded-full">
                     </button>
                     <div id="dropdown"
                         class="hidden absolute mt-2 right-0 text-base bg-gray-600 text-gray-50 rounded-md shadow-lg w-28">
@@ -65,11 +65,15 @@
                     @if ($product->category_name === 'Feature')
                         <div
                             class="w-60 rounded-xl border-2 border-gray-300 m-4 overflow-hidden transition-transform duration-300 ease-in-out hover:scale-105">
-                            <div>
-                                <img class="w-full h-44 object-cover transition-transform duration-1000 transform origin-bottom hover:scale-110"
-                                    src="{{ asset('storage/' . $product->image_product) }}"
-                                    alt="{{ $product->product_name }}">
+                            <!-- Image Container -->
+                            <div class="relative">
+                                <a href="{{ route('overview', ['id' => $product->id]) }}" class="block w-full h-44">
+                                    <img class="w-full h-full object-cover transition-transform duration-700 transform hover:scale-110"
+                                        src="{{ asset('storage/' . $product->image_product) }}"
+                                        alt="{{ $product->product_name }}">
+                                </a>
                             </div>
+                            <!-- Product Details -->
                             <div class="flex flex-col -mt-2">
                                 <div
                                     class="mt-1 px-2 py-3 font-bold bg-white/20 border border-white/30 backdrop-blur-sm rounded-md shadow-md">
@@ -77,15 +81,19 @@
                                     <h3 class="text-lg font-poppins text-gray-800">{{ $product->product_name }}</h3>
                                     <p class="text-sm text-gray-700">₱{{ $product->price }}</p>
 
-                                    <a href="{{ route('checkout', ['id' => $product->id]) }}">
-                                        <button
-                                            class="buy-now-button mt-2 px-4 py-2 bg-blue-600 text-white text-sm rounded hover:bg-blue-700 transition">
-                                            Buy Now
-                                        </button></a>
-                                    <button type="button" wire:click="addToCart({{ $product->id }})"
-                                        class="buy-now-button mt-2 px-4 py-2 bg-blue-600 text-white text-sm rounded hover:bg-blue-700 transition">
-                                        Add To Cart
-                                    </button>
+                                    <!-- Buttons -->
+                                    <div class="flex space-x-2 mt-2">
+                                        <a href="{{ route('checkout', ['id' => $product->id]) }}">
+                                            <button
+                                                class="px-4 py-2 bg-blue-600 text-white text-sm rounded hover:bg-blue-700 transition">
+                                                Buy Now
+                                            </button>
+                                        </a>
+                                        <button type="button" wire:click="addToCart({{ $product->id }})"
+                                            class="px-4 py-2 bg-green-600 text-white text-sm rounded hover:bg-green-700 transition">
+                                            Add To Cart
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -105,9 +113,11 @@
                         <div
                             class="w-60 rounded-xl border-2 border-gray-300 m-4 overflow-hidden transition-transform duration-300 ease-in-out hover:scale-105">
                             <div>
-                                <img class="w-full h-44 object-cover transition-transform duration-1000 transform origin-bottom hover:scale-110"
-                                    src="{{ asset('storage/' . $product->image_product) }}"
-                                    alt="{{ $product->product_name }}">
+                                <a href="{{ route('bookingOverview', ['id' => $product->id]) }}" class="block w-full h-44">
+                                    <img class="w-full h-full object-cover transition-transform duration-700 transform hover:scale-110"
+                                        src="{{ asset('storage/' . $product->image_product) }}"
+                                        alt="{{ $product->product_name }}">
+                                </a>
                             </div>
                             <div class="flex flex-col -mt-2">
                                 <div
@@ -145,11 +155,15 @@
                     @if ($product->category_name === 'Cupcake')
                         <div
                             class="w-60 rounded-xl border-2 border-gray-300 m-4 overflow-hidden transition-transform duration-300 ease-in-out hover:scale-105">
-                            <div>
-                                <img class="w-full h-44 object-cover transition-transform duration-1000 transform origin-bottom hover:scale-110"
-                                    src="{{ asset('storage/' . $product->image_product) }}"
-                                    alt="{{ $product->product_name }}">
+                            <!-- Image Container -->
+                            <div class="relative">
+                                <a href="{{ route('overview', ['id' => $product->id]) }}" class="block w-full h-44">
+                                    <img class="w-full h-full object-cover transition-transform duration-700 transform hover:scale-110"
+                                        src="{{ asset('storage/' . $product->image_product) }}"
+                                        alt="{{ $product->product_name }}">
+                                </a>
                             </div>
+                            <!-- Product Details -->
                             <div class="flex flex-col -mt-2">
                                 <div
                                     class="mt-1 px-2 py-3 font-bold bg-white/20 border border-white/30 backdrop-blur-sm rounded-md shadow-md">
@@ -157,15 +171,19 @@
                                     <h3 class="text-lg font-poppins text-gray-800">{{ $product->product_name }}</h3>
                                     <p class="text-sm text-gray-700">₱{{ $product->price }}</p>
 
-                                    <a href="{{ route('checkout', ['id' => $product->id]) }}">
-                                        <button
-                                            class="buy-now-button mt-2 px-4 py-2 bg-blue-600 text-white text-sm rounded hover:bg-blue-700 transition">
-                                            Buy Now
-                                        </button></a>
-                                    <button type="button" wire:click="addToCart({{ $product->id }})"
-                                        class="buy-now-button mt-2 px-4 py-2 bg-blue-600 text-white text-sm rounded hover:bg-blue-700 transition">
-                                        Add To Cart
-                                    </button>
+                                    <!-- Buttons -->
+                                    <div class="flex space-x-2 mt-2">
+                                        <a href="{{ route('checkout', ['id' => $product->id]) }}">
+                                            <button
+                                                class="px-4 py-2 bg-blue-600 text-white text-sm rounded hover:bg-blue-700 transition">
+                                                Buy Now
+                                            </button>
+                                        </a>
+                                        <button type="button" wire:click="addToCart({{ $product->id }})"
+                                            class="px-4 py-2 bg-green-600 text-white text-sm rounded hover:bg-green-700 transition">
+                                            Add To Cart
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -185,11 +203,15 @@
                     @if ($product->category_name === 'Cookies')
                         <div
                             class="w-60 rounded-xl border-2 border-gray-300 m-4 overflow-hidden transition-transform duration-300 ease-in-out hover:scale-105">
-                            <div>
-                                <img class="w-full h-44 object-cover transition-transform duration-1000 transform origin-bottom hover:scale-110"
-                                    src="{{ asset('storage/' . $product->image_product) }}"
-                                    alt="{{ $product->product_name }}">
+                            <!-- Image Container -->
+                            <div class="relative">
+                                <a href="{{ route('overview', ['id' => $product->id]) }}" class="block w-full h-44">
+                                    <img class="w-full h-full object-cover transition-transform duration-700 transform hover:scale-110"
+                                        src="{{ asset('storage/' . $product->image_product) }}"
+                                        alt="{{ $product->product_name }}">
+                                </a>
                             </div>
+                            <!-- Product Details -->
                             <div class="flex flex-col -mt-2">
                                 <div
                                     class="mt-1 px-2 py-3 font-bold bg-white/20 border border-white/30 backdrop-blur-sm rounded-md shadow-md">
@@ -197,15 +219,19 @@
                                     <h3 class="text-lg font-poppins text-gray-800">{{ $product->product_name }}</h3>
                                     <p class="text-sm text-gray-700">₱{{ $product->price }}</p>
 
-                                    <a href="{{ route('checkout', ['id' => $product->id]) }}">
-                                        <button
-                                            class="buy-now-button mt-2 px-4 py-2 bg-blue-600 text-white text-sm rounded hover:bg-blue-700 transition">
-                                            Buy Now
-                                        </button></a>
-                                    <button type="button" wire:click="addToCart({{ $product->id }})"
-                                        class="buy-now-button mt-2 px-4 py-2 bg-blue-600 text-white text-sm rounded hover:bg-blue-700 transition">
-                                        Add To Cart
-                                    </button>
+                                    <!-- Buttons -->
+                                    <div class="flex space-x-2 mt-2">
+                                        <a href="{{ route('checkout', ['id' => $product->id]) }}">
+                                            <button
+                                                class="px-4 py-2 bg-blue-600 text-white text-sm rounded hover:bg-blue-700 transition">
+                                                Buy Now
+                                            </button>
+                                        </a>
+                                        <button type="button" wire:click="addToCart({{ $product->id }})"
+                                            class="px-4 py-2 bg-green-600 text-white text-sm rounded hover:bg-green-700 transition">
+                                            Add To Cart
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -224,11 +250,15 @@
                     @if ($product->category_name === 'Other')
                         <div
                             class="w-60 rounded-xl border-2 border-gray-300 m-4 overflow-hidden transition-transform duration-300 ease-in-out hover:scale-105">
-                            <div>
-                                <img class="w-full h-44 object-cover transition-transform duration-1000 transform origin-bottom hover:scale-110"
-                                    src="{{ asset('storage/' . $product->image_product) }}"
-                                    alt="{{ $product->product_name }}">
+                            <!-- Image Container -->
+                            <div class="relative">
+                                <a href="{{ route('overview', ['id' => $product->id]) }}" class="block w-full h-44">
+                                    <img class="w-full h-full object-cover transition-transform duration-700 transform hover:scale-110"
+                                        src="{{ asset('storage/' . $product->image_product) }}"
+                                        alt="{{ $product->product_name }}">
+                                </a>
                             </div>
+                            <!-- Product Details -->
                             <div class="flex flex-col -mt-2">
                                 <div
                                     class="mt-1 px-2 py-3 font-bold bg-white/20 border border-white/30 backdrop-blur-sm rounded-md shadow-md">
@@ -236,15 +266,19 @@
                                     <h3 class="text-lg font-poppins text-gray-800">{{ $product->product_name }}</h3>
                                     <p class="text-sm text-gray-700">₱{{ $product->price }}</p>
 
-                                    <a href="{{ route('checkout', ['id' => $product->id]) }}">
-                                        <button
-                                            class="buy-now-button mt-2 px-4 py-2 bg-blue-600 text-white text-sm rounded hover:bg-blue-700 transition">
-                                            Buy Now
-                                        </button></a>
-                                    <button type="button" wire:click="addToCart({{ $product->id }})"
-                                        class="buy-now-button mt-2 px-4 py-2 bg-blue-600 text-white text-sm rounded hover:bg-blue-700 transition">
-                                        Add To Cart
-                                    </button>
+                                    <!-- Buttons -->
+                                    <div class="flex space-x-2 mt-2">
+                                        <a href="{{ route('checkout', ['id' => $product->id]) }}">
+                                            <button
+                                                class="px-4 py-2 bg-blue-600 text-white text-sm rounded hover:bg-blue-700 transition">
+                                                Buy Now
+                                            </button>
+                                        </a>
+                                        <button type="button" wire:click="addToCart({{ $product->id }})"
+                                            class="px-4 py-2 bg-green-600 text-white text-sm rounded hover:bg-green-700 transition">
+                                            Add To Cart
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>

@@ -6,35 +6,37 @@ use Livewire\Component;
 use App\Models\Product;
 use App\Models\Cart;
 use Illuminate\Support\Facades\Auth;
-use App\Models\UserFeedback;
 
-class AuthHome extends Component
+class AuthOverview extends Component
 {
-    public $categories, $products, $pricing, $product_image;
+    public $quantity = 1;
     public $quantityCount = 1;
-    public $cartItems = [];
-
     public $cartCount = 0;
-    public function mount()
-    {
-        // Fetch
-        $this->products = Product::where('is_active', '1')->get();
-        $this->categories = Product::all();
-        $this->pricing = Product::all();
-        $this->product_image = Product::all();
+    public $product;
 
-        
+    public function mount($id)
+    {
+        $this->product = Product::findOrFail($id);
 
         $this->cartCount = $this->getCartCount();
+
     }
 
-    public function logout()
+    public function decrement(int $productId)
     {
-        Auth::logout();
-        session()->invalidate();
-        session()->regenerateToken();
+        if ($this->quantity > 1) {
+            $this->quantity--;
+        }
+    }
 
-        return redirect()->route('login');
+    public function increment(int $productId)
+    {
+        $this->quantity++;
+    }
+
+    public function getTotalPrice()
+    {
+        return $this->product->price * $this->quantity;
     }
 
     public function updateCartCount()
@@ -63,6 +65,7 @@ class AuthHome extends Component
         }
 
         if (Auth::check()) {
+            // Authenticating the user
             $cartItem = Cart::where('user_id', Auth::id())->where('product_id', $productId)->first();
 
             if ($cartItem) {
@@ -76,7 +79,7 @@ class AuthHome extends Component
                 ]);
             }
         } else {
-            // Guest user - store in session
+            // Guest user
             $cart = session()->get('cart', []);
 
             if (isset($cart[$productId])) {
@@ -98,15 +101,11 @@ class AuthHome extends Component
         $this->message = 'Product added to cart successfully!';
         $this->messageType = 'success';
     }
-    
     public function render()
     {
-        return view('livewire.auth.auth-home', [
-            'categories' => $this->categories,
-            'products' => $this->products,
-            'pricing' => $this->pricing,
-            'product_image' => $this->product_image,
-            'feedbacks' => UserFeedback::with('user')->latest()->take(3)->get(),
+        return view('livewire.auth.auth-overview', [
+            'product' => $this->product,
+            'totalPrice' => $this->getTotalPrice(),
         ]);
     }
 }

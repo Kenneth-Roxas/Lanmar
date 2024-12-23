@@ -24,6 +24,22 @@ class AuthOrders extends Component
         // Refresh
         $this->orders = Order::with('user')->latest()->get();
     }
+
+    public function markAsDone($orderId)
+    {
+        // update
+        $order = Order::findOrFail($orderId);
+        $order->update(['status' => 'done']);
+
+        // remove
+        $this->orders = $this->orders->filter(fn($order) => $order->id !== $orderId);
+
+        // Flash a message indicating success
+        session()->flash('message', "Order #{$orderId} marked as done.");
+    }
+
+
+
     public function render()
     {
         return view('livewire.auth.admin.auth-orders', [

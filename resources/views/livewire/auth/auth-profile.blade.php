@@ -42,8 +42,8 @@
                 <div class="relative">
                     <button id="user-menu-button" class="focus:outline-none">
                         <img class="w-9 h-9 rounded-full object-cover"
-                        src="{{ Auth::check() && Auth::user()->profile_picture ? asset('storage/' . Auth::user()->profile_picture) : url('Picture/default.jpg') }}"
-                        alt="Profile Picture">
+                            src="{{ Auth::check() && Auth::user()->profile_picture ? asset('storage/' . Auth::user()->profile_picture) : url('Picture/default.jpg') }}"
+                            alt="Profile Picture">
                     </button>
                     <div id="dropdown"
                         class="hidden absolute mt-2 right-0 text-base text-left bg-gray-700 text-gray-50 rounded-md shadow-lg w-32">
@@ -84,13 +84,26 @@
                     <h2 class="text-xl font-semibold text-gray-800 mb-4 text-center">Order History</h2>
                     <ul class="space-y-4">
                         @foreach ($orders as $order)
-                            <li class="p-4 bg-white rounded-lg shadow-md border-l-4 border-teal-400">
+                            @php
+                                $statusColors = [
+                                    'processing' => 'text-blue-600 bg-blue-100 border-blue-400',
+                                    'preparing' => 'text-yellow-600 bg-yellow-100 border-yellow-400',
+                                    'delivery' => 'text-orange-600 bg-orange-100 border-orange-400',
+                                    'done' => 'text-green-600 bg-green-100 border-green-400',
+                                ];
+                                $statusClass =
+                                    $statusColors[$order->status] ?? 'text-gray-600 bg-gray-100 border-gray-400';
+                            @endphp
+                            <li class="p-4 bg-white rounded-lg shadow-md border-l-4 {{ $statusClass }}">
                                 <div class="flex justify-between items-center">
                                     <span class="text-gray-800 font-semibold">Order #{{ $order->id }}</span>
-                                    <span class="text-sm text-gray-500">{{ $order->created_at->format('M j, Y') }} at
-                                        {{ $order->created_at->format('g:i a') }}</span>
                                     <span
-                                        class="text-teal-600 bg-teal-100 text-xs font-medium px-2 py-1 rounded-full">{{ ucfirst($order->status ?? 'N/A') }}</span>
+                                        class="text-sm text-gray-500 font-semibold">{{ $order->created_at->format('M j, Y') }}
+                                        at
+                                        {{ $order->created_at->format('g:i a') }}</span>
+                                    <span class="text-base font-medium px-2 py-1 rounded-full {{ $statusClass }}">
+                                        {{ ucfirst($order->status ?? 'N/A') }}
+                                    </span>
                                 </div>
                                 <div class="mt-3 text-sm text-gray-700">
                                     <span class="block">{{ $order->product_name }} <span
@@ -101,158 +114,171 @@
                             </li>
                         @endforeach
                     </ul>
-
-                    <!-- Back Button: Pagination Back -->
-                    <div class="text-center mt-4">
-                        <!-- Back to previous page using pagination -->
-                        <a href="{{ $orders->previousPageUrl() }}"
-                            class="inline-block bg-slate-800 text-white py-2 px-4 rounded-lg shadow-md hover:bg-gray-300 transition duration-300 {{ !$orders->onFirstPage() ? '' : 'hidden' }}">
-                            Back to Previous Orders
-                        </a>
-
-                        <!-- Check if there are more pages -->
-                        @if ($orders->hasMorePages())
-                            <a href="{{ $orders->nextPageUrl() }}"
-                                class="inline-block bg-slate-800 text-white py-2 px-4 rounded-lg shadow-md hover:bg-teal-500 transition duration-300">
-                                Load More
-                            </a>
-                        @endif
-                    </div>
-                </div>
-
-                <!-- Book History Section -->
-                <div class="bg-gradient-to-r from-teal-100 to-gray-800 p-6 rounded-lg shadow-lg">
-                    <h2 class="text-xl font-semibold text-gray-800 mb-4 text-center">Book History</h2>
-                    <ul class="space-y-4">
-                        @foreach ($bookings as $booking)
-                            <li class="p-4 bg-white rounded-lg shadow-md border-l-4 border-teal-400">
-                                <div class="flex justify-between items-center">
-                                    <span class="text-gray-800 font-semibold">Booking No#{{ $booking->id }}</span>
-                                    <span class="text-sm text-gray-500">{{ $booking->created_at->format('M j, Y') }}
-                                        at
-                                        {{ $booking->created_at->format('g:i a') }}</span>
-                                    <span
-                                        class="text-teal-600 bg-teal-100 text-xs font-medium px-2 py-1 rounded-full">{{ ucfirst($booking->status ?? 'N/A') }}</span>
-                                </div>
-                                <div class="mt-3 text-sm text-gray-700">
-                                    <span class="text-gray-500">x{{ $booking->date ?? 'No Date' }}</span>
-                                    <span class="text-gray-500">x{{ $booking->time ?? 'No Time' }}</span>
-                                </div>
-                            </li>
-                        @endforeach
-                    </ul>
-                    <!-- Back Button: Pagination Back -->
-                    <div class="text-center mt-4">
-                        <!-- Back to previous page using pagination -->
-                        <a href="{{ $bookings->previousPageUrl() }}"
-                            class="inline-block bg-slate-800 text-white py-2 px-4 rounded-lg shadow-md hover:bg-gray-300 transition duration-300 {{ !$orders->onFirstPage() ? '' : 'hidden' }}">
-                            Back to Previous Booking
-                        </a>
-
-                        <!-- Check if there are more pages -->
-                        @if ($bookings->hasMorePages())
-                            <a href="{{ $bookings->nextPageUrl() }}"
-                                class="inline-block bg-slate-800 text-white py-2 px-4 rounded-lg shadow-md hover:bg-teal-500 transition duration-300">
-                                Load More
-                            </a>
-                        @endif
-
-                    </div>
                 </div>
 
 
-                <!-- Personal Information Section -->
-                <div class="bg-gradient-to-r from-teal-200 to-gray-800 rounded-lg shadow-lg p-6">
-                    <h2 class="text-xl font-semibold text-gray-800 mb-4 text-center">Update Profile</h2>
-                    <form wire:submit.prevent="updateProfile">
-                        @if (session('success'))
-                            <div class="alert alert-success text-green-700 font-bold mb-4" role="alert">
-                                {{ session('success') }}
+                <!-- Back Button: Pagination Back -->
+                <div class="text-center mt-4">
+                    <!-- Back to previous page using pagination -->
+                    <a href="{{ $orders->previousPageUrl() }}"
+                        class="inline-block bg-slate-800 text-white py-2 px-4 rounded-lg shadow-md hover:bg-gray-300 transition duration-300 {{ !$orders->onFirstPage() ? '' : 'hidden' }}">
+                        Back to Previous Orders
+                    </a>
+
+                    <!-- Check if there are more pages -->
+                    @if ($orders->hasMorePages())
+                        <a href="{{ $orders->nextPageUrl() }}"
+                            class="inline-block bg-slate-800 text-white py-2 px-4 rounded-lg shadow-md hover:bg-teal-500 transition duration-300">
+                            Load More
+                        </a>
+                    @endif
+                </div>
+            </div>
+
+            <!-- Book History Section -->
+            <div class="bg-gradient-to-r from-teal-100 to-gray-800 p-6 rounded-lg shadow-lg">
+                <h2 class="text-xl font-semibold text-gray-800 mb-4 text-center">Book History</h2>
+                <ul class="space-y-4">
+                    @foreach ($bookings as $booking)
+                        @php
+                            $statusColors = [
+                                'processing' => 'text-blue-600 bg-blue-100 border-blue-400',
+                                'preparing' => 'text-yellow-600 bg-yellow-100 border-yellow-400',
+                                'delivery' => 'text-orange-600 bg-orange-100 border-orange-400',
+                                'done' => 'text-green-600 bg-green-100 border-green-400',
+                            ];
+                            $statusClass =
+                                $statusColors[$booking->status] ?? 'text-gray-600 bg-gray-100 border-gray-400';
+                        @endphp
+                        <li class="p-4 bg-white rounded-lg shadow-md border-l-4 {{ $statusClass }}">
+                            <div class="flex justify-between items-center">
+                                <span class="text-gray-800 font-semibold">Booking No#{{ $booking->id }}</span>
+                                <span class="text-sm text-gray-500">{{ $booking->created_at->format('M j, Y') }}
+                                    at {{ $booking->created_at->format('g:i a') }}</span>
+                                <span class="text-xs font-medium px-2 py-1 rounded-full {{ $statusClass }}">
+                                    {{ ucfirst($booking->status ?? 'N/A') }}
+                                </span>
                             </div>
-                        @endif
+                            <div class="mt-3 text-sm text-gray-700">
+                                <span class="text-gray-500">x{{ $booking->date ?? 'No Date' }}</span>
+                                <span class="text-gray-500">x{{ $booking->time ?? 'No Time' }}</span>
+                            </div>
+                        </li>
+                    @endforeach
+                </ul>
+            </div>
 
-                        <!-- Profile Picture Input -->
-                        <div class="mb-6">
-                            <label for="profilePicture" class="block text-sm text-gray-500 mb-2">
-                                Profile Picture
-                            </label>
-                            <input type="file" wire:model="profilePicture" id="profilePicture" accept="image/*"
-                                class="w-full text-gray-600 p-2 border rounded-lg bg-white cursor-pointer">
-                            @error('profilePicture')
-                                <span class="text-red-500 text-xs">{{ $message }}</span>
-                            @enderror
-                        </div>
+            <!-- Back Button: Pagination Back -->
+            <div class="text-center mt-4">
+                <!-- Back to previous page using pagination -->
+                <a href="{{ $bookings->previousPageUrl() }}"
+                    class="inline-block bg-slate-800 text-white py-2 px-4 rounded-lg shadow-md hover:bg-gray-300 transition duration-300 {{ !$orders->onFirstPage() ? '' : 'hidden' }}">
+                    Back to Previous Booking
+                </a>
 
-                        <!-- Name Input -->
-                        <div class="mb-4">
-                            <label class="block text-sm text-gray-500 mb-2" for="name">Name</label>
-                            <input type="text" id="nameInput" wire:model="updateName" placeholder="New Name"
-                                class="w-full p-3 font-semibold bg-gray-300 rounded-lg text-gray-700">
-                            @error('updateName')
-                                <span class="text-red-500 text-xs">{{ $message }}</span>
-                            @enderror
-                        </div>
-
-                        <!-- Email Input -->
-                        <div class="mb-4">
-                            <label class="block text-sm text-gray-500 mb-2" for="email">Email</label>
-                            <input type="email" id="emailInput" wire:model="updateEmail" placeholder="New Email"
-                                class="w-full p-3 font-semibold bg-gray-300 rounded-lg text-gray-700">
-                            @error('updateEmail')
-                                <span class="text-red-500 text-xs">{{ $message }}</span>
-                            @enderror
-                        </div>
-
-                        <!-- Contact No. Input -->
-                        <div class="mb-4">
-                            <label class="block text-sm text-gray-500 mb-2" for="number">Contact No.</label>
-                            <input type="text" id="contactInput" wire:model="updateContact"
-                                placeholder="New Contact" class="w-full p-3 bg-gray-300 rounded-lg text-gray-700">
-                            @error('updateContact')
-                                <span class="text-red-500 text-xs">{{ $message }}</span>
-                            @enderror
-                        </div>
-
-                        <!-- Password Input -->
-                        <div class="mb-4">
-                            <label class="block text-sm text-gray-500 mb-2" for="password">Password</label>
-                            <input type="password" id="passwordInput" wire:model="newPassword"
-                                placeholder="New Password" class="w-full p-3 bg-gray-300 rounded-lg text-gray-700">
-                            @error('newPassword')
-                                <span class="text-red-500 text-xs">{{ $message }}</span>
-                            @enderror
-                        </div>
-
-                        <!-- Submit Button -->
-                        <button
-                            class="w-full bg-indigo-600 text-white px-4 py-3 rounded-lg mt-6 hover:bg-indigo-700 text-sm">
-                            Update Information
-                        </button>
-                    </form>
-                </div>
-
-
+                <!-- Check if there are more pages -->
+                @if ($bookings->hasMorePages())
+                    <a href="{{ $bookings->nextPageUrl() }}"
+                        class="inline-block bg-slate-800 text-white py-2 px-4 rounded-lg shadow-md hover:bg-teal-500 transition duration-300">
+                        Load More
+                    </a>
+                @endif
             </div>
         </div>
-        <script>
-            const menuToggle = document.getElementById('menu-toggle');
-            const menu = document.getElementById('menu');
-            const userMenuButton = document.getElementById('user-menu-button');
-            const dropdown = document.getElementById('dropdown');
 
-            menuToggle.addEventListener('click', () => {
-                menu.classList.toggle('hidden');
-            });
 
-            userMenuButton.addEventListener('click', () => {
-                dropdown.classList.toggle('hidden');
-            });
+        <!-- Personal Information Section -->
+        <div class="bg-gradient-to-r from-teal-200 to-gray-800 rounded-lg shadow-lg p-6">
+            <h2 class="text-xl font-semibold text-gray-800 mb-4 text-center">Update Profile</h2>
+            <form wire:submit.prevent="updateProfile">
+                @if (session('success'))
+                    <div class="alert alert-success text-green-700 font-bold mb-4" role="alert">
+                        {{ session('success') }}
+                    </div>
+                @endif
 
-            document.addEventListener('click', (event) => {
-                if (!userMenuButton.contains(event.target) && !dropdown.contains(event.target)) {
-                    dropdown.classList.add('hidden');
-                }
-            });
-        </script>
-    </body>
+                <!-- Profile Picture Input -->
+                <div class="mb-6">
+                    <label for="profilePicture" class="block text-sm text-gray-500 mb-2">
+                        Profile Picture
+                    </label>
+                    <input type="file" wire:model="profilePicture" id="profilePicture" accept="image/*"
+                        class="w-full text-gray-600 p-2 border rounded-lg bg-white cursor-pointer">
+                    @error('profilePicture')
+                        <span class="text-red-500 text-xs">{{ $message }}</span>
+                    @enderror
+                </div>
+
+                <!-- Name Input -->
+                <div class="mb-4">
+                    <label class="block text-sm text-gray-500 mb-2" for="name">Name</label>
+                    <input type="text" id="nameInput" wire:model="updateName" placeholder="{{ $name }}"
+                        class="w-full p-3 font-semibold bg-gray-300 rounded-lg text-gray-700">
+                    @error('updateName')
+                        <span class="text-red-500 text-xs">{{ $message }}</span>
+                    @enderror
+                </div>
+
+                <!-- Email Input -->
+                <div class="mb-4">
+                    <label class="block text-sm text-gray-500 mb-2" for="email">Email</label>
+                    <input type="email" id="emailInput" wire:model="updateEmail"
+                        placeholder="{{ $email }}"
+                        class="w-full p-3 font-semibold bg-gray-300 rounded-lg text-gray-700">
+                    @error('updateEmail')
+                        <span class="text-red-500 text-xs">{{ $message }}</span>
+                    @enderror
+                </div>
+
+                <!-- Contact No. Input -->
+                <div class="mb-4">
+                    <label class="block text-sm text-gray-500 mb-2" for="number">Contact No.</label>
+                    <input type="text" id="contactInput" wire:model="updateContact"
+                        placeholder="{{ $contact_number }}" class="w-full p-3 bg-gray-300 rounded-lg text-gray-700">
+                    @error('updateContact')
+                        <span class="text-red-500 text-xs">{{ $message }}</span>
+                    @enderror
+                </div>
+
+                <!-- Password Input -->
+                <div class="mb-4">
+                    <label class="block text-sm text-gray-500 mb-2" for="password">Password</label>
+                    <input type="password" id="passwordInput" wire:model="newPassword" placeholder="New Password"
+                        class="w-full p-3 bg-gray-300 rounded-lg text-gray-700">
+                    @error('newPassword')
+                        <span class="text-red-500 text-xs">{{ $message }}</span>
+                    @enderror
+                </div>
+
+                <!-- Submit Button -->
+                <button class="w-full bg-indigo-600 text-white px-4 py-3 rounded-lg mt-6 hover:bg-indigo-700 text-sm">
+                    Update Information
+                </button>
+            </form>
+        </div>
+
+
+</div>
+</div>
+<script>
+    const menuToggle = document.getElementById('menu-toggle');
+    const menu = document.getElementById('menu');
+    const userMenuButton = document.getElementById('user-menu-button');
+    const dropdown = document.getElementById('dropdown');
+
+    menuToggle.addEventListener('click', () => {
+        menu.classList.toggle('hidden');
+    });
+
+    userMenuButton.addEventListener('click', () => {
+        dropdown.classList.toggle('hidden');
+    });
+
+    document.addEventListener('click', (event) => {
+        if (!userMenuButton.contains(event.target) && !dropdown.contains(event.target)) {
+            dropdown.classList.add('hidden');
+        }
+    });
+</script>
+</body>
 </div>

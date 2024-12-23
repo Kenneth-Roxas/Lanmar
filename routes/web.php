@@ -1,6 +1,9 @@
 <?php
 
 use App\Livewire\Auth\Admin\AuthupdateProduct;
+use App\Livewire\Auth\AuthBookingOverview;
+use App\Livewire\Auth\AuthForgotPass;
+use App\Livewire\Auth\AuthOverview;
 use Illuminate\Support\Facades\Route;
 
 // Admin
@@ -54,3 +57,6 @@ Route::get('/cart/checkout', AuthCartCheckout::class)->name('cart.checkout');
 Route::get('/checkout/{id}', AuthCheckOut::class)->name('checkout');
 
 Route::get('updateProduct/{id}', AuthupdateProduct::class)->name('updateProduct');
+
+Route::get('product-overview/{id}', AuthOverview::class)->name('overview');
+Route::get('booking-overview/{id}', AuthBookingOverview::class)->name('bookingOverview');

@@ -13,6 +13,7 @@ class Product extends Model
         'category_name',
         'product_name',
         'price', 
+        'description',
         'image_product',
     ];
 
@@ -32,7 +33,6 @@ class Product extends Model
         $this->attributes['category_name'] = strtolower($value);
     }
 
-    
     public function getProductName()
     {
         return strtoupper($this->product_name);
